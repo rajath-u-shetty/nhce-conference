@@ -7,12 +7,12 @@ generator client {
 
 generator zod {
   provider              = "zod-prisma"
-  output                = "./zod" 
-  relationModel         = true 
-  modelCase             = "camelCase" 
-  modelSuffix           = "Schema" 
-  useDecimalJs          = true 
-  prismaJsonNullability = true 
+  output                = "./zod"
+  relationModel         = true
+  modelCase             = "camelCase"
+  modelSuffix           = "Schema"
+  useDecimalJs          = true
+  prismaJsonNullability = true
 }
 
 datasource db {
@@ -20,22 +20,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
-
-  
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -51,13 +48,23 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String         @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?        @unique
   emailVerified DateTime?
+  password      String?
   image         String?
+  role          Role           @default(USER)
   accounts      Account[]
   sessions      Session[]
+  uploadedFiles File[]
+  papers        Paper[]
+  registrations Registration[]
+}
+
+enum Role {
+  USER
+  ADMIN
 }
 
 model VerificationToken {
@@ -67,3 +74,65 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+model Registration {
+  id           String   @id @default(cuid())
+  userId       String
+  conferenceId String
+  submittedAt  DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Paper {
+  id        String      @id @default(cuid())
+  title     String
+  abstract  String
+  authors   String
+  url       String? // Optional URL for additional resources
+  status    PaperStatus @default(PENDING)
+  payment   Payment? // Relation to Payment
+  userId    String
+  fileId    String?     @unique // Make fileId unique for one-to-one relationship
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  user User  @relation(fields: [userId], references: [id])
+  file File? @relation(fields: [fileId], references: [id]) // Relationship to File model
+}
+
+model Payment {
+  id        Int           @id @default(autoincrement())
+  paperId   String        @unique
+  amount    Decimal
+  status    PaymentStatus @default(PENDING)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  paper Paper @relation(fields: [paperId], references: [id])
+}
+
+model File {
+  id         String   @id @default(cuid())
+  name       String
+  fileUrl    String // URL on Edge Store
+  fileSize   Int
+  uploadedBy User     @relation(fields: [userId], references: [id])
+  userId     String
+  paper      Paper? // Optional relationship back to Paper
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+enum PaperStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+}
+
