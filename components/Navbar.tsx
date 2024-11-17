@@ -1,11 +1,9 @@
-
-"use client"
-
-import * as React from "react"
-import Link from "next/link"
-import Image from "next/image"
-import { Menu, UserPlus } from 'lucide-react'
-import { Button } from "@/components/ui/button"
+'use client'
+import * as React from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { Menu, UserPlus } from 'lucide-react';
+import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -14,8 +12,9 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu"
-import { cn } from "@/lib/utils"
+} from "@/components/ui/navigation-menu";
+import { cn } from "@/lib/utils";
+import router from "next/router";
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
@@ -39,34 +38,54 @@ const ListItem = React.forwardRef<
         </a>
       </NavigationMenuLink>
     </li>
-  )
-})
-ListItem.displayName = "ListItem"
+  );
+});
+ListItem.displayName = "ListItem";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = React.useState(false)
+  const [isOpen, setIsOpen] = React.useState(false);
 
-  const toggleMenu = () => setIsOpen(!isOpen)
+  const toggleMenu = () => setIsOpen(!isOpen);
+
+  // Use useEffect to close the menu when a navigation link is clicked
+  React.useEffect(() => {
+    const handleRouteChange = () => {
+      setIsOpen(false);
+    };
+
+    router.events.on('routeChangeComplete', handleRouteChange);
+
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
+  }, [router]);
 
   return (
     <nav className="backdrop-blur-lg text-primary-foreground py-4 "> {/* Reduced padding */}
       <div className=" mx-20 ">
         <div className="flex items-center gap-4 ">
           {/* Logo on the left */}
-          <Link href="/" className="flex-shrink-0 flex flex-row gap-6">
+          <Link href="/" className="flex-shrink-0 flex flex-row gap-9">
             <Image
               src="/NHCE White Logo Transparent.png"
-              alt='logo'
+              alt='nhcelogo'
               width={250}
               height={50}
               className="object-contain max-w-full" // Add these classes
             />
-            
+
             <Image
               src="/IEEE-NHCE-SB-Blue-Landscape.png"
-              alt='logo'
+              alt='ieeelogo'
               height={50}  // Adjusted height
               width={150}  // Adjusted width
+              className="z-10"
+            />
+            <Image
+              src="/QX25 Logo White SVG.png"
+              alt='qxlogo'
+              height={50}  // Adjusted height
+              width={100}  // Adjusted width
               className="z-10"
             />
           </Link>
@@ -80,6 +99,14 @@ export default function Navbar() {
                     <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), 
                       "text-white hover:bg-red-700 hover:text-white px-3 py-2 text-sm font-medium")}>
                       Home
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <Link href="/about" legacyBehavior passHref>
+                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), 
+                      "text-white hover:bg-red-700 hover:text-white px-3 py-2 text-sm font-medium")}>
+                      About us
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
@@ -114,8 +141,9 @@ export default function Navbar() {
         {isOpen && (
           <div className="lg:hidden mt-2 py-2 space-y-1 flex flex-col ">
             {/* Adjust the flex direction to column and align items to end */}
-            <Link href="/" className="block text-white hover:bg-white/10 px-3 py-2 text-sm">Home</Link>
-            <Link href="/submissions" className="block text-white hover:bg-white/10 px-3 py-2 text-sm">Submissions</Link>
+            <Link href="/" className="block text-white hover:bg-white/10 px-3 py-2 text-sm" onClick={toggleMenu}>Home</Link>
+            <Link href="/about" className="block text-white hover:bg-white/10 px-3 py-2 text-sm" onClick={toggleMenu}>About us</Link>
+            <Link href="/submissions" className="block text-white hover:bg-white/10 px-3 py-2 text-sm" onClick={toggleMenu}>Submissions</Link>
             <Link href='/sign-in' className="block px-3 py-2">
               <Button variant="outline" className="w-full text-white border-white hover:bg-white/10 text-sm">
                 <UserPlus className="mr-2 h-4 w-4" />
