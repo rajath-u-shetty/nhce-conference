@@ -4,6 +4,13 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Navbar from "@/components/Navbar";
 import { EdgeStoreProvider } from "@/lib/edgestore";
+import { Inter } from 'next/font/google';
+
+const myFont = Inter({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable:"--my-font-family",
+});
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,17 +35,30 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      <body 
+        // className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-fixed bg-cover bg-center bg-no-repeat`}
+        // className={`${myFont.className}antialiased min-h-screen bg-fixed bg-cover bg-center bg-no-repeat`}
+        className={`${myFont.className} antialiased min-h-screen bg-fixed bg-cover bg-center bg-no-repeat`}
+        style={{
+          backgroundImage: "url('/Chargebee.jpg')", // Replace with your image path
+          // backgroundColor: "rgba(0, 0, 0, 0)", // Optional: adds a dark overlay
+          // backgroundBlendMode: ""
+        }}
       >
-        
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <ThemeProvider 
+          attribute="class" 
+          defaultTheme="system" 
+          enableSystem 
+          disableTransitionOnChange
+        >
           <EdgeStoreProvider>
-            <Navbar/>
-            {children}
-          </EdgeStoreProvider> 
+            {/* Optional semi-transparent overlay */}
+            <div className="min-h-screen bg-black/30"> 
+              <Navbar/>
+              {children}
+            </div>
+          </EdgeStoreProvider>
         </ThemeProvider>
-
       </body>
     </html>
   );
