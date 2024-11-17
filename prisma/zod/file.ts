@@ -7,8 +7,8 @@ export const fileSchema = z.object({
   fileUrl: z.string(),
   fileSize: z.number().int(),
   userId: z.string(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
+  paperId: z.string().nullish(),
+  uploadedAt: z.string(),
 })
 
 export interface CompleteFile extends z.infer<typeof fileSchema> {

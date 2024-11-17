@@ -7,6 +7,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -15,7 +16,6 @@ import {
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import axios, { AxiosError } from "axios";
-import { Role } from "@prisma/client";
 import { useToast } from "@/hooks/use-toast";
 import { Card } from "@/components/ui/card";
 import { signIn } from "next-auth/react";
@@ -87,111 +87,81 @@ const AdminSignUp = () => {
   };
 
   return (
-    <Card className="rounded-xl md:px-44 px-6 py-8 md:py-6 dark:bg-[rgb(15,15,15)] bg-neutral-200 border dark:border-[rgb(162,162,162)]/20 border-black">
-      <div className="space-y-2 text-center pb-8">
-        <h1 className="text-3xl font-bold text-black dark:text-white">
-          Admin Sign Up
-        </h1>
-        <p className="text-gray-500 dark:text-muted-foreground">
-          Create an admin account
-        </p>
-      </div>
+    <div className="min-h-[calc(100vh-64px)] flex items-center justify-center bg-gray-50 dark:bg-gray-900 pt-4 pb-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8">
+        <div>
+          <h2 className="mt-2 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
+            Admin Sign In
+          </h2>
+        </div>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="mt-8 space-y-6">
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input placeholder="admin@example.com" {...field} className="bg-white dark:bg-gray-800" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="md:space-y-2 space-y-4 md:max-w-[80vw] max-w-[300px] mx-auto"
-        >
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input
-                    type="email"
-                    placeholder="admin@example.com"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="xyz" {...field} className="bg-white dark:bg-gray-800" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Name</FormLabel>
-                <FormControl>
-                  <Input
-                    type="text"
-                    placeholder="Your name"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
 
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Password</FormLabel>
-                <FormControl>
-                  <Input
-                    type="password"
-                    placeholder="********"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="secretkey"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Admin Secret Key</FormLabel>
-                <FormControl>
-                  <Input
-                    type="password"
-                    placeholder="Enter admin secret key"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <div className="flex flex-col gap-4">
-            <Button
-              type="submit"
-              disabled={form.formState.isSubmitting}
-              className="w-full"
-            >
-              {form.formState.isSubmitting ? "Creating..." : "Create Admin Account"}
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input type="password" placeholder="••••••••" {...field} className="bg-white dark:bg-gray-800" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="secretkey"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Secret Key</FormLabel>
+                  <FormControl>
+                    <Input type="password" placeholder="Enter secret key" {...field} className="bg-white dark:bg-gray-800" />
+                  </FormControl>
+                  <FormDescription>
+                    This is your admin secret key. Do not share it with anyone.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button disabled={form.formState.isSubmitting}
+              type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white">
+              Sign In
             </Button>
-            <Link
-              href="/sign-in"
-              className="text-center text-muted-foreground font-semibold"
-            >
-              Already have an account? Sign In
-            </Link>
-          </div>
-        </form>
-      </Form>
-    </Card>
+          </form>
+        </Form>
+      </div>
+    </div>
   );
 };
 

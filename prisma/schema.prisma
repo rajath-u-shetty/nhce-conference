@@ -46,7 +46,6 @@ model Session {
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
-
 model User {
   id            String         @id @default(cuid())
   name          String?
@@ -57,22 +56,9 @@ model User {
   role          Role           @default(USER)
   accounts      Account[]
   sessions      Session[]
-  uploadedFiles File[]
+  files         File[]
   papers        Paper[]
   registrations Registration[]
-}
-
-enum Role {
-  USER
-  ADMIN
-}
-
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
-
-  @@unique([identifier, token])
 }
 
 model Registration {
@@ -85,31 +71,43 @@ model Registration {
 }
 
 model Paper {
-  id        String      @id @default(cuid())
-  title     String
-  abstract  String
-  authors   String
-  url       String? // Optional URL for additional resources
-  status    PaperStatus @default(PENDING)
-  payment   Payment? // Relation to Payment
-  userId    String
-  fileId    String?     @unique // Make fileId unique for one-to-one relationship
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
+  id            String          @id @default(cuid())
+  title         String
+  abstract      String
+  status        PaperStatus      @default(PENDING)
+  payment       Payment?         // Relation to Payment
+  url           String?          // Optional URL for additional resources
+  userId        String
+  file          File?            @relation // Define relation without fields/references here
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
 
-  user User  @relation(fields: [userId], references: [id])
-  file File? @relation(fields: [fileId], references: [id]) // Relationship to File model
+  user          User             @relation(fields: [userId], references: [id])
+  authors       Author[]         @relation("PaperAuthors")
+  coAuthors     CoAuthor[]       @relation("PaperCoAuthors")
 }
 
-model Payment {
-  id        Int           @id @default(autoincrement())
-  paperId   String        @unique
-  amount    Decimal
-  status    PaymentStatus @default(PENDING)
-  createdAt DateTime      @default(now())
-  updatedAt DateTime      @updatedAt
+model Author {
+  id         String   @id @default(cuid())
+  name       String
+  email      String
+  mobile     String
+  designation String
+  institute  String
+  paperId    String
 
-  paper Paper @relation(fields: [paperId], references: [id])
+  paper      Paper    @relation("PaperAuthors", fields: [paperId], references: [id], onDelete: Cascade)
+}
+
+model CoAuthor {
+  id         String   @id @default(cuid())
+  name       String
+  email      String
+  designation String
+  institute  String
+  paperId    String
+
+  paper      Paper    @relation("PaperCoAuthors", fields: [paperId], references: [id], onDelete: Cascade)
 }
 
 model File {
@@ -117,11 +115,28 @@ model File {
   name       String
   fileUrl    String // URL on Edge Store
   fileSize   Int
-  uploadedBy User     @relation(fields: [userId], references: [id])
   userId     String
-  paper      Paper? // Optional relationship back to Paper
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  paperId    String?   @unique // Make this field unique for a one-to-one relation
+  uploadedAt String
+
+  uploadedBy User     @relation(fields: [userId], references: [id])
+  paper      Paper?   @relation(fields: [paperId], references: [id]) // Define fields/references here
+}
+
+model Payment {
+  id         Int           @id @default(autoincrement())
+  paperId    String        @unique
+  amount     Decimal
+  status     PaymentStatus @default(PENDING)
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+
+  paper      Paper @relation(fields: [paperId], references: [id])
+}
+
+enum Role {
+  USER
+  ADMIN
 }
 
 enum PaperStatus {

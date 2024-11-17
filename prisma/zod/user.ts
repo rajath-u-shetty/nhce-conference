@@ -15,7 +15,7 @@ export const userSchema = z.object({
 export interface CompleteUser extends z.infer<typeof userSchema> {
   accounts: CompleteAccount[]
   sessions: CompleteSession[]
-  uploadedFiles: CompleteFile[]
+  files: CompleteFile[]
   papers: CompletePaper[]
   registrations: CompleteRegistration[]
 }
@@ -28,7 +28,7 @@ export interface CompleteUser extends z.infer<typeof userSchema> {
 export const relatedUserSchema: z.ZodSchema<CompleteUser> = z.lazy(() => userSchema.extend({
   accounts: relatedAccountSchema.array(),
   sessions: relatedSessionSchema.array(),
-  uploadedFiles: relatedFileSchema.array(),
+  files: relatedFileSchema.array(),
   papers: relatedPaperSchema.array(),
   registrations: relatedRegistrationSchema.array(),
 }))

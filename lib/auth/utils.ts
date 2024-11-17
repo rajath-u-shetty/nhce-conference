@@ -13,8 +13,8 @@ export type AuthSession = {
   session: {
     user: {
       id: string;
-      name?: string;
-      email?: string;
+      name: string;
+      email: string;
       role: "USER" | "ADMIN";
     };
   } | null;
