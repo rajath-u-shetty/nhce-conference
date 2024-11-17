@@ -1,19 +1,18 @@
-'use client'
-import { SessionProvider } from "next-auth/react";
+import { checkAuth } from "@/lib/auth/utils";
 
 export default async function AppLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return (<main>
-    <div className="flex h-screen">
-      <main className="flex-1 md:p-8 pt-2 p-8 overflow-y-auto">
-        <SessionProvider>
-          {children}
-        </SessionProvider>
-      </main>
-    </div>
-  </main>
+  await checkAuth()
+  return (
+    <main>
+      <div className="flex h-screen">
+        <main className="flex-1 md:p-8 pt-2 p-8 overflow-y-auto">
+            {children}
+        </main>
+      </div>
+    </main>
   )
 }

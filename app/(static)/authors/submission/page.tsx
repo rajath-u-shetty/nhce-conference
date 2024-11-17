@@ -1,11 +1,13 @@
-import { MultiFileDropzoneUsage } from '@/components/DropzoneUsage'
+'use client'
 import MultiPageForm from '@/components/form/multi-page-form'
-import { getUserAuth } from '@/lib/auth/utils'
+import { SessionProvider } from 'next-auth/react'
 import React from 'react'
 
 const page = async () => {
   return (
-    <MultiPageForm />
+    <SessionProvider>
+      <MultiPageForm />
+    </SessionProvider>
   )
 }
 

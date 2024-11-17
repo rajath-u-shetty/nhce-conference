@@ -9,6 +9,7 @@ type StepIndicatorProps = {
 export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
   const steps = [
     { label: 'Author' },
+    { label: 'Details' },
     { label: 'Co-Author 1' },
     { label: 'Co-Author 2' },
     { label: 'Co-Author 3' },
@@ -17,9 +18,12 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
     { label: 'Upload' }
   ]
 
+  // Calculate the progress percentage for the current step
+  const progress = (currentStep / (steps.length - 1)) * 100
+
   return (
     <div 
-      className="relative w-full max-w-3xl mx-auto py-2 px-4 border border-muted rounded-full"
+      className="relative w-full max-w-2xl mx-auto py-1 px-3 border border-muted rounded-full"
       role="navigation"
       aria-label="Form progress"
     >
@@ -31,12 +35,17 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
           >
             {/* Connecting Lines */}
             {index < steps.length - 1 && (
-              <div className="absolute top-[13px] left-[calc(50%+13px)] w-[calc(100%-26px)] h-1 flex items-center">
+              <div className="absolute top-[11px] left-[calc(50%+11px)] w-[calc(100%-22px)] h-0.5 flex items-center">
                 <div className="w-full h-full bg-muted rounded-full overflow-hidden">
                   <div 
                     className={cn(
                       "h-full bg-primary transition-all duration-300 ease-in-out rounded-full",
-                      index < currentStep ? "w-full" : "w-0"
+                      // The line should appear for steps before the current step
+                      index < currentStep
+                        ? "w-full"
+                        : index === currentStep
+                        ? `w-[${progress}%]`  // Set the progress line for the current step
+                        : "w-0"  // For steps after the current step, the line should be hidden
                     )}
                   />
                 </div>
@@ -46,7 +55,7 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
             {/* Step Indicator */}
             <div
               className={cn(
-                "w-7 h-7 rounded-full border flex items-center justify-center transition-all duration-300",
+                "w-6 h-6 rounded-full border flex items-center justify-center transition-all duration-300",
                 index < currentStep 
                   ? "border-primary bg-primary text-primary-foreground"
                   : index === currentStep
@@ -61,16 +70,16 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
               }`}
             >
               {index < currentStep ? (
-                <Check className="w-3 h-3" />
+                <Check className="w-2.5 h-2.5" />
               ) : (
-                <span className="w-3 h-3 flex items-center justify-center text-xs font-medium">
+                <span className="w-2.5 h-2.5 flex items-center justify-center text-[9px] font-medium">
                   {index + 1}
                 </span>
               )}
             </div>
             <span 
               className={cn(
-                "mt-1 text-[10px] font-medium",
+                "mt-0.5 text-[8px] font-medium",
                 index <= currentStep ? "text-primary" : "text-muted-foreground"
               )}
             >
@@ -82,3 +91,4 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
     </div>
   )
 }
+

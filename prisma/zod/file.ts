@@ -1,5 +1,5 @@
 import * as z from "zod"
-import { CompleteUser, relatedUserSchema, CompletePaper, relatedPaperSchema } from "./index"
+import { CompletePaper, relatedPaperSchema, CompleteUser, relatedUserSchema } from "./index"
 
 export const fileSchema = z.object({
   id: z.string(),
@@ -7,13 +7,13 @@ export const fileSchema = z.object({
   fileUrl: z.string(),
   fileSize: z.number().int(),
   userId: z.string(),
-  paperId: z.string().nullish(),
   uploadedAt: z.string(),
+  uploadedBy: z.string(),
 })
 
 export interface CompleteFile extends z.infer<typeof fileSchema> {
-  uploadedBy: CompleteUser
   paper?: CompletePaper | null
+  user: CompleteUser
 }
 
 /**
@@ -22,6 +22,6 @@ export interface CompleteFile extends z.infer<typeof fileSchema> {
  * NOTE: Lazy required in case of potential circular dependencies within schema
  */
 export const relatedFileSchema: z.ZodSchema<CompleteFile> = z.lazy(() => fileSchema.extend({
-  uploadedBy: relatedUserSchema,
   paper: relatedPaperSchema.nullish(),
+  user: relatedUserSchema,
 }))

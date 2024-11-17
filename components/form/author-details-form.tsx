@@ -1,17 +1,7 @@
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { AuthorDetails } from "@/lib/validators/formValidator"
 import { UseFormReturn } from "react-hook-form"
-import * as z from "zod"
-
-const authorSchema = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
-  email: z.string().email({ message: "Invalid email address." }),
-  mobileNumber: z.string().regex(/^\d{10}$/, { message: "Mobile number must be 10 digits." }),
-  designation: z.string().min(2, { message: "Designation must be at least 2 characters." }),
-  institute: z.string().min(2, { message: "Institute must be at least 2 characters." }),
-})
-
-type AuthorDetails = z.infer<typeof authorSchema>
 
 type AuthorDetailsFormProps = {
   form: UseFormReturn<AuthorDetails>

@@ -46,6 +46,7 @@ model Session {
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
+
 model User {
   id            String         @id @default(cuid())
   name          String?
@@ -73,54 +74,63 @@ model Registration {
 model Paper {
   id            String          @id @default(cuid())
   title         String
-  abstract      String
-  status        PaperStatus      @default(PENDING)
-  payment       Payment?         // Relation to Payment
-  url           String?          // Optional URL for additional resources
+  abstract      String          @db.Text
+  status        PaperStatus     @default(PENDING)
+  payment       Payment?        
+  url           String?         
   userId        String
-  file          File?            @relation // Define relation without fields/references here
-  createdAt     DateTime         @default(now())
-  updatedAt     DateTime         @updatedAt
+  fileId        String?         @unique // Reference to the associated file
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  file          File?           @relation(fields: [fileId], references: [id])
+  authors       Author[]        @relation("PaperAuthors")
+  coAuthors     CoAuthor[]      @relation("PaperCoAuthors")
 
-  user          User             @relation(fields: [userId], references: [id])
-  authors       Author[]         @relation("PaperAuthors")
-  coAuthors     CoAuthor[]       @relation("PaperCoAuthors")
+  @@index([userId])
 }
 
 model Author {
-  id         String   @id @default(cuid())
-  name       String
-  email      String
-  mobile     String
+  id          String   @id @default(cuid())
+  name        String
+  email       String
+  mobile      String
   designation String
-  institute  String
-  paperId    String
+  institute   String
+  paperId     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  paper       Paper    @relation("PaperAuthors", fields: [paperId], references: [id], onDelete: Cascade)
 
-  paper      Paper    @relation("PaperAuthors", fields: [paperId], references: [id], onDelete: Cascade)
+  @@index([paperId])
 }
 
 model CoAuthor {
-  id         String   @id @default(cuid())
-  name       String
-  email      String
-  designation String
-  institute  String
-  paperId    String
+  id          String   @id @default(cuid())
+  name        String?
+  email       String?
+  designation String?
+  institute   String?
+  paperId     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  paper       Paper    @relation("PaperCoAuthors", fields: [paperId], references: [id], onDelete: Cascade)
 
-  paper      Paper    @relation("PaperCoAuthors", fields: [paperId], references: [id], onDelete: Cascade)
+  @@index([paperId])
 }
 
 model File {
-  id         String   @id @default(cuid())
-  name       String
-  fileUrl    String // URL on Edge Store
-  fileSize   Int
-  userId     String
-  paperId    String?   @unique // Make this field unique for a one-to-one relation
-  uploadedAt String
+  id          String    @id @default(cuid())
+  name        String
+  fileUrl     String    // URL on Edge Store
+  fileSize    Int
+  userId      String
+  uploadedAt  String    // ISO 8601 date string
+  uploadedBy  String    // Name or email of the uploader
+  paper       Paper?
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  uploadedBy User     @relation(fields: [userId], references: [id])
-  paper      Paper?   @relation(fields: [paperId], references: [id]) // Define fields/references here
+  @@index([userId])
 }
 
 model Payment {

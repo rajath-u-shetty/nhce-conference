@@ -1,34 +1,28 @@
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { CoAuthorDetails, formSchema } from "@/lib/validators/formValidator"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import * as z from "zod"
-
-const formSchema = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters." }).optional(),
-  email: z.string().email({ message: "Invalid email address." }).optional(),
-  designation: z.string().min(2, { message: "Designation must be at least 2 characters." }).optional(),
-  institute: z.string().min(2, { message: "Institute must be at least 2 characters." }).optional(),
-})
 
 type CoAuthorDetailsFormProps = {
-  coAuthorDetails: z.infer<typeof formSchema>
-  setCoAuthorDetails: (details: z.infer<typeof formSchema>) => void
+  coAuthorDetails: CoAuthorDetails
+  setCoAuthorDetails: (details: CoAuthorDetails) => void
 }
 
 export function CoAuthorDetailsForm({ coAuthorDetails, setCoAuthorDetails }: CoAuthorDetailsFormProps) {
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<CoAuthorDetails>({
     resolver: zodResolver(formSchema),
     defaultValues: coAuthorDetails,
   })
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    setCoAuthorDetails(values)
-  }
+  // Watch for form changes and update parent component
+  form.watch((data) => {
+    setCoAuthorDetails(data as CoAuthorDetails)
+  })
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form className="space-y-6 w-full max-w-md">
         <FormField
           control={form.control}
           name="name"

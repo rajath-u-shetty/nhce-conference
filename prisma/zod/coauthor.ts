@@ -3,11 +3,13 @@ import { CompletePaper, relatedPaperSchema } from "./index"
 
 export const coAuthorSchema = z.object({
   id: z.string(),
-  name: z.string(),
-  email: z.string(),
-  designation: z.string(),
-  institute: z.string(),
+  name: z.string().nullish(),
+  email: z.string().nullish(),
+  designation: z.string().nullish(),
+  institute: z.string().nullish(),
   paperId: z.string(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
 })
 
 export interface CompleteCoAuthor extends z.infer<typeof coAuthorSchema> {

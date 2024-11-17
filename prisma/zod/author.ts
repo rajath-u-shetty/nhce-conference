@@ -9,6 +9,8 @@ export const authorSchema = z.object({
   designation: z.string(),
   institute: z.string(),
   paperId: z.string(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
 })
 
 export interface CompleteAuthor extends z.infer<typeof authorSchema> {

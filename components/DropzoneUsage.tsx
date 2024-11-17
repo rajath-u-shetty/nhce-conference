@@ -6,21 +6,25 @@ import {
 } from '@/components/Dropzone';
 import { useToast } from '@/hooks/use-toast';
 import { useEdgeStore } from '@/lib/edgestore';
-import { FileUploadRequest } from '@/lib/validators/FileUploadValidator';
-import { User } from '@prisma/client';
-import axios from 'axios';
+import { FileUploadRequest } from '@/lib/validators/formValidator';
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 
+type Props = {
+  file: FileUploadRequest | null;
+  setFile: (file: FileUploadRequest | null) => void;
+  error?: string;
+  required?: boolean;
+}
 
-export function MultiFileDropzoneUsage() {
+export function MultiFileDropzoneUsage({ file, setFile, error, required = true }: Props) {
   const [fileStates, setFileStates] = useState<FileState[]>([]);
   const { edgestore } = useEdgeStore();
   const { toast } = useToast();
-  const {data: session} = useSession()
+  const { data: session } = useSession();
   
   const user = session?.user;
-  if(!user) return <div>Login to Upload File...</div>
+  if (!user) return <div>Login to Upload File...</div>;
 
   function updateFileProgress(key: string, progress: FileState['progress']) {
     setFileStates((fileStates) => {
@@ -35,12 +39,20 @@ export function MultiFileDropzoneUsage() {
     });
   }
 
+  const handleRemoveFile = () => {
+    setFileStates([]);
+    setFile(null);
+  };
+
   return (
-    <div>
+    <div className="space-y-2">
       <MultiFileDropzone
         value={fileStates}
         onChange={(files) => {
           setFileStates(files);
+          if (files.length === 0) {
+            setFile(null);
+          }
         }}
         onFilesAdded={async (addedFiles) => {
           setFileStates([...fileStates, ...addedFiles]);
@@ -52,45 +64,36 @@ export function MultiFileDropzoneUsage() {
                   onProgressChange: async (progress) => {
                     updateFileProgress(addedFileState.key, progress);
                     if (progress === 100) {
-                      // wait 1 second to set it to complete
-                      // so that the user can see the progress bar at 100%
                       await new Promise((resolve) => setTimeout(resolve, 1000));
                       updateFileProgress(addedFileState.key, 'COMPLETE');
                     }
                   },
                 });
-
-                const defaultName = user.email!.split('@')[0].trim();
-                const payload: FileUploadRequest = {
+                setFile({
                   fileUrl: res.url,
                   fileSize: res.size,
                   userId: user.id,
-                  uploadedBy: user.name || defaultName,
-                  updatedAt: res.uploadedAt.toISOString(),
+                  uploadedBy: user.name || user.email!,
+                  uploadedAt: res.uploadedAt.toISOString(),
                   name: addedFiles[0].file.name
-                }
-
-                const response = await axios.post("/api/submit-paper", payload);
-                if (response.status === 200) {
-                  toast({
-                    title: "File uploaded successfully",
-                    description: "Your file has been uploaded successfully",
-                    variant: "default",
-                  });
-                }else if (response.status === 500) {
-                  toast({
-                    title: "Error",
-                    description: "error uploading file",
-                    variant: "destructive",
-                  });
-                }
+                });
               } catch (err) {
                 updateFileProgress(addedFileState.key, 'ERROR');
+                toast({
+                  title: 'Error uploading file',
+                  description: 'Please try again',
+                  variant: 'destructive',
+                });
               }
             }),
           );
         }}
       />
+      {required && !file && (
+        <p className="text-sm text-red-500">
+          {error || 'Please upload a research paper file'}
+        </p>
+      )}
     </div>
   );
 }
