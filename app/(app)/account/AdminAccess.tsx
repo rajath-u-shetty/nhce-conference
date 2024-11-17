@@ -54,8 +54,8 @@ export default function AdminAccessForm() {
   };
 
   return (
-    <Card className="w-full max-w-4xl mx-auto">
-      <CardTitle className="pt-4 pl-4">Add Admin Access</CardTitle>
+    <Card className="w-full  mx-auto">
+      <CardTitle className="pt-4 pl-4 text-xl">Add Admin Access</CardTitle>
       <CardHeader className="pt-0 pl-4 text-muted-foreground">
         <p>Add an admin to your account to manage your conference.</p>
       </CardHeader>

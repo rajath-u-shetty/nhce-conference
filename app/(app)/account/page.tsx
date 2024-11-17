@@ -1,4 +1,4 @@
-import AdminAccessForm from "./AminAccess";
+import AdminAccessForm from "./AdminAccess";
 import UserSettings from "./UserSettings";
 import { checkAuth, getUserAuth } from "@/lib/auth/utils";
 
