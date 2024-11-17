@@ -111,7 +111,7 @@ export default function Navbar() {
                   </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <Link href="/submissions" legacyBehavior passHref>
+                  <Link href="/sign-in" legacyBehavior passHref>
                     <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), 
                       "text-white hover:bg-red-700 hover:text-white px-3 py-2 text-sm font-medium")}>
                       Submissions
@@ -143,7 +143,7 @@ export default function Navbar() {
             {/* Adjust the flex direction to column and align items to end */}
             <Link href="/" className="block text-white hover:bg-white/10 px-3 py-2 text-sm" onClick={toggleMenu}>Home</Link>
             <Link href="/about" className="block text-white hover:bg-white/10 px-3 py-2 text-sm" onClick={toggleMenu}>About us</Link>
-            <Link href="/submissions" className="block text-white hover:bg-white/10 px-3 py-2 text-sm" onClick={toggleMenu}>Submissions</Link>
+            <Link href="/sign-in" className="block text-white hover:bg-white/10 px-3 py-2 text-sm" onClick={toggleMenu}>Submissions</Link>
             <Link href='/sign-in' className="block px-3 py-2">
               <Button variant="outline" className="w-full text-white border-white hover:bg-white/10 text-sm">
                 <UserPlus className="mr-2 h-4 w-4" />
