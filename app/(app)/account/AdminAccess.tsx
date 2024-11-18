@@ -2,16 +2,16 @@
 'use client';
 
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import UserSettings from "./UserSettings";
-import { checkAuth, getUserAuth } from "@/lib/auth/utils";
+// import UserSettings from "./UserSettings";
+// import { checkAuth, getUserAuth } from "@/lib/auth/utils";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 
-interface AccountPageProps {
-  session: Awaited<ReturnType<typeof getUserAuth>>['session'];
-}
+// interface AccountPageProps {
+//   session: Awaited<ReturnType<typeof getUserAuth>>['session'];
+// }
 
 export default function AdminAccessForm() {
   const [secretKey, setSecretKey] = useState('');

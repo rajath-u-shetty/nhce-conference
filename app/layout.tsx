@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+// import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Navbar from "@/components/Navbar";
 import { EdgeStoreProvider } from "@/lib/edgestore";
 import { Inter } from 'next/font/google';
+import Providers from "@/components/Providers";
 
 const myFont = Inter({
   subsets: ['latin'],
@@ -12,16 +13,16 @@ const myFont = Inter({
   variable:"--my-font-family",
 });
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+// const geistSans = localFont({
+//   src: "./fonts/GeistVF.woff",
+//   variable: "--font-geist-sans",
+//   weight: "100 900",
+// });
+// const geistMono = localFont({
+//   src: "./fonts/GeistMonoVF.woff",
+//   variable: "--font-geist-mono",
+//   weight: "100 900",
+// });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -45,20 +46,22 @@ export default function RootLayout({
           // backgroundBlendMode: ""
         }}
       >
-        <ThemeProvider 
-          attribute="class" 
-          defaultTheme="system" 
-          enableSystem 
-          disableTransitionOnChange
-        >
-          <EdgeStoreProvider>
-            {/* Optional semi-transparent overlay */}
-            <div className="min-h-screen bg-black/30"> 
-              <Navbar/>
-              {children}
-            </div>
-          </EdgeStoreProvider>
-        </ThemeProvider>
+        <Providers>
+          <ThemeProvider 
+            attribute="class" 
+            defaultTheme="system" 
+            enableSystem 
+            disableTransitionOnChange
+          >
+            <EdgeStoreProvider>
+              {/* Optional semi-transparent overlay */}
+              <div className="min-h-screen bg-black/30"> 
+                <Navbar/>
+                {children}
+              </div>
+            </EdgeStoreProvider>
+            </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );
