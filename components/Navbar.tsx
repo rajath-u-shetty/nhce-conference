@@ -58,7 +58,7 @@ export default function Navbar() {
   }, [router]);
 
   return (
-    <nav className="backdrop-blur-lg text-primary-foreground py-2 md:py-4 relative">
+    <nav className="backdrop-blur-lg text-primary-foreground py-2 md:py-4 relative z-20">
       <div className="px-4 md:mx-20">
         <div className="flex items-center justify-between">
           {/* Logo container with horizontal scroll on mobile */}

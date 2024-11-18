@@ -73,7 +73,6 @@ export default function RootLayout({
             <EdgeStoreProvider>
               {/* Semi-transparent overlay and content */}
               <div className="relative min-h-screen bg-black/30">
-                <Navbar />
                 {/* Optional semi-transparent overlay */}
                 <div className="min-h-screen bg-black/30">
                   <Navbar />
