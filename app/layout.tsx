@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import { EdgeStoreProvider } from "@/lib/edgestore";
 import { Inter } from 'next/font/google';
 import Providers from "@/components/Providers";
+import { Toaster } from "@/components/ui/toaster";
 
 const myFont = Inter({
   subsets: ['latin'],
@@ -28,7 +29,7 @@ export default function RootLayout({
         className={`${myFont.className} antialiased min-h-screen relative`}
       >
         {/* Background wrapper with responsive images */}
-        <div 
+        <div
           className="fixed inset-0 z-[-1] bg-black"
           style={{
             backgroundImage: `
@@ -57,7 +58,7 @@ export default function RootLayout({
               alt="Background"
               className="object-cover w-full h-full"
               loading="eager"
-              // priority="true"
+            // priority="true"
             />
           </picture>
         </div>
@@ -73,7 +74,12 @@ export default function RootLayout({
               {/* Semi-transparent overlay and content */}
               <div className="relative min-h-screen bg-black/30">
                 <Navbar />
-                {children}
+                {/* Optional semi-transparent overlay */}
+                <div className="min-h-screen bg-black/30">
+                  <Navbar />
+                  <Toaster />
+                  {children}
+                </div>
               </div>
             </EdgeStoreProvider>
           </ThemeProvider>

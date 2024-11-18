@@ -7,7 +7,7 @@ import {
   RotateCw,
   Search,
 } from 'lucide-react'
-import { Document, Page, pdfjs } from 'react-pdf'
+import { Document, Page } from 'react-pdf'
 
 import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
@@ -33,7 +33,11 @@ import SimpleBar from 'simplebar-react'
 import { useToast } from '@/hooks/use-toast'
 import PdfFullScreen from './pdfFullScreen'
 
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
+import * as pdfjs from 'pdfjs-dist'
+import 'pdfjs-dist/build/pdf.worker'
+
+// Explicitly set the worker source with the exact version
+pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.js`
 
 interface PdfRendererProps {
   url: string
@@ -194,7 +198,8 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
                   <Loader2 className='my-24 h-6 w-6 animate-spin' />
                 </div>
               }
-              onLoadError={() => {
+              onLoadError={(error) => {
+                console.log('Error loading PDF', error)
                 toast({
                   title: 'Error loading PDF',
                   description: 'Please try again later',

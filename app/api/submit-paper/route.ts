@@ -20,6 +20,8 @@ export async function POST(req: Request) {
       coAuthor.name || coAuthor.email || coAuthor.designation || coAuthor.institute
     );
 
+    const userID = session.session.user.id;
+
     // Create the paper and related records in a transaction with timeout and retry logic
     const result = await db.$transaction(
       async (tx) => {
@@ -29,7 +31,7 @@ export async function POST(req: Request) {
             name: file.name,
             fileUrl: file.fileUrl,
             fileSize: file.fileSize,
-            userId: userId,
+            userId: userID,
             uploadedBy: file.uploadedBy,
             uploadedAt: file.uploadedAt,
           },
@@ -40,7 +42,7 @@ export async function POST(req: Request) {
           data: {
             title: paperDetails.title,
             abstract: paperDetails.abstract,
-            userId: userId,
+            userId: userID,
             fileId: fileRecord.id,
             url: file.fileUrl,
             authors: {
@@ -80,47 +82,59 @@ export async function POST(req: Request) {
     return NextResponse.json({
       message: 'Paper submitted successfully',
       paper: result,
+      status: 200,
     });
-  } catch (error) {
-    console.error('API error:', error);
+  } catch (error: any) {
+    console.error('Detailed API error:', {
+      error: error,
+      message: error.message,
+      code: error.code,
+      meta: error.meta,
+      stack: error.stack
+    });
 
-    // Handle specific Prisma errors
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       switch (error.code) {
-        case 'P2028': // Transaction timeout
+        case 'P2028':
           return NextResponse.json(
             { message: 'Request timeout. Please try again.' },
             { status: 408 }
           );
-        case 'P2002': // Unique constraint violation
+        case 'P2002':
           return NextResponse.json(
             { message: 'A paper with this information already exists.' },
             { status: 409 }
           );
-        case 'P2003': // Foreign key constraint failure
+        case 'P2003':
           return NextResponse.json(
-            { message: 'Invalid reference data provided.' },
+            { 
+              message: 'Invalid user ID or reference data provided.',
+              details: `Failed to create record. The provided user ID does not exist in the database.`,
+              error: error.meta 
+            },
             { status: 400 }
           );
         default:
           return NextResponse.json(
-            { message: 'Database error occurred. Please try again.' },
+            { 
+              message: 'Database error occurred. Please try again.',
+              code: error.code,
+              meta: error.meta 
+            },
             { status: 500 }
           );
       }
     }
 
-    // Handle validation errors
     if (error instanceof Prisma.PrismaClientValidationError) {
       return NextResponse.json(
-        { message: 'Invalid data format provided.' },
+        { message: 'Invalid data format provided.', error: error.message },
         { status: 400 }
       );
     }
 
-    // Generic error response
     return NextResponse.json(
-      { message: 'Error submitting paper. Please try again.' },
+      { message: 'Error submitting paper. Please try again.', error: error.message },
       { status: 500 }
     );
   }
