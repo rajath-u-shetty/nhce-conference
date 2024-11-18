@@ -2,15 +2,13 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, UserPlus } from 'lucide-react';
+import { Menu, UserPlus, X } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
-  // NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  // NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
@@ -47,7 +45,6 @@ export default function Navbar() {
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
-  // Use useEffect to close the menu when a navigation link is clicked
   React.useEffect(() => {
     const handleRouteChange = () => {
       setIsOpen(false);
@@ -61,37 +58,40 @@ export default function Navbar() {
   }, [router]);
 
   return (
-    <nav className="backdrop-blur-lg text-primary-foreground py-4 "> {/* Reduced padding */}
-      <div className=" mx-20 ">
-        <div className="flex items-center gap-4 ">
-          {/* Logo on the left */}
-          <Link href="/" className="flex-shrink-0 flex flex-row gap-9">
-            <Image
-              src="/NHCE White Logo Transparent.png"
-              alt='nhcelogo'
-              width={250}
-              height={50}
-              className="object-contain max-w-full" // Add these classes
-            />
+    <nav className="backdrop-blur-lg text-primary-foreground py-2 md:py-4 relative">
+      <div className="px-4 md:mx-20">
+        <div className="flex items-center justify-between">
+          {/* Logo container with horizontal scroll on mobile */}
+          <div className="flex-1 overflow-x-auto scrollbar-hide">
+            <div className="flex items-center gap-4 md:gap-9 min-w-max">
+              <Link href="/" className="flex items-center space-x-4">
+                <Image
+                  src="/NHCE White Logo Transparent.png"
+                  alt='nhcelogo'
+                  width={180}
+                  height={36}
+                  className="w-auto h-8 md:h-12"
+                />
+                <Image
+                  src="/IEEE-NHCE-SB-Blue-Landscape.png"
+                  alt='ieeelogo'
+                  height={36}
+                  width={100}
+                  className="w-auto h-8 md:h-12"
+                />
+                <Image
+                  src="/QX25 Logo White SVG.png"
+                  alt='qxlogo'
+                  height={36}
+                  width={80}
+                  className="w-auto h-8 md:h-12"
+                />
+              </Link>
+            </div>
+          </div>
 
-            <Image
-              src="/IEEE-NHCE-SB-Blue-Landscape.png"
-              alt='ieeelogo'
-              height={50}  // Adjusted height
-              width={150}  // Adjusted width
-              className="z-10"
-            />
-            <Image
-              src="/QX25 Logo White SVG.png"
-              alt='qxlogo'
-              height={50}  // Adjusted height
-              width={100}  // Adjusted width
-              className="z-10"
-            />
-          </Link>
-
-          {/* Navigation items on the right */}
-          <div className="hidden lg:flex items-center space-x-2 ml-auto gap-6"> {/* Added space-x-2 for consistent spacing */}
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center space-x-2 ml-4">
             <NavigationMenu>
               <NavigationMenuList className="flex items-center space-x-1 gap-6">
                 <NavigationMenuItem>
@@ -121,7 +121,6 @@ export default function Navbar() {
               </NavigationMenuList>
             </NavigationMenu>
 
-            {/* Sign in button */}
             <Link href='/sign-in' className="ml-4">
               <Button variant="outline" className="text-white border-white hover:bg-red-700 text-sm">
                 <UserPlus className="mr-2 h-4 w-4" />
@@ -129,30 +128,52 @@ export default function Navbar() {
               </Button>
             </Link>
           </div>
-          
+          <br/>
           {/* Mobile menu button */}
-          <Button variant="ghost" className="lg:hidden text-white bg-blue-800 flex flex-e" onClick={toggleMenu}>
-            <Menu className="h-5 w-5" />
+          <Button 
+            variant="ghost" 
+            className="lg:hidden text-white hover:bg-white/10 p-2"
+            onClick={toggleMenu}
+          >
+            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </Button>
         </div>
 
         {/* Mobile menu */}
-        {/* Mobile menu */}
         {isOpen && (
-          <div className="lg:hidden mt-2 py-2 space-y-1 flex flex-col ">
-            {/* Adjust the flex direction to column and align items to end */}
-            <Link href="/" className="block text-white hover:bg-white/10 px-3 py-2 text-sm" onClick={toggleMenu}>Home</Link>
-            <Link href="/about" className="block text-white hover:bg-white/10 px-3 py-2 text-sm" onClick={toggleMenu}>About us</Link>
-            <Link href="/submission" className="block text-white hover:bg-white/10 px-3 py-2 text-sm" onClick={toggleMenu}>Submissions</Link>
-            <Link href='/sign-in' className="block px-3 py-2">
-              <Button variant="outline" className="w-full text-white border-white hover:bg-white/10 text-sm">
-                <UserPlus className="mr-2 h-4 w-4" />
-                Sign In
-              </Button>
-            </Link>
+          <div className="lg:hidden absolute top-full left-0 right-0 bg-black/95 backdrop-blur-lg z-50">
+            <div className="px-4 py-4 space-y-3">
+              <Link 
+                href="/" 
+                className="block text-white hover:bg-red-700 rounded-md px-4 py-2 text-base font-medium transition-colors" 
+                onClick={toggleMenu}
+              >
+                Home
+              </Link>
+              <Link 
+                href="/about" 
+                className="block text-white hover:bg-red-700 rounded-md px-4 py-2 text-base font-medium transition-colors" 
+                onClick={toggleMenu}
+              >
+                About us
+              </Link>
+              <Link 
+                href="/submission" 
+                className="block text-white hover:bg-red-700 rounded-md px-4 py-2 text-base font-medium transition-colors" 
+                onClick={toggleMenu}
+              >
+                Submissions
+              </Link>
+              <Link href='/sign-in' className="block" onClick={toggleMenu}>
+                <Button variant="outline" className="w-full text-white border-white hover:bg-red-700 text-base">
+                  <UserPlus className="mr-2 h-5 w-5" />
+                  Sign In
+                </Button>
+              </Link>
+            </div>
           </div>
         )}
       </div>
     </nav>
-  )
+  );
 }

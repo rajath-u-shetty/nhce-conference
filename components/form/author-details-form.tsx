@@ -9,8 +9,8 @@ type AuthorDetailsFormProps = {
 
 export function AuthorDetailsForm({ form }: AuthorDetailsFormProps) {
   return (
-    <Form {...form}>
-      <form className="space-y-6 w-full max-w-md">
+    <Form {...form} >
+      <form className="space-y-6 w-full max-w-md ">
         <FormField
           control={form.control}
           name="name"
