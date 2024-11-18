@@ -11,7 +11,7 @@ export default function SignIn() {
     return (
       <div className="space-y-3">
         <p className="bg-purple-600 max-w-64 items-center rounded-md ">
-          <div className="pl-6">
+          <div className="p-6">
             Signed in as{" "}
             <span className="font-medium">{session.user?.email}</span>
             <br/>
