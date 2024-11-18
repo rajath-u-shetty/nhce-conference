@@ -1,5 +1,5 @@
 import { SidebarLink } from "@/components/SidebarItems";
-import {  Shield, User, HomeIcon } from "lucide-react";
+import {  Shield, User, HomeIcon ,Send } from "lucide-react";
 
 type AdditionalLinks = {
   title: string;
@@ -9,7 +9,8 @@ type AdditionalLinks = {
 export const defaultLinks: SidebarLink[] = [
   { href: "/dashboard", title: "Home", icon: HomeIcon },
   { href: "/account", title: "Account", icon: User },
-  { href: "/account", title: "Admin", icon: Shield },
+  { href: "/submission", title: "Account", icon: Send },
+  { href: "/admin", title: "Admin", icon: Shield },
   
 ];
 

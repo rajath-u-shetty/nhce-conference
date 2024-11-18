@@ -83,8 +83,8 @@ const SidebarLink = ({
             active ? "opacity-100" : "",
           )}
         />
-        <link.icon className="h-3.5 mr-1" />
-        <span>{link.title}</span>
+        <link.icon className="h-20 ml-1" />
+        {/* <span>{link.title}</span> */}
       </div>
     </Link>
   );
