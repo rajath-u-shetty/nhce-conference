@@ -1,16 +1,17 @@
 
 import SignIn from "@/components/auth/SignIn";
-import { getUserAuth } from "@/lib/auth/utils";
+// import { getUserAuth } from "@/lib/auth/utils";
 
 export default async function Home() {
-  const { session } = await getUserAuth();
+  // const { session } = await getUserAuth();
   return (
     <main className="space-y-4">
-      {session ? (
+      {/* {session ? (
         <pre className="bg-secondary p-4 rounded-sm shadow-sm text-secondary-foreground break-all whitespace-break-spaces">
-          {JSON.stringify(session, null, 2)}
+          {JSON.stringify(session.user.email, null, 2)}
         </pre>
-      ) : null}
+      ) : null} */}
+      
       <SignIn />
     </main>
   );

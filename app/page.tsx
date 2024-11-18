@@ -18,7 +18,7 @@ export default function LandingPage() {
         </div>
         
         <div className="bg-white rounded-full w-80 h-14">
-          <Link href="/sign-in">
+          <Link href="/submissions">
             <Button className="ml-60 bg-yellow-400 hover:bg-red-600 rounded-full w-28 h-14 font-bold text-xl">
               Submit
             </Button>

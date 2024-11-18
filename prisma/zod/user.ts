@@ -1,17 +1,23 @@
 import * as z from "zod"
-import { CompleteAccount, relatedAccountSchema, CompleteSession, relatedSessionSchema } from "./index"
+import { Role } from "@prisma/client"
+import { CompleteAccount, relatedAccountSchema, CompleteSession, relatedSessionSchema, CompleteFile, relatedFileSchema, CompletePaper, relatedPaperSchema, CompleteRegistration, relatedRegistrationSchema } from "./index"
 
 export const userSchema = z.object({
   id: z.string(),
   name: z.string().nullish(),
   email: z.string().nullish(),
   emailVerified: z.date().nullish(),
+  password: z.string().nullish(),
   image: z.string().nullish(),
+  role: z.nativeEnum(Role),
 })
 
 export interface CompleteUser extends z.infer<typeof userSchema> {
   accounts: CompleteAccount[]
   sessions: CompleteSession[]
+  files: CompleteFile[]
+  papers: CompletePaper[]
+  registrations: CompleteRegistration[]
 }
 
 /**
@@ -22,4 +28,7 @@ export interface CompleteUser extends z.infer<typeof userSchema> {
 export const relatedUserSchema: z.ZodSchema<CompleteUser> = z.lazy(() => userSchema.extend({
   accounts: relatedAccountSchema.array(),
   sessions: relatedSessionSchema.array(),
+  files: relatedFileSchema.array(),
+  papers: relatedPaperSchema.array(),
+  registrations: relatedRegistrationSchema.array(),
 }))

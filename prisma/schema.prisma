@@ -7,12 +7,12 @@ generator client {
 
 generator zod {
   provider              = "zod-prisma"
-  output                = "./zod" 
-  relationModel         = true 
-  modelCase             = "camelCase" 
-  modelSuffix           = "Schema" 
-  useDecimalJs          = true 
-  prismaJsonNullability = true 
+  output                = "./zod"
+  relationModel         = true
+  modelCase             = "camelCase"
+  modelSuffix           = "Schema"
+  useDecimalJs          = true
+  prismaJsonNullability = true
 }
 
 datasource db {
@@ -20,22 +20,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
-
-  
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -51,19 +48,115 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String         @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?        @unique
   emailVerified DateTime?
+  password      String?
   image         String?
+  role          Role           @default(USER)
   accounts      Account[]
   sessions      Session[]
+  files         File[]
+  papers        Paper[]
+  registrations Registration[]
 }
 
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
+model Registration {
+  id           String   @id @default(cuid())
+  userId       String
+  conferenceId String
+  submittedAt  DateTime @default(now())
 
-  @@unique([identifier, token])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Paper {
+  id        String      @id @default(cuid())
+  title     String
+  abstract  String      @db.Text
+  status    PaperStatus @default(PENDING)
+  payment   Payment?
+  url       String?
+  userId    String
+  fileId    String?     @unique // Reference to the associated file
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  file      File?       @relation(fields: [fileId], references: [id])
+  authors   Author[]    @relation("PaperAuthors")
+  coAuthors CoAuthor[]  @relation("PaperCoAuthors")
+
+  @@index([userId])
+}
+
+model Author {
+  id          String   @id @default(cuid())
+  name        String
+  email       String
+  mobile      String
+  designation String
+  institute   String
+  paperId     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  paper       Paper    @relation("PaperAuthors", fields: [paperId], references: [id], onDelete: Cascade)
+
+  @@index([paperId])
+}
+
+model CoAuthor {
+  id          String   @id @default(cuid())
+  name        String?
+  email       String?
+  designation String?
+  institute   String?
+  paperId     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  paper       Paper    @relation("PaperCoAuthors", fields: [paperId], references: [id], onDelete: Cascade)
+
+  @@index([paperId])
+}
+
+model File {
+  id         String @id @default(cuid())
+  name       String
+  fileUrl    String // URL on Edge Store
+  fileSize   Int
+  userId     String
+  uploadedAt String // ISO 8601 date string
+  uploadedBy String // Name or email of the uploader
+  paper      Paper?
+  user       User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Payment {
+  id        Int           @id @default(autoincrement())
+  paperId   String        @unique
+  amount    Decimal
+  status    PaymentStatus @default(PENDING)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  paper Paper @relation(fields: [paperId], references: [id])
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum PaperStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
 }
