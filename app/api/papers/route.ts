@@ -17,70 +17,39 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
 
   const status = searchParams.get("status") as PaperStatus | 'ALL';
+  const sortOrder = (searchParams.get('sortBy') || 'desc') as 'asc' | 'desc'
 
-  if (status && status !== 'ALL') {
-    try {
-      const papers = await db.paper.findMany({
-        where: {
-          status: status,
-        },
-        orderBy: {
-          createdAt: "asc",
-        },
-        select: {
-          title: true,
-          url: true,
-          id: true,
-          status: true,
-          updatedAt: true,
-          authors: {
-            select: {
-              name: true,
-            }
+  const whereCondition = status === 'ALL'
+    ? {}
+    : { status }
+
+
+  try {
+    const papers = await db.paper.findMany({
+      where: whereCondition,
+      orderBy: {
+        createdAt: sortOrder,
+      },
+      select: {
+        title: true,
+        url: true,
+        id: true,
+        status: true,
+        updatedAt: true,
+        authors: {
+          select: {
+            name: true,
           }
         }
-      })
+      }
+    })
 
-      return new Response(JSON.stringify(papers), {
-        status: 200,
-      });
+    return new Response(JSON.stringify(papers), {
+      status: 200,
+    });
 
-    } catch (e: any) {
-      console.log("GET request failed at /api/papers", e);
-      return new Response(JSON.stringify({ message: "Error" }), { status: 500 })
-    }
+  } catch (e: any) {
+    console.log("GET request failed at /api/papers", e);
+    return new Response(JSON.stringify({ message: "Error" }), { status: 500 })
   }
-
-  if (status && status === "ALL") {
-    try {
-      const papers = await db.paper.findMany({
-        orderBy: {
-          createdAt: "asc",
-        },
-        select: {
-          title: true,
-          url: true,
-          id: true,
-          status: true,
-          updatedAt: true,
-          authors: {
-            select: {
-              name: true,
-            }
-          }
-        }
-      })
-
-      return new Response(JSON.stringify(papers), {
-        status: 200,
-      });
-
-    } catch (e: any) {
-      console.log("GET request failed at /api/papers", e);
-      return new Response(JSON.stringify({ message: "Error" }), { status: 500 })
-    }
-  }
-
-
-
 }

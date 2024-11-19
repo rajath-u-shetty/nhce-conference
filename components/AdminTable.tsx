@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
-import { CheckCircle, XCircle, NotebookPen, ChevronDown } from 'lucide-react'
+import { CheckCircle, XCircle, NotebookPen, ChevronDown, FileX2, ArrowUpDownIcon, ArrowUp, ArrowDown } from 'lucide-react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import axios, { AxiosError } from "axios"
 import Link from 'next/link'
@@ -16,6 +16,8 @@ import { usePaperStore } from '@/lib/stores/PaperStore'
 import { motion } from 'framer-motion'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@radix-ui/react-dropdown-menu'
 import { PaperStatus } from "@prisma/client"
+import TableSkeleton from './TableSkeleton'
+import { useCustomToast } from './AcceptanceUndoHook'
 
 type Paper = {
   title: string;
@@ -29,9 +31,11 @@ type Paper = {
 }
 
 type PaperStatusRequest = PaperStatus | 'ALL'
+type SortedOrder = 'asc' | 'desc'
 
 interface PaperPayload {
   status: PaperStatusRequest
+  sortBy?: SortedOrder
 }
 
 export const AdminTable = () => {
@@ -39,12 +43,15 @@ export const AdminTable = () => {
   const queryClient = useQueryClient()
   const { setSelectedPaper, approvePaper, rejectPaper } = usePaperStore()
   const [statusFilter, setStatusFilter] = useState<PaperStatusRequest>(PaperStatus.PENDING)
+  const { undoAcceptanceToast, undoRejectionToast } = useCustomToast()
+  const [sortedPapers, setSortedPapers] = useState<SortedOrder>('asc')
 
   const { data: papers, isLoading, error } = useQuery({
-    queryKey: ['papers', statusFilter],
+    queryKey: ['papers', statusFilter, sortedPapers],
     queryFn: async () => {
       const payload: PaperPayload = {
         status: statusFilter,
+        sortBy: sortedPapers
       }
       const { data } = await axios.get('/api/papers', { params: payload });
       return data as Paper[];
@@ -64,7 +71,23 @@ export const AdminTable = () => {
       const { data } = await axios.post('/api/papers/approve', payload);
       return data;
     },
-    onError: (err) => {
+    onMutate: async (paperId) => {
+      await queryClient.cancelQueries({ queryKey: ['papers'] })
+
+      const previousPapers = queryClient.getQueryData(['papers', statusFilter])
+
+      queryClient.setQueryData(['papers', statusFilter], (old: Paper[]) =>
+        old.map(paper =>
+          paper.id === paperId
+            ? { ...paper, status: PaperStatus.APPROVED }
+            : paper
+        )
+      )
+
+      return { previousPapers }
+    },
+    onError: (err, paperId, context) => {
+      queryClient.setQueryData(['papers', statusFilter], context?.previousPapers)
       if (err instanceof AxiosError) {
         toast({
           title: err.response?.status === 401 ? 'Unauthorized' : 'Error',
@@ -77,7 +100,7 @@ export const AdminTable = () => {
     },
     onSuccess: (_, paperId) => {
       approvePaper(paperId)
-      toast({ description: "Paper Approved", duration: 5000 })
+      undoAcceptanceToast({ paperId, statusFilter })
       queryClient.invalidateQueries({ queryKey: ['papers'] })
     }
   })
@@ -88,20 +111,32 @@ export const AdminTable = () => {
       const { data } = await axios.post('/api/papers/reject', payload);
       return data;
     },
-    onError: (err) => {
-      if (err instanceof AxiosError) {
-        toast({
-          title: err.response?.status === 401 ? 'Unauthorized' : 'Error',
-          description: err.response?.status === 401
-            ? 'Please login to reject the paper'
-            : 'Cannot reject the paper',
-          variant: 'destructive',
-        })
-      }
+    onMutate: async (paperId) => {
+      await queryClient.cancelQueries({ queryKey: ['papers'] })
+
+      const previousPapers = queryClient.getQueryData(['papers', statusFilter])
+
+      queryClient.setQueryData(['papers', statusFilter], (old: Paper[]) =>
+        old.map(paper =>
+          paper.id === paperId
+            ? { ...paper, status: PaperStatus.REJECTED }
+            : paper
+        )
+      )
+
+      return { previousPapers }
+    },
+    onError: (err, paperId, context) => {
+      queryClient.setQueryData(['papers', statusFilter], context?.previousPapers)
+      toast({
+        title: 'Rejection Failed',
+        description: 'Could not reject the paper',
+        variant: 'destructive'
+      })
     },
     onSuccess: (_, paperId) => {
       rejectPaper(paperId)
-      toast({ description: "Paper Rejected", duration: 5000 })
+      undoRejectionToast({ paperId, statusFilter })
       queryClient.invalidateQueries({ queryKey: ['papers'] })
     }
   })
@@ -110,9 +145,17 @@ export const AdminTable = () => {
     setSelectedPaper(paper)
   }
 
-  if (isLoading) return <div>Loading...</div>
+  const handleSubmittedAtSort = () => {
+    const newSortOrder = sortedPapers === 'asc' ? 'desc' : 'asc'
+    setSortedPapers(newSortOrder)
+  }
+
+  if (isLoading) return (
+    <TableSkeleton />
+  )
+
   if (error) return <div>Error loading papers</div>
-  if (!papers) return <div>No papers found</div>
+  if (!papers) return <div>No papers here</div>
 
   const filteredPapers = papers.filter(paper =>
     statusFilter === 'ALL' || paper.status === statusFilter
@@ -125,7 +168,7 @@ export const AdminTable = () => {
           <TableRow className='text-white'>
             <TableHead className="w-[50%]">Paper Title</TableHead>
             <TableHead>Author</TableHead>
-            <TableHead className='space-x-2 dark:text-white text-black'>
+            <TableHead className=' dark:text-white text-black'>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
@@ -161,7 +204,20 @@ export const AdminTable = () => {
               </DropdownMenu>
 
             </TableHead>
-            <TableHead>Submitted At</TableHead>
+            <TableHead>
+              <Button
+                variant='ghost'
+                size='sm'
+                onClick={() => handleSubmittedAtSort()}
+                className='text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
+              >
+                Submitted At
+                {sortedPapers === 'asc' ? 
+                  <ArrowUp className='w-4 h-4 ml-1' />
+                  : <ArrowDown className='w-4 h-4 ml-1' />
+                }
+              </Button>
+            </TableHead>
             <TableHead className="text-right">Actions</TableHead>
           </TableRow>
         </TableHeader>
@@ -205,11 +261,15 @@ export const AdminTable = () => {
                 <Button
                   variant="ghost"
                   size="sm"
+                  disabled={paper.status === 'APPROVED'}
                   onClick={(e) => {
                     e.stopPropagation()
                     serverApprovePaper(paper.id)
                   }}
-                  className="text-green-600 dark:text-green-400 hover:text-green-800 dark:hover:text-green-200 mr-2"
+                  className={`${statusFilter === 'APPROVED'
+                    ? 'cursor-not-allowed opacity-50'
+                    : 'text-green-600 dark:text-green-400 hover:text-green-800 dark:hover:text-green-200'
+                    }`}
                 >
                   <CheckCircle className="w-4 h-4 mr-1" />
                   Approve
@@ -221,7 +281,11 @@ export const AdminTable = () => {
                     e.stopPropagation()
                     serverRejectPaper(paper.id)
                   }}
-                  className="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-200"
+                  disabled={paper.status === 'REJECTED'}
+                  className={`${statusFilter === 'REJECTED'
+                    ? 'cursor-not-allowed opacity-50'
+                    : 'text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-200'
+                    }`}
                 >
                   <XCircle className="w-4 h-4 mr-1" />
                   Reject
@@ -230,8 +294,27 @@ export const AdminTable = () => {
             </motion.tr>
           )) : (
             <TableRow>
-              <TableCell colSpan={5} className="text-center">
-                No pending papers
+              <TableCell
+                colSpan={5}
+                className="text-center py-12 dark:bg-gray-800 bg-gray-100 text-gray-500 dark:text-gray-400"
+              >
+                <div className="flex flex-col items-center justify-center space-y-4">
+                  <FileX2 className="w-16 h-16 opacity-50 mb-2" />
+                  <h3 className="text-lg font-semibold">
+                    {statusFilter === 'PENDING'
+                      ? 'No Pending Papers'
+                      : statusFilter === 'APPROVED'
+                        ? 'No Approved Papers'
+                        : statusFilter === 'REJECTED'
+                          ? 'No Rejected Papers'
+                          : 'No Papers Found'}
+                  </h3>
+                  <p className="text-sm text-gray-400">
+                    {statusFilter === 'PENDING'
+                      ? 'Papers will appear here once submitted'
+                      : 'Try adjusting your filter'}
+                  </p>
+                </div>
               </TableCell>
             </TableRow>
           )}
