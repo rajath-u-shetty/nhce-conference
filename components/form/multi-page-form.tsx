@@ -12,20 +12,26 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { MultiFileDropzoneUsage } from '../DropzoneUsage'
 import { useToast } from '@/hooks/use-toast'
 import { useRouter } from 'next/navigation'
+import { useSession } from 'next-auth/react'
+import { useEdgeStore } from '@/lib/edgestore'
 import axios from 'axios'
 import {
   AuthorDetails,
   authorSchema,
   CoAuthorDetails,
-  FileUploadRequest,
   MultiFormRequest,
   PaperDetailsRequest,
   paperDetailsValidator
 } from '@/lib/validators/formValidator'
 import { PaperDetailsForm } from './paper-details'
+import { useFileStore } from '@/lib/stores/FileUploadStore'
 
 export default function MultiPageForm() {
   const router = useRouter()
+  const { data: session } = useSession()
+  const { edgestore } = useEdgeStore()
+  const { pendingFile, setSelectedFile, selectedFile, reset: resetPaperStore } = useFileStore()
+  
   const [currentPage, setCurrentPage] = useState(0)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [coAuthors, setCoAuthors] = useState<CoAuthorDetails[]>(Array(5).fill({
@@ -33,10 +39,10 @@ export default function MultiPageForm() {
     email: '',
     designation: '',
     institute: ''
-  }));
-  const [file, setFile] = useState<FileUploadRequest | null>(null)
+  }))
+  
   const { toast } = useToast()
-  const [fileError, setFileError] = useState<string>('');
+  const [fileError, setFileError] = useState<string>('')
 
   const authorForm = useForm<AuthorDetails>({
     resolver: zodResolver(authorSchema),
@@ -58,7 +64,6 @@ export default function MultiPageForm() {
   })
 
   const resetForms = () => {
-    // Reset all form states
     authorForm.reset()
     paperDetailsForm.reset()
     setCoAuthors(Array(5).fill({
@@ -67,7 +72,7 @@ export default function MultiPageForm() {
       designation: '',
       institute: ''
     }))
-    setFile(null)
+    resetPaperStore()
     setFileError('')
     setCurrentPage(0)
   }
@@ -88,123 +93,115 @@ export default function MultiPageForm() {
     setCurrentPage((prev) => Math.max(prev - 1, 0))
   }
 
-  // In your MultiPageForm component, update the handleSubmit function:
-
   const handleSubmit = async (authorData: AuthorDetails) => {
-    if (isSubmitting) return;
+    if (isSubmitting || !session?.user) return
 
     try {
-      setIsSubmitting(true);
+      setIsSubmitting(true)
 
-      // Validate required fields
-      if (!file?.fileUrl || !file?.fileSize || !file?.userId || !file?.uploadedBy || !file?.name) {
-        setFileError('Please upload a research paper file before submitting');
-        return;
+      // Handle file upload first
+      if (!selectedFile && pendingFile) {
+        try {
+          const res = await edgestore.publicFiles.upload({
+            file: pendingFile,
+          })
+
+          setSelectedFile({
+            fileUrl: res.url,
+            fileSize: res.size,
+            userId: session.user.id,
+            uploadedBy: session.user.name || session.user.email!,
+            uploadedAt: res.uploadedAt.toISOString(),
+            name: pendingFile.name
+          })
+        } catch (error) {
+          toast({
+            title: 'Error uploading file',
+            description: 'Failed to upload research paper. Please try again.',
+            variant: 'destructive',
+          })
+          return
+        }
       }
 
-      const paperDetailsData = paperDetailsForm.getValues();
+      // Validate required fields
+      if (!selectedFile) {
+        setFileError('Please upload a research paper file before submitting')
+        return
+      }
+
+      const paperDetailsData = paperDetailsForm.getValues()
       if (!paperDetailsData.title || !paperDetailsData.abstract) {
         toast({
           title: "Error",
           description: "Paper title and abstract are required",
           variant: "destructive",
-        });
-        return;
+        })
+        return
       }
 
       // Filter out empty co-author entries
       const validCoAuthors = coAuthors.filter(author =>
         author.name || author.email || author.designation || author.institute
-      );
+      )
 
       const payload: MultiFormRequest = {
-        author: {
-          name: authorData.name,
-          email: authorData.email,
-          mobileNumber: authorData.mobileNumber,
-          designation: authorData.designation,
-          institute: authorData.institute
-        },
+        author: authorData,
         coAuthors: validCoAuthors,
-        file: {
-          name: file.name,
-          fileUrl: file.fileUrl,
-          fileSize: file.fileSize,
-          userId: file.userId,
-          uploadedAt: file.uploadedAt,
-          uploadedBy: file.uploadedBy,
-        },
-        userId: file.userId,
+        file: selectedFile,
+        userId: session.user.id,
         paperDetails: paperDetailsData
-      };
+      }
 
-      const response = await axios.post("/api/submit-paper", payload);
+      const response = await axios.post("/api/submit-paper", payload)
 
       if (response.status === 200) {
         toast({
           title: "Success",
           description: "Research paper submitted successfully",
           variant: "default",
-        });
+        })
 
-        // Reset forms
-        resetForms();
-
-        // Redirect to dashboard
-        router.push('/dashboard');
+        resetForms()
+        router.push('/dashboard')
       }
     } catch (error: any) {
-      console.error('Submission error:', error);
+      console.error('Submission error:', error)
 
-      // Handle specific error responses
-      const errorMessage = error.response?.data?.message || "Error submitting paper";
+      const errorMessage = error.response?.data?.message || "Error submitting paper"
 
-      // Handle specific HTTP status codes
       switch (error.response?.status) {
         case 408:
           toast({
             title: "Timeout Error",
             description: "Request timed out. Please try submitting again.",
             variant: "destructive",
-          });
-          break;
+          })
+          break
         case 409:
           toast({
             title: "Duplicate Entry",
             description: "A paper with this information already exists.",
             variant: "destructive",
-          });
-          break;
+          })
+          break
         case 401:
           toast({
             title: "Authentication Error",
             description: "Please log in to submit your paper.",
             variant: "destructive",
-          });
-          router.push('/login');
-          break;
+          })
+          router.push('/login')
+          break
         default:
           toast({
             title: "Error",
             description: errorMessage,
             variant: "destructive",
-          });
+          })
       }
     } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const getPageTitle = () => {
-    switch (currentPage) {
-      case 0:
-        return 'Author Details'
-      case 1:
-        return 'Paper Details'
-      case 7:
-        return 'Upload Research Paper'
-      default:
-        return `Co-Author ${currentPage - 1} Details`
+      setIsSubmitting(false)
     }
   }
 
@@ -213,7 +210,10 @@ export default function MultiPageForm() {
       <Card className="w-full max-w-4xl mx-auto">
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-center text-primary">
-            {getPageTitle()}
+            {currentPage === 0 ? 'Author Details' :
+             currentPage === 1 ? 'Paper Details' :
+             currentPage === 7 ? 'Upload Research Paper' :
+             `Co-Author ${currentPage - 1} Details`}
           </CardTitle>
           <StepIndicator currentStep={currentPage} totalSteps={8} />
         </CardHeader>
@@ -242,16 +242,14 @@ export default function MultiPageForm() {
                   }}
                 />
               )}
-              <div className="w-1/2 h-full max-h-44">
-                {currentPage === 7 && (
+              {currentPage === 7 && (
+                <div className="w-1/2 h-full max-h-44">
                   <MultiFileDropzoneUsage
-                    file={file}
-                    setFile={setFile}
                     error={fileError}
                     required
                   />
-                )}
-              </div>
+                </div>
+              )}
             </CardContent>
           </motion.div>
         </AnimatePresence>
@@ -264,7 +262,9 @@ export default function MultiPageForm() {
             Previous
           </Button>
           {currentPage < 7 ? (
-            <Button onClick={handleNext} disabled={isSubmitting}>Next</Button>
+            <Button onClick={handleNext} disabled={isSubmitting}>
+              Next
+            </Button>
           ) : (
             <Button
               onClick={authorForm.handleSubmit(handleSubmit)}
