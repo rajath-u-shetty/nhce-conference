@@ -10,7 +10,7 @@ export default function SignIn() {
   if (session) {
     return (
       <div className="space-y-3">
-        <p className="bg-purple-600 max-w-64 items-center rounded-md ">
+        <div className="bg-purple-600 max-w-64 items-center rounded-md ">
           <div className="p-6">
             Signed in as{" "}
             <span className="font-medium">{session.user?.email}</span>
@@ -18,7 +18,7 @@ export default function SignIn() {
             Role:{" "}
             <span className="font-medium">{session.user?.role}</span>
           </div>
-        </p>
+        </div>
         <Button variant={"destructive"} onClick={() => signOut({ callbackUrl: "/" })}>
           Sign out
         </Button>

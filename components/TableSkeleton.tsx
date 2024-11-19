@@ -25,9 +25,9 @@ export default function TableSkeleton() {
             </TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody className='text-white '>
+        <TableBody className='text-white' >
           {Array(6).fill(0).map((_, i) => (
-            <TableRow className="space-y-16" >
+            <TableRow className="space-y-16" key={i}>
               <TableCell>
                 <Skeleton className=" h-6 rounded-md" />
               </TableCell>
