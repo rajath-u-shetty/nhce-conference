@@ -6,9 +6,11 @@ import { Menu, UserPlus, X } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
+  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
+  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
@@ -102,6 +104,18 @@ export default function Navbar() {
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
+                <Link href="/committees/advisory" legacyBehavior passHref>
+                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), 
+                    "text-white hover:bg-red-700 hover:text-white px-3 py-2 text-sm font-medium")}>
+                    Advisory Committee
+                  </NavigationMenuLink>
+                </Link>
+                <Link href="/organizing-committee" legacyBehavior passHref>
+                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), 
+                    "text-white hover:bg-red-700 hover:text-white px-3 py-2 text-sm font-medium")}>
+                    Organizing Committee
+                  </NavigationMenuLink>
+                </Link>
                 <NavigationMenuItem>
                   <Link href="/about" legacyBehavior passHref>
                     <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), 
@@ -149,6 +163,20 @@ export default function Navbar() {
                 onClick={toggleMenu}
               >
                 Home
+              </Link>
+              <Link 
+                href="/committees/advisory" 
+                className="block text-white hover:bg-red-700 rounded-md px-4 py-2 text-base font-medium transition-colors" 
+                onClick={toggleMenu}
+              >
+                Advisory Committee
+              </Link>
+              <Link 
+                href="/organizing-committee" 
+                className="block text-white hover:bg-red-700 rounded-md px-4 py-2 text-base font-medium transition-colors" 
+                onClick={toggleMenu}
+              >
+                Organizing Committee
               </Link>
               <Link 
                 href="/about" 

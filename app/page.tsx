@@ -2,13 +2,14 @@ import { Button } from "@/components/ui/button";
 import { FlipWords } from "@/components/ui/flip-words";
 import Link from "next/link";
 
-const words = ["Change","Enthusiasm","Curiosity","Advancement"]
+const words = ["Change","Enthusiasm","Inquisitiveness","Curiosity","Advancement","Enhancement","Developement"]
 export default function LandingPage() {
   return (
     <>
       <div className="lg:ml-20 ml-10 py-10 flex flex-col gap-7">
-        <div className="text-orange-600 lg:text-2xl font-bold font-mono ">
-          NHCE Conference 24 | Banglore, Karnataka
+        <div className="text-orange-600 lg:text-2xl font-semibold font-mono ">
+          First International Conference on Advanced Wireless Communication,<br />Power and AI for Smart City<br />
+          <div className="font-bold">IAWCPASC - 2025</div>
         </div>
         <div className="lg:text-9xl font-bold mb-8 text-5xl">
           Celebrating<br/>

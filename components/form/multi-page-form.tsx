@@ -153,6 +153,7 @@ export default function MultiPageForm() {
         // Redirect to dashboard
         router.push('/dashboard');
       }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error('Submission error:', error);
 

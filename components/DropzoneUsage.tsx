@@ -101,10 +101,10 @@ export function MultiFileDropzoneUsage({ file, setFile, error, required = true }
     });
   }
 
-  const handleRemoveFile = () => {
-    setFileStates([]);
-    setFile(null);
-  };
+  // const handleRemoveFile = () => {
+  //   setFileStates([]);
+  //   setFile(null);
+  // };
 
   return (
     <div className="space-y-2">
