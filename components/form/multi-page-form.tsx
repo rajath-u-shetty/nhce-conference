@@ -104,6 +104,7 @@ export default function MultiPageForm() {
         try {
           const res = await edgestore.publicFiles.upload({
             file: pendingFile,
+
           })
 
           setSelectedFile({

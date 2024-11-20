@@ -1,8 +1,8 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
-import { CheckCircle, XCircle, NotebookPen, ChevronDown, FileX2, ArrowUpDownIcon, ArrowUp, ArrowDown } from 'lucide-react'
+import { CheckCircle, XCircle, NotebookPen, ChevronDown, FileX2, ArrowUp, ArrowDown } from 'lucide-react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import axios, { AxiosError } from "axios"
 import Link from 'next/link'
@@ -19,6 +19,7 @@ import { PaperStatus } from "@prisma/client"
 import TableSkeleton from './TableSkeleton'
 import { useCustomToast } from './AcceptanceUndoHook'
 import { usePaperStatusStore } from '@/lib/stores/PaperStatusStore'
+import { ReviewerCommentsForm } from './CommentsDialog'
 
 type Paper = {
   title: string;
@@ -39,6 +40,14 @@ interface PaperPayload {
   sortBy?: SortedOrder
 }
 
+// interface Comment {
+//   id: string;
+//   paperId: string;
+//   userId: string;
+//   comment: string;
+//   createdAt: string;
+// }
+//
 export const AdminTable = () => {
   const { toast } = useToast()
   const queryClient = useQueryClient()
@@ -46,6 +55,7 @@ export const AdminTable = () => {
   const { undoAcceptanceToast, undoRejectionToast } = useCustomToast()
   const [sortedPapers, setSortedPapers] = useState<SortedOrder>('asc')
   const { selectedPaperStatus, setSelectedPaperStatus } = usePaperStatusStore();
+  // const [comments, setComments] = useState<Comment[]>([])
 
   const { data: papers, isLoading, error } = useQuery({
     queryKey: ['papers', selectedPaperStatus, sortedPapers],
@@ -72,7 +82,7 @@ export const AdminTable = () => {
       const { data } = await axios.post('/api/papers/approve', payload);
       return data;
     },
-    onError: (err, paperId, context) => {
+    onError: (err) => {
       if (err instanceof AxiosError) {
         toast({
           title: err.response?.status === 401 ? 'Unauthorized' : 'Error',
@@ -96,7 +106,7 @@ export const AdminTable = () => {
       const { data } = await axios.post('/api/papers/reject', payload);
       return data;
     },
-    onError: (err, paperId, context) => {
+    onError: () => {
       toast({
         title: 'Rejection Failed',
         description: 'Could not reject the paper',
@@ -224,6 +234,7 @@ export const AdminTable = () => {
                   <DialogContent className="md:min-w-[600px] max-h-[70vh] overflow-y-auto">
                     <DialogHeader>
                       <DialogTitle className="leading-relaxed">Add Comments</DialogTitle>
+                      <ReviewerCommentsForm />
                     </DialogHeader>
                   </DialogContent>
                 </Dialog>

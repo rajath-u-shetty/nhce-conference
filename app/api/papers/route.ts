@@ -48,7 +48,7 @@ export async function GET(req: NextRequest) {
       status: 200,
     });
 
-  } catch (e: any) {
+  } catch (e) {
     console.log("GET request failed at /api/papers", e);
     return new Response(JSON.stringify({ message: "Error" }), { status: 500 })
   }

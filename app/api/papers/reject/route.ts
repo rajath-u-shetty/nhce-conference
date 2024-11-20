@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json({ message: "Paper Approved" }, { status: 200 });
-  } catch (e: any) {
+  } catch (e) {
     console.error("POST request failed at /api/papers/approve", e);
     return NextResponse.json(
       { error: "Internal Server Error" }, 

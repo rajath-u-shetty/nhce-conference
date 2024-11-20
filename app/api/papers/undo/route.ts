@@ -39,11 +39,8 @@ export async function POST(req: Request) {
 
     return NextResponse.json(result, { status: 200 });
 
-  } catch (error: any) {
-    console.error('Error in /api/papers/approve/undo', {
-      error: error,
-      message: error.message,
-    });
+  } catch (e) {
+    console.error('Error in /api/papers/approve/undo', e) 
 
     return new NextResponse("Internal Server Error", { status: 500 });
   }

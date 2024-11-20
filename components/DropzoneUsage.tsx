@@ -62,7 +62,6 @@
 
 'use client'
 import { MultiFileDropzone, type FileState } from '@/components/Dropzone'
-import { useToast } from '@/hooks/use-toast'
 import { useFileStore } from '@/lib/stores/FileUploadStore'
 import { useState } from 'react'
 
@@ -74,7 +73,6 @@ type Props = {
 export function MultiFileDropzoneUsage({ error, required = true }: Props) {
   const [fileStates, setFileStates] = useState<FileState[]>([])
   const { pendingFile, setPendingFile, selectedFile } = useFileStore()
-  const { toast } = useToast()
 
   const handleRemoveFile = () => {
     setFileStates([])

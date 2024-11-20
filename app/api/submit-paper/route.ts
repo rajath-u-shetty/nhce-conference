@@ -13,7 +13,7 @@ export async function POST(req: Request) {
 
   try {
     const body = await req.json();
-    const { author, coAuthors, file, userId, paperDetails } = multiFormValidator.parse(body);
+    const { author, coAuthors, file, paperDetails } = multiFormValidator.parse(body);
 
     // Filter out empty co-authors before processing
     const validCoAuthors = coAuthors.filter((coAuthor: CoAuthorDetails) => 
@@ -84,15 +84,16 @@ export async function POST(req: Request) {
       paper: result,
       status: 200,
     });
-  } catch (error: any) {
-    console.error('Detailed API error:', {
-      error: error,
-      message: error.message,
-      code: error.code,
-      meta: error.meta,
-      stack: error.stack
-    });
-
+  } catch (error) {
+    // console.error('Detailed API error:', {
+    //   error: error,
+    //   message: error.message,
+    //   code: error.code,
+    //   meta: error.meta,
+    //   stack: error.stack
+    // });
+    //
+    console.error('Detailed API error:', error);
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       switch (error.code) {
         case 'P2028':
@@ -134,7 +135,7 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json(
-      { message: 'Error submitting paper. Please try again.', error: error.message },
+      { message: 'Error submitting paper. Please try again.', error: error },
       { status: 500 }
     );
   }

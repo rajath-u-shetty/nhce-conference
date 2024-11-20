@@ -6,11 +6,9 @@ import { Menu, UserPlus, X } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
@@ -57,7 +55,7 @@ export default function Navbar() {
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange);
     };
-  }, [router]);
+  }, []);
 
   return (
     <nav className="backdrop-blur-lg text-primary-foreground py-2 md:py-4 relative z-20">
