@@ -4,8 +4,9 @@ const page = () => {
   	return (
 		<div className="lg:ml-20 ml-10 py-10 flex flex-col gap-7 lg:mr-20 font-mono mr-20">
 			<div className="text-orange-600 lg:text-2xl font-bold font-mono ">
-				ADVISORY COMMITTEE
-					<div className="font-bold">IAWCPASC - 2025<br />New Horizon College of Engineering</div>
+					IAWCPASC - 2025
+					<br/><br/>
+					<div className="font-bold text-gray-400">ADVISORY COMMITTEE</div>
 			</div>
 			<div className='flex '>
 				<div className="h-screen w-full flex flex-col md:flex-row">

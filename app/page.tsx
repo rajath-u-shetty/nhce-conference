@@ -19,7 +19,7 @@ export default function LandingPage() {
         
         <div className="bg-white rounded-full w-80 h-14">
           <Link href="/submission">
-            <Button className="ml-60  bg-yellow-400 hover:bg-red-600 rounded-full w-28 h-14  sm:mr-7 font-bold text-xl">
+            <Button className="ml-60  bg-yellow-400 hover:bg-yellow-600 rounded-full w-28 h-14  sm:mr-7 font-bold text-xl">
               Submit
             </Button>
           </Link>
@@ -28,12 +28,12 @@ export default function LandingPage() {
         <div className="flex flex-row gap-3 items-center">
           <div className="w-4 h-4 bg-orange-500"></div>
           <div className="text-green-700 lg:text-2xl font-bold  ">
-            Feburary 30th | 10:00 AM - 02:30 PM IST
+            March 7th & 8th | 10:00 AM - 02:30 PM IST
           </div>
         </div>
         
         <div className="text-pink-500 lg:text-2xl font-bold font-mono ">
-          <div className="text-red-600 lg:text-2xl font-bold font-mono">Note: </div> Accepting papers for forever
+          <div className="text-red-600 lg:text-2xl font-bold font-mono">Note: </div> Accepting papers till<br/>January 15th 2025
         </div>
       </div>
     </>

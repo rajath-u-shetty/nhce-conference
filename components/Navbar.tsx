@@ -61,11 +61,11 @@ export default function Navbar() {
 
   return (
     <nav className="backdrop-blur-lg text-primary-foreground py-2 md:py-4 relative z-20">
-      <div className="px-4 md:mx-20">
+      <div className="px-1 md:mx-20">
         <div className="flex items-center justify-between">
           {/* Logo container with horizontal scroll on mobile */}
           <div className="flex-1 overflow-x-auto scrollbar-hide">
-            <div className="flex items-center gap-4 md:gap-9 min-w-max">
+            <div className="flex items-center gap-1 md:gap-2 min-w-max">
               <Link href="/" className="flex items-center space-x-4">
                 <Image
                   src="/NHCE White Logo Transparent.png"
@@ -95,7 +95,7 @@ export default function Navbar() {
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-2 ml-4">
             <NavigationMenu>
-              <NavigationMenuList className="flex items-center space-x-1 gap-6">
+              <NavigationMenuList className="flex items-center space-x-1 gap-3">
                 <NavigationMenuItem>
                   <Link href="/" legacyBehavior passHref>
                     <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), 
@@ -104,18 +104,30 @@ export default function Navbar() {
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <Link href="/about-conference" legacyBehavior passHref>
+                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), 
+                      "text-white hover:bg-red-700 hover:text-white px-3 py-2 text-sm font-medium")}>
+                      About Conference
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
                 <Link href="/committees/advisory" legacyBehavior passHref>
                   <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), 
                     "text-white hover:bg-red-700 hover:text-white px-3 py-2 text-sm font-medium")}>
                     Advisory Committee
                   </NavigationMenuLink>
                 </Link>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
                 <Link href="/organizing-committee" legacyBehavior passHref>
                   <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), 
                     "text-white hover:bg-red-700 hover:text-white px-3 py-2 text-sm font-medium")}>
                     Organizing Committee
                   </NavigationMenuLink>
                 </Link>
+                </NavigationMenuItem>
                 <NavigationMenuItem>
                   <Link href="/about" legacyBehavior passHref>
                     <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), 
@@ -163,6 +175,13 @@ export default function Navbar() {
                 onClick={toggleMenu}
               >
                 Home
+              </Link>
+              <Link 
+                href="/about-conference" 
+                className="block text-white hover:bg-red-700 rounded-md px-4 py-2 text-base font-medium transition-colors" 
+                onClick={toggleMenu}
+              >
+                About Conference
               </Link>
               <Link 
                 href="/committees/advisory" 

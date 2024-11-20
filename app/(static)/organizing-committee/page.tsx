@@ -8,11 +8,12 @@ const Page = () => {
         <div className="flex-1">
           {/* Organizing Committee Section */}
           <div className="text-orange-600 lg:text-2xl ml-20 pt-7 font-bold font-mono">
-            ORGANIZING COMMITTEE
-            <div className="font-bold">
-              IAWCPASC - 2025
-              <br />
-              New Horizon College of Engineering
+					  IAWCPASC - 2025
+					  <br />
+					  <br/>
+            <div className="font-bold text-gray-400">
+            ORGANIZING COMMITTEE  
+             
             </div>
           </div>
 
@@ -73,7 +74,7 @@ const Page = () => {
           </div>
 
           {/* Technical Programme Committee Section */}
-          <div className="text-orange-600 lg:text-2xl ml-20 pt-10 font-bold font-mono">
+          <div className="text-gray-400 lg:text-2xl ml-20 pt-10 font-bold font-mono">
             TECHNICAL PROGRAMME COMMITTEE
             
           </div>
