@@ -76,6 +76,7 @@ export default function RootLayout({
                 {/* Optional semi-transparent overlay */}
                 <div className="min-h-screen bg-black/30">
                   <Toaster />
+                  <Navbar />
                   {children}
                 </div>
               </div>
