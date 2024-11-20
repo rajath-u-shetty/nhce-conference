@@ -34,9 +34,10 @@ export default function RootLayout({
           style={{
             backgroundImage: `
               image-set(
-                url('/jj.jpg') 1x,
-                url('/jj.jpg') 2x,
-                url('/jj.jpg') 3x
+                url('/chargebee.jpg') 1x,
+
+                url('/chargebee.jpg') 2x,
+                url('/chargebee.jpg') 3x
               )`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
@@ -54,7 +55,7 @@ export default function RootLayout({
               srcSet="/backgrounds/Chargebee-tablet.jpg"
             />
             <img
-              src="/jj.jpg"
+              src="/chargebee.jpg"
               alt="Background"
               className="object-cover w-full h-full"
               loading="eager"
