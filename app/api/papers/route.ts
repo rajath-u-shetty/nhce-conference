@@ -1,7 +1,9 @@
 import { getUserAuth } from "@/lib/auth/utils";
 import { db } from "@/lib/db";
+import { PaperStatus } from "@prisma/client";
+import { NextRequest } from "next/server";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   const session = await getUserAuth();
 
   if (!session.session?.user.id) {
@@ -12,13 +14,21 @@ export async function GET() {
     return new Response("Unauthorized", { status: 401 });
   }
 
+  const { searchParams } = new URL(req.url);
+
+  const status = searchParams.get("status") as PaperStatus | 'ALL';
+  const sortOrder = (searchParams.get('sortBy') || 'desc') as 'asc' | 'desc'
+
+  const whereCondition = status === 'ALL'
+    ? {}
+    : { status }
+
+
   try {
     const papers = await db.paper.findMany({
-      where: {
-        status: "PENDING",
-      },
+      where: whereCondition,
       orderBy: {
-        createdAt: "asc",
+        createdAt: sortOrder,
       },
       select: {
         title: true,
@@ -37,9 +47,9 @@ export async function GET() {
     return new Response(JSON.stringify(papers), {
       status: 200,
     });
+
   } catch (e: any) {
     console.log("GET request failed at /api/papers", e);
     return new Response(JSON.stringify({ message: "Error" }), { status: 500 })
-
   }
 }
