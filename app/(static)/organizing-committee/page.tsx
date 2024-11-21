@@ -7,9 +7,8 @@ const Page = () => {
         {/* Left Section - Organizing Committee and Technical Programme Committee */}
         <div className="flex-1">
           {/* Organizing Committee Section */}
-          <div className="text-orange-600 lg:text-2xl ml-20 pt-7 font-bold font-mono">
-					  IAWCPASC - 2025
-					  <br />
+          <div className="text-orange-400 lg:text-xl ml-20 pt-7 font-bold font-mono">
+					  *SCOPUS INDEX PUBLICATIONS*
 					  <br/>
             <div className="font-bold text-gray-400">
             ORGANIZING COMMITTEE  
@@ -57,7 +56,7 @@ const Page = () => {
             <details className="w-full text-orange-300 font-bold shadow-md rounded-lg p-4 mt-4">
               <summary className="cursor-pointer text-lg font-bold">CONVENER</summary>
               <ul className="mt-2 space-y-2 text-gray-400 font-medium">
-                <li>Dr. Arun Kumar, Professor, Dept of ECE, NHCE, Bengaluru</li>
+                <li>Dr. Arun Kumar, Associate Professor, Dept of ECE, NHCE, Bengaluru</li>
                 <li>Dr. A.B.Gurulakshmi, Professor, Dept of ECE, NHCE, Bengaluru</li>
               </ul>
             </details>
@@ -106,14 +105,14 @@ const Page = () => {
         {/* Right Section - Important Dates */}
         <div className="w-1/3 ml-8 pt-32">
           <div className="text-3xl font-bold text-red-500 mt-8">Important Dates</div>
-          <div className="p-6 rounded-lg mt-6 shadow-lg w-full max-w-md">
+          <div className="p-6 rounded-lg mt-6 shadow-lg w-full max-w-md bg-slate-700">
             <div className="mb-4">
               <h3 className="text-xl font-bold text-orange-500">Paper Submission Deadline:</h3>
               <p className="text-orange-300 font-bold">January 15th ,2025</p>
             </div>
             <div className="mb-4">
               <h3 className="text-xl font-bold text-orange-500">First Notification Review</h3>
-              <p className="text-orange-300 font-bold">Coming soon </p>
+              <p className="text-orange-300 font-bold">January 30th ,2025</p>
             </div>
             
             <div className="mb-4">
