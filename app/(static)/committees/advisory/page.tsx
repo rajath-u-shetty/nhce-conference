@@ -15,22 +15,36 @@ const page = () => {
 						{/* <h2 className="text-2xl font-bold mt-8">Left Section</h2> */}
 						{/* Dropdown 1 */}
 						<details className="w-full text-orange-300 font-bold shadow-md rounded-lg p-4 mt-4">
-						<summary className="cursor-pointer text-lg font-bold">International Advisory Committee</summary>
-						<ul className="mt-2 space-y-2">
-							<li>Item 1</li>
-							<li>Item 2</li>
-							<li>Item 3</li>
+						<summary className="cursor-pointer font-bold text-3xl">International Advisory Committee</summary>
+						<ul className="mt-2 space-y-2 text-gray-400 flex flex-col gap-2 mt-2">
+							<li>Craig Chin: Kennesaw State University, USA</li>
+							<li>Sumit Chakravarty: Kennesaw State University, USA</li>
+							<li>Hassan Tanveer: Kennesaw State University, USA</li>
+							<li>Kamesh Namuduri: Kennesaw State University, USA</li>
+							<li>Aziz Nanthamornphong: Prince of Songkla University, Phuket, Thailand
+								<ul>
+								<li>Email: aziz.n@phuket.psu.ac.th</li>
+								</ul>
+							</li>
+							<li>Mohammed H. Alsharif: Sejong University, South Korea</li>
+							<li>Mahmoud A. Albreem: University of Sharjah</li>
+							<li>Dac-Nhuong Le: Institute of Research and Development, Duy Tan University, Danang 550000, Vietnam</li>
+							<li>Ayman A. Aly: Taif University, Saudi Arabia</li>
+							<li>Fahad Alraddady: Taif University, Saudi Arabia</li>
+							<li>Mehedi Masud: Taif University, Saudi Arabia</li>
+							<li>Mohammed A. AlZain: Taif University, Saudi Arabia</li>
+							<li>Samah H. Alajmani: Taif University, Saudi Arabia</li>
 						</ul>
 						</details>
 						{/* Dropdown 2 */}
-						<details className="w-full text-orange-300  font-bold shadow-md rounded-lg p-4 mt-4">
+						{/* <details className="w-full text-orange-300  font-bold shadow-md rounded-lg p-4 mt-4">
 						<summary className="cursor-pointer text-lg font-bold">National Advisory Committee</summary>
 						<ul className="mt-2 space-y-2">
 							<li>Option 1</li>
 							<li>Option 2</li>
 							<li>Option 3</li>
 						</ul>
-						</details>
+						</details> */}
 					</div>
 
 					{/* Right Section */}
