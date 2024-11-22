@@ -7,7 +7,7 @@ import {
   RotateCw,
   Search,
 } from 'lucide-react'
-import { Document, Page } from 'react-pdf'
+import { Document, Page, pdfjs } from 'react-pdf'
 
 import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
@@ -33,11 +33,8 @@ import SimpleBar from 'simplebar-react'
 import { useToast } from '@/hooks/use-toast'
 import PdfFullScreen from './pdfFullScreen'
 
-import * as pdfjs from 'pdfjs-dist'
-import 'pdfjs-dist/build/pdf.worker'
-
 // Explicitly set the worker source with the exact version
-pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.js`
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 interface PdfRendererProps {
   url: string
