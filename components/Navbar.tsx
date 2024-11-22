@@ -105,10 +105,10 @@ export default function Navbar() {
                   </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <Link href="/about-conference" legacyBehavior passHref>
+                  <Link href="/scope" legacyBehavior passHref>
                     <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), 
                       "text-white hover:bg-red-700 hover:text-white px-3 py-2 text-sm font-medium")}>
-                      About Conference
+                      Scope
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
@@ -177,11 +177,11 @@ export default function Navbar() {
                 Home
               </Link>
               <Link 
-                href="/about-conference" 
+                href="/scope" 
                 className="block text-white hover:bg-red-700 rounded-md px-4 py-2 text-base font-medium transition-colors" 
                 onClick={toggleMenu}
               >
-                About Conference
+                Scope
               </Link>
               <Link 
                 href="/committees/advisory" 
