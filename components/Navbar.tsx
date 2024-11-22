@@ -6,11 +6,9 @@ import { Menu, UserPlus, X } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
@@ -99,7 +97,7 @@ export default function Navbar() {
                 <NavigationMenuItem>
                   <Link href="/" legacyBehavior passHref>
                     <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), 
-                      "text-white hover:bg-red-700 hover:text-white px-3 py-2 text-sm font-medium")}>
+                      "text-white hover:text-white px-3 py-2 text-sm font-medium")}>
                       Home
                     </NavigationMenuLink>
                   </Link>
@@ -107,7 +105,7 @@ export default function Navbar() {
                 <NavigationMenuItem>
                   <Link href="/scope" legacyBehavior passHref>
                     <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), 
-                      "text-white hover:bg-red-700 hover:text-white px-3 py-2 text-sm font-medium")}>
+                      "text-white hover:text-white px-3 py-2 text-sm font-medium")}>
                       Scope
                     </NavigationMenuLink>
                   </Link>
@@ -115,7 +113,7 @@ export default function Navbar() {
                 <NavigationMenuItem>
                 <Link href="/committees/advisory" legacyBehavior passHref>
                   <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), 
-                    "text-white hover:bg-red-700 hover:text-white px-3 py-2 text-sm font-medium")}>
+                    "text-white hover:text-white px-3 py-2 text-sm font-medium")}>
                     Advisory Committee
                   </NavigationMenuLink>
                 </Link>
@@ -123,7 +121,7 @@ export default function Navbar() {
                 <NavigationMenuItem>
                 <Link href="/organizing-committee" legacyBehavior passHref>
                   <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), 
-                    "text-white hover:bg-red-700 hover:text-white px-3 py-2 text-sm font-medium")}>
+                    "text-white hover:text-white px-3 py-2 text-sm font-medium")}>
                     Organizing Committee
                   </NavigationMenuLink>
                 </Link>
@@ -131,7 +129,7 @@ export default function Navbar() {
                 <NavigationMenuItem>
                   <Link href="/about" legacyBehavior passHref>
                     <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), 
-                      "text-white hover:bg-red-700 hover:text-white px-3 py-2 text-sm font-medium")}>
+                      "text-white hover:text-white px-3 py-2 text-sm font-medium")}>
                       About us
                     </NavigationMenuLink>
                   </Link>
@@ -139,7 +137,7 @@ export default function Navbar() {
                 <NavigationMenuItem>
                   <Link href="/submission" legacyBehavior passHref>
                     <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), 
-                      "text-white hover:bg-red-700 hover:text-white px-3 py-2 text-sm font-medium")}>
+                      "text-white hover:text-white px-3 py-2 text-sm font-medium")}>
                       Submissions
                     </NavigationMenuLink>
                   </Link>
@@ -148,7 +146,7 @@ export default function Navbar() {
             </NavigationMenu>
 
             <Link href='/sign-in' className="ml-4">
-              <Button variant="outline" className="text-white border-white hover:bg-red-700 text-sm">
+              <Button variant="outline" className="text-white border-white text-sm">
                 <UserPlus className="mr-2 h-4 w-4" />
                 Sign In
               </Button>
@@ -171,48 +169,48 @@ export default function Navbar() {
             <div className="px-4 py-4 space-y-3">
               <Link 
                 href="/" 
-                className="block text-white hover:bg-red-700 rounded-md px-4 py-2 text-base font-medium transition-colors" 
+                className="block text-white rounded-md px-4 py-2 text-base font-medium transition-colors" 
                 onClick={toggleMenu}
               >
                 Home
               </Link>
               <Link 
                 href="/scope" 
-                className="block text-white hover:bg-red-700 rounded-md px-4 py-2 text-base font-medium transition-colors" 
+                className="block text-white rounded-md px-4 py-2 text-base font-medium transition-colors" 
                 onClick={toggleMenu}
               >
                 Scope
               </Link>
               <Link 
                 href="/committees/advisory" 
-                className="block text-white hover:bg-red-700 rounded-md px-4 py-2 text-base font-medium transition-colors" 
+                className="block text-white rounded-md px-4 py-2 text-base font-medium transition-colors" 
                 onClick={toggleMenu}
               >
                 Advisory Committee
               </Link>
               <Link 
                 href="/organizing-committee" 
-                className="block text-white hover:bg-red-700 rounded-md px-4 py-2 text-base font-medium transition-colors" 
+                className="block text-white rounded-md px-4 py-2 text-base font-medium transition-colors" 
                 onClick={toggleMenu}
               >
                 Organizing Committee
               </Link>
               <Link 
                 href="/about" 
-                className="block text-white hover:bg-red-700 rounded-md px-4 py-2 text-base font-medium transition-colors" 
+                className="block text-white rounded-md px-4 py-2 text-base font-medium transition-colors" 
                 onClick={toggleMenu}
               >
                 About us
               </Link>
               <Link 
                 href="/submission" 
-                className="block text-white hover:bg-red-700 rounded-md px-4 py-2 text-base font-medium transition-colors" 
+                className="block text-white rounded-md px-4 py-2 text-base font-medium transition-colors" 
                 onClick={toggleMenu}
               >
                 Submissions
               </Link>
               <Link href='/sign-in' className="block" onClick={toggleMenu}>
-                <Button variant="outline" className="w-full text-white border-white hover:bg-red-700 text-base">
+                <Button variant="outline" className="w-full text-white border-white text-base">
                   <UserPlus className="mr-2 h-5 w-5" />
                   Sign In
                 </Button>

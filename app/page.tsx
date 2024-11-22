@@ -32,7 +32,7 @@ export default function LandingPage() {
           </div>
         </div>
         
-        <div className="text-pink-500 lg:text-2xl font-bold font-mono ">
+        <div className="text-pink-200 lg:text-2xl font-bold font-mono ">
           <div className="text-red-600 lg:text-2xl font-bold font-mono">Note: </div> The Scopus index book proceeding will include<br/>all accepted papers.
         </div>
       </div>

@@ -10,9 +10,8 @@ const Page = () => {
           <div className="text-orange-400 lg:text-xl ml-20 pt-7 font-bold font-mono">
 					  *SCOPUS INDEX PUBLICATIONS*
 					  <br/>
-            <div className="font-bold text-gray-400">
-            ORGANIZING COMMITTEE  
-             
+            <div className="font-bold text-gray-400 pt-7">
+            COMMITTEES
             </div>
           </div>
 
@@ -63,7 +62,7 @@ const Page = () => {
 
             {/* ORGANIZING SECRETARIES */}
             <details className="w-full text-orange-300 font-bold shadow-md rounded-lg p-4 mt-4">
-              <summary className="cursor-pointer text-lg font-bold">ORGANIZING SECRETARIES</summary>
+              <summary className="cursor-pointer text-lg font-bold">ORGANIZING COMMITTEE</summary>
               <ul className="mt-2 space-y-2 text-gray-400 font-medium">
                 <li>Dr. Rajesh G Professor, Dept of ECE, NHCE, Bengaluru</li>
                 <li>Dr. Vinoth Kumar K Professor, Dept of EEE, NHCE, Bengaluru</li>
