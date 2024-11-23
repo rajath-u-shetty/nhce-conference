@@ -19,7 +19,7 @@ const Page = () => {
             {/* CHIEF PATRON */}
             <details className="w-full text-orange-300 font-bold shadow-md rounded-lg p-4 mt-4">
               <summary className="cursor-pointer text-lg font-bold">CHIEF PATRON</summary>
-              <ul className="mt-2 space-y-2 text-gray-400 font-medium">
+              <ul className="mt-2 space-y-2 text-white font-medium">
                 <li>Dr. Mohan Manghnani, Founder Chairman, NHEI, Bengaluru</li>
                 <li>Mr. Dharmesh Manghnani, President, NHEI, Bengaluru</li>
               </ul>
@@ -28,7 +28,7 @@ const Page = () => {
             {/* PATRON */}
             <details className="w-full text-orange-300 font-bold shadow-md rounded-lg p-4 mt-4">
               <summary className="cursor-pointer text-lg font-bold">PATRON</summary>
-              <ul className="mt-2 space-y-2 text-gray-400 font-medium">
+              <ul className="mt-2 space-y-2 text-white font-medium">
                 <li>Dr. Manjunatha, Principal, NHCE, Bengaluru</li>
               </ul>
             </details>
@@ -36,7 +36,7 @@ const Page = () => {
             {/* GENERAL CHAIR */}
             <details className="w-full text-orange-300 font-bold shadow-md rounded-lg p-4 mt-4">
               <summary className="cursor-pointer text-lg font-bold">GENERAL CHAIR</summary>
-              <ul className="mt-2 space-y-2 text-gray-400 font-medium">
+              <ul className="mt-2 space-y-2 text-white font-medium">
                 <li>Dr. Sanjeev Sharma, Director - NHCIIE, NHCE, Bengaluru</li>
               </ul>
             </details>
@@ -44,7 +44,7 @@ const Page = () => {
             {/* PROGRAM CHAIR */}
             <details className="w-full text-orange-300 font-bold shadow-md rounded-lg p-4 mt-4">
               <summary className="cursor-pointer text-lg font-bold">PROGRAM CHAIR</summary>
-              <ul className="mt-2 space-y-2 text-gray-400 font-medium">
+              <ul className="mt-2 space-y-2 text-white font-medium">
                 <li>Dr. Revathi V., Professor and Dean - Research, NHCE, Bengaluru</li>
                 <li>Dr. R J Anandhi, Professor and Dean - Academics, NHCE, Bengaluru</li>
                 <li>Dr. V. Asha, Professor and HoD – MCA, NHCE, Bengaluru</li>
@@ -54,7 +54,7 @@ const Page = () => {
             {/* CONVENER */}
             <details className="w-full text-orange-300 font-bold shadow-md rounded-lg p-4 mt-4">
               <summary className="cursor-pointer text-lg font-bold">CONVENER</summary>
-              <ul className="mt-2 space-y-2 text-gray-400 font-medium">
+              <ul className="mt-2 space-y-2 text-white font-medium">
                 <li>Dr. Arun Kumar, Associate Professor, Dept of ECE, NHCE, Bengaluru</li>
                 <li>Dr. A.B.Gurulakshmi, Professor, Dept of ECE, NHCE, Bengaluru</li>
               </ul>
@@ -63,7 +63,7 @@ const Page = () => {
             {/* ORGANIZING SECRETARIES */}
             <details className="w-full text-orange-300 font-bold shadow-md rounded-lg p-4 mt-4">
               <summary className="cursor-pointer text-lg font-bold">ORGANIZING COMMITTEE</summary>
-              <ul className="mt-2 space-y-2 text-gray-400 font-medium">
+              <ul className="mt-2 space-y-2 text-white font-medium">
                 <li>Dr. Rajesh G Professor, Dept of ECE, NHCE, Bengaluru</li>
                 <li>Dr. Vinoth Kumar K Professor, Dept of EEE, NHCE, Bengaluru</li>
                 <li>Dr. C.R. Rathish. Professor, Dept. of CSE, NHCE, Bengaluru</li>
@@ -80,7 +80,7 @@ const Page = () => {
           <div className="flex flex-col items-center ml-20 p-4">
             <details className="w-full text-orange-300 font-bold shadow-md rounded-lg p-4 mt-4">
               <summary className="cursor-pointer text-lg font-bold">TECHNICAL PROGRAMME COMMITTEE</summary>
-              <ul className="mt-2 space-y-2 text-gray-400 font-medium">
+              <ul className="mt-2 space-y-2 text-white font-medium">
                 <li>Dr. M S Raghu, Professor, Dept of R&D, NHCE, Bengaluru</li>
                 <li>Dr. Ramachandra Naik, Professor, Dept of R&D, NHCE, Bengaluru</li>
                 <li>Dr. Mohan Dass, Professor, Dept of EEE, NHCE, Bengaluru</li>
@@ -110,16 +110,16 @@ const Page = () => {
               <p className="text-orange-300 font-bold">January 15th ,2025</p>
             </div>
             <div className="mb-4">
-              <h3 className="text-xl font-bold text-orange-500">First Notification Review</h3>
+              <h3 className="text-xl font-bold text-orange-500">First Notification Review:</h3>
               <p className="text-orange-300 font-bold">January 30th ,2025</p>
             </div>
             
             <div className="mb-4">
-              <h3 className="text-xl font-bold text-orange-500">Final Decision date</h3>
+              <h3 className="text-xl font-bold text-orange-500">Final Decision Date:</h3>
               <p className="text-orange-300 font-bold">Feburary 15th ,2025</p>
             </div>
             <div>
-              <h3 className="text-xl font-bold text-orange-500">Conference Date:</h3>
+              <h3 className="text-xl font-bold text-orange-500">Paper Presentation Date:</h3>
               <p className="text-orange-300 font-bold">7th and 8th March 2025</p>
             </div>
           </div>
