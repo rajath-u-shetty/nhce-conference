@@ -25,12 +25,11 @@ declare module "next-auth" {
       role: Role;
     } & DefaultSession["user"];
   }
-
   interface User {
     id: string;
     role: Role;
-    email: string; // Always required
-    name?: string; // Optional, aligning with the database
+    email: string;
+    name?: string;
   }
 }
 
@@ -42,7 +41,6 @@ declare module "next-auth/jwt" {
 }
 
 export type Role = "USER" | "ADMIN";
-
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db) as Adapter,
@@ -65,13 +63,37 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
+      // Initial sign in
       if (user) {
         token.id = user.id;
         token.name = user.name || "";
         token.role = user.role;
         token.email = user.email;
       }
+
+      // Handle role updates
+      if (trigger === "update" && session?.user?.role) {
+        token.role = session.user.role;
+      }
+
+      // Always fetch fresh user data
+      const freshUser = await db.user.findUnique({
+        where: { id: token.id as string },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          role: true,
+        },
+      });
+
+      if (freshUser) {
+        token.role = freshUser.role;
+        token.name = freshUser.name || token.name;
+        token.email = freshUser.email;
+      }
+
       return token;
     },
 

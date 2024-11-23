@@ -13,7 +13,6 @@ import { MultiFileDropzoneUsage } from '../DropzoneUsage'
 import { useToast } from '@/hooks/use-toast'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
-import { useEdgeStore } from '@/lib/edgestore'
 import axios from 'axios'
 import {
   AuthorDetails,
@@ -25,11 +24,11 @@ import {
 } from '@/lib/validators/formValidator'
 import { PaperDetailsForm } from './paper-details'
 import { useFileStore } from '@/lib/stores/FileUploadStore'
+import { AuthSession } from '@/lib/auth/utils'
 
 export default function MultiPageForm() {
   const router = useRouter()
   const { data: session } = useSession()
-  const { edgestore } = useEdgeStore()
   const { pendingFile, setSelectedFile, selectedFile, reset: resetPaperStore } = useFileStore()
   
   const [currentPage, setCurrentPage] = useState(0)
@@ -100,29 +99,6 @@ export default function MultiPageForm() {
       setIsSubmitting(true)
 
       // Handle file upload first
-      if (!selectedFile && pendingFile) {
-        try {
-          const res = await edgestore.publicFiles.upload({
-            file: pendingFile,
-          })
-
-          setSelectedFile({
-            fileUrl: res.url,
-            fileSize: res.size,
-            userId: session.user.id,
-            uploadedBy: session.user.name || session.user.email!,
-            uploadedAt: res.uploadedAt.toISOString(),
-            name: pendingFile.name
-          })
-        } catch (error) {
-          toast({
-            title: 'Error uploading file',
-            description: 'Failed to upload research paper. Please try again.',
-            variant: 'destructive',
-          })
-          return
-        }
-      }
 
       // Validate required fields
       if (!selectedFile) {
@@ -248,6 +224,7 @@ export default function MultiPageForm() {
                   <MultiFileDropzoneUsage
                     error={fileError}
                     required
+                    session={session as AuthSession["session"]}
                   />
                 </div>
               )}

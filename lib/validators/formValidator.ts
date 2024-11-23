@@ -34,6 +34,9 @@ export type AuthorDetails = z.infer<typeof authorSchema>
 export const paperDetailsValidator = z.object({
   title: z.string().min(2, { message: "Title must be at least 2 characters." }),
   abstract: z.string().min(2, { message: "Abstract must be at least 2 characters." }),
+  termsAccepted: z.boolean().refine(val => val === true, {
+    message: 'You must accept the terms and conditions',
+  })
 });
 
 export type PaperDetailsRequest = z.infer<typeof paperDetailsValidator>;

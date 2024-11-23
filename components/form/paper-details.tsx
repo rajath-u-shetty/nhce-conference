@@ -3,8 +3,7 @@ import { Input } from "@/components/ui/input"
 import { PaperDetailsRequest } from "@/lib/validators/formValidator"
 import { UseFormReturn } from "react-hook-form"
 import { Textarea } from "../ui/textarea"
-
-
+import { Checkbox } from "../ui/checkbox"
 
 type PaperDetailsFormProps = {
   form: UseFormReturn<PaperDetailsRequest>
@@ -37,6 +36,26 @@ export function PaperDetailsForm({ form }: PaperDetailsFormProps) {
                 <Textarea placeholder="Abstract of the research paper" {...field} className="h-56 focus:ring-2 focus:ring-primary focus:border-primary" />
               </FormControl>
               <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="termsAccepted"
+          render={({ field }) => (
+            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+              <FormControl>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <div className="space-y-1 leading-none">
+                <FormLabel>
+                  I have read and agree to the terms and conditions
+                </FormLabel>
+                <FormMessage />
+              </div>
             </FormItem>
           )}
         />

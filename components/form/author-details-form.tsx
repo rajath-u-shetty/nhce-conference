@@ -44,7 +44,7 @@ export function AuthorDetailsForm({ form }: AuthorDetailsFormProps) {
             <FormItem className="w-full">
               <FormLabel>Mobile Number</FormLabel>
               <FormControl>
-                <Input placeholder="1234567890" {...field} className="focus:ring-2 focus:ring-primary focus:border-primary" />
+                <Input placeholder="99XXXXXXXXX" {...field} className="focus:ring-2 focus:ring-primary focus:border-primary" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -70,7 +70,7 @@ export function AuthorDetailsForm({ form }: AuthorDetailsFormProps) {
             <FormItem className="w-full">
               <FormLabel>Institute</FormLabel>
               <FormControl>
-                <Input placeholder="University of Example" {...field} className="focus:ring-2 focus:ring-primary focus:border-primary" />
+                <Input placeholder="New Horizon College of Engineering" {...field} className="focus:ring-2 focus:ring-primary focus:border-primary" />
               </FormControl>
               <FormMessage />
             </FormItem>

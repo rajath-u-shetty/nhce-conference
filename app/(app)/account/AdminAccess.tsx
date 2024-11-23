@@ -2,21 +2,19 @@
 'use client';
 
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-// import UserSettings from "./UserSettings";
-// import { checkAuth, getUserAuth } from "@/lib/auth/utils";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-
-// interface AccountPageProps {
-//   session: Awaited<ReturnType<typeof getUserAuth>>['session'];
-// }
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import { useSession } from "next-auth/react";
 
 export default function AdminAccessForm() {
   const [secretKey, setSecretKey] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const { data: session, update } = useSession();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,6 +33,14 @@ export default function AdminAccessForm() {
         const error = await response.json();
         throw new Error(error.message || 'Failed to add admin access');
       }
+
+      await update({
+        ...session,
+        user: {
+          ...session?.user,
+          role: "ADMIN"
+        }
+      });
 
       toast({
         title: "Success",

@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 import router from "next/router";
+import { useSession } from "next-auth/react";
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
@@ -42,6 +43,7 @@ ListItem.displayName = "ListItem";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false);
+  const { data: session } = useSession();
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -145,10 +147,10 @@ export default function Navbar() {
               </NavigationMenuList>
             </NavigationMenu>
 
-            <Link href='/sign-in' className="ml-4">
+            <Link href={session ? '/submission' : '/sign-in'} className="ml-4">
               <Button variant="outline" className="text-white border-white text-sm">
                 <UserPlus className="mr-2 h-4 w-4" />
-                Sign In
+                {session ? 'Submissions' : 'Sign In'}
               </Button>
             </Link>
           </div>

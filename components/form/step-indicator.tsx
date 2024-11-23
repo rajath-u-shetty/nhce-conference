@@ -1,94 +1,65 @@
-import { cn } from "@/lib/utils"
-import { Check } from 'lucide-react'
+import { CheckIcon } from 'lucide-react';
+import { cn } from "@/lib/utils";
 
 type StepIndicatorProps = {
-  currentStep: number
-  totalSteps: number
-}
+  currentStep: number;
+  totalSteps: number;
+};
 
 export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
   const steps = [
-    { label: 'Author' },
-    { label: 'Details' },
-    { label: 'Co-Author 1' },
-    { label: 'Co-Author 2' },
-    { label: 'Co-Author 3' },
-    { label: 'Co-Author 4' },
-    { label: 'Co-Author 5' },
-    { label: 'Upload' }
-  ]
-
-  // Calculate the progress percentage for the current step
-  const progress = (currentStep / (steps.length - 1)) * 100
+    'Author',
+    'Details',
+    'Co-Author 1',
+    'Co-Author 2',
+    'Co-Author 3',
+    'Co-Author 4',
+    'Co-Author 5',
+    'Upload',
+  ];
 
   return (
-    <div 
-      className="relative w-full max-w-2xl mx-auto py-1 px-3 border border-muted rounded-full"
-      role="navigation"
-      aria-label="Form progress"
-    >
-      <div className="flex justify-between items-center">
-        {steps.map((step, index) => (
-          <div 
-            key={index} 
-            className="relative flex flex-col items-center z-10"
-          >
-            {/* Connecting Lines */}
-            {index < steps.length - 1 && (
-              <div className="absolute top-[11px] left-[calc(50%+11px)] w-[calc(100%-22px)] h-0.5 flex items-center">
-                <div className="w-full h-full bg-muted rounded-full overflow-hidden">
-                  <div 
-                    className={cn(
-                      "h-full bg-primary transition-all duration-300 ease-in-out rounded-full",
-                      // The line should appear for steps before the current step
-                      index < currentStep
-                        ? "w-full"
-                        : index === currentStep
-                        ? `w-[${progress}%]`  // Set the progress line for the current step
-                        : "w-0"  // For steps after the current step, the line should be hidden
-                    )}
-                  />
-                </div>
-              </div>
-            )}
+    <div className="w-full max-w-2xl mx-auto py-4 px-6 border border-muted rounded-lg flex flex-wrap justify-between gap-4">
+      {steps.map((step, index) => {
+        const isCompleted = index < currentStep; // Adjusted to correctly reflect completion
+        const isCurrent = index === currentStep; // Matches zero-based `index` with `currentStep`
 
-            {/* Step Indicator */}
+        return (
+          <div key={step} className="flex flex-col items-center">
+            {/* Step Circle */}
             <div
               className={cn(
-                "w-6 h-6 rounded-full border flex items-center justify-center transition-all duration-300",
-                index < currentStep 
-                  ? "border-primary bg-primary text-primary-foreground"
-                  : index === currentStep
-                  ? "border-primary bg-background text-primary"
-                  : "border-muted bg-background text-muted-foreground"
+                'w-8 h-8 rounded-full flex items-center justify-center',
+                isCompleted
+                  ? 'bg-blue-500 text-white'
+                  : isCurrent
+                  ? 'bg-primary text-primary-foreground'
+                  : 'bg-gray-200 text-muted-foreground'
               )}
-              aria-current={index === currentStep ? "step" : undefined}
               aria-label={`Step ${index + 1} ${
-                index < currentStep ? 'completed' : 
-                index === currentStep ? 'current' : 
-                'pending'
+                isCompleted ? 'completed' : isCurrent ? 'current' : 'pending'
               }`}
+              aria-current={isCurrent ? 'step' : undefined}
             >
-              {index < currentStep ? (
-                <Check className="w-2.5 h-2.5" />
+              {isCompleted ? (
+                <CheckIcon className="w-5 h-5" />
               ) : (
-                <span className="w-2.5 h-2.5 flex items-center justify-center text-[9px] font-medium">
-                  {index + 1}
-                </span>
+                <span className="font-medium">{index + 1}</span>
               )}
             </div>
-            <span 
+            {/* Step Label */}
+            <span
               className={cn(
-                "mt-0.5 text-[8px] font-medium",
-                index <= currentStep ? "text-primary" : "text-muted-foreground"
+                'mt-2 text-xs text-center',
+                isCompleted || isCurrent ? 'text-primary' : 'text-muted-foreground'
               )}
             >
-              {step.label}
+              {step}
             </span>
           </div>
-        ))}
-      </div>
+        );
+      })}
     </div>
-  )
+  );
 }
 
