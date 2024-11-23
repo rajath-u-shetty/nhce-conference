@@ -3,21 +3,21 @@ import React from 'react';
 const Page = () => {
   return (
     <>
-      <div className="flex font-mono">
+      <div className="flex font-mono -pt-2">
         {/* Left Section - Organizing Committee and Technical Programme Committee */}
         <div className="flex-1">
           {/* Organizing Committee Section */}
-          <div className="text-orange-400 lg:text-xl ml-20 pt-7 font-bold font-mono">
-					  *SCOPUS INDEX PUBLICATIONS*
+          <div className="text-orange-400 text-2xl ml-20 pt-9 font-bold font-mono">
+					  SCOPUS INDEX PUBLICATIONS
 					  <br/>
-            <div className="font-bold text-gray-400 pt-7">
+            <div className="font-bold text-3xl text-gray-400 pt-7">
             COMMITTEES
             </div>
           </div>
 
           <div className="flex flex-col items-center ml-20 p-4">
             {/* CHIEF PATRON */}
-            <details className="w-full text-orange-300 font-bold shadow-md rounded-lg p-4 mt-4">
+            <details open className="w-full text-orange-300 font-bold shadow-md rounded-lg p-4 mt-4">
               <summary className="cursor-pointer text-lg font-bold">CHIEF PATRON</summary>
               <ul className="mt-2 space-y-2 text-white font-medium">
                 <li>Dr. Mohan Manghnani, Founder Chairman, NHEI, Bengaluru</li>
@@ -47,7 +47,6 @@ const Page = () => {
               <ul className="mt-2 space-y-2 text-white font-medium">
                 <li>Dr. Revathi V., Professor and Dean - Research, NHCE, Bengaluru</li>
                 <li>Dr. R J Anandhi, Professor and Dean - Academics, NHCE, Bengaluru</li>
-                <li>Dr. V. Asha, Professor and HoD – MCA, NHCE, Bengaluru</li>
               </ul>
             </details>
 
@@ -55,8 +54,8 @@ const Page = () => {
             <details className="w-full text-orange-300 font-bold shadow-md rounded-lg p-4 mt-4">
               <summary className="cursor-pointer text-lg font-bold">CONVENER</summary>
               <ul className="mt-2 space-y-2 text-white font-medium">
-                <li>Dr. Arun Kumar, Associate Professor, Dept of ECE, NHCE, Bengaluru</li>
-                <li>Dr. A.B.Gurulakshmi, Professor, Dept of ECE, NHCE, Bengaluru</li>
+                <li>Dr. Arun Kumar, Professor, Dept of ECE, NHCE, Bengaluru</li>
+                <li>Dr. Mohan Dass, Professor, Dept of EEE, NHCE, Bengaluru</li>
               </ul>
             </details>
 
@@ -64,9 +63,16 @@ const Page = () => {
             <details className="w-full text-orange-300 font-bold shadow-md rounded-lg p-4 mt-4">
               <summary className="cursor-pointer text-lg font-bold">ORGANIZING COMMITTEE</summary>
               <ul className="mt-2 space-y-2 text-white font-medium">
-                <li>Dr. Rajesh G Professor, Dept of ECE, NHCE, Bengaluru</li>
-                <li>Dr. Vinoth Kumar K Professor, Dept of EEE, NHCE, Bengaluru</li>
-                <li>Dr. C.R. Rathish. Professor, Dept. of CSE, NHCE, Bengaluru</li>
+              <li>Dr. Anusuya Devi V S, Professor & Head, Dept of Applied Sciences, NHCE, Bengaluru</li>
+              <li>Dr. Uma Reddy N V, Professor & Head, Dept of AIML, NHCE, Bengaluru</li>
+              <li>Dr. B Rajalakshmi, Professor & Head, Dept of CSE, NHCE, Bengaluru</li>
+              <li>Dr. Basawaraju Swathi, Professor & Head, Dept of CSE-DS, NHCE, Bengaluru</li>
+              <li>Dr. Aravinda Koithyar, Professor & Head, Dept of ECE, NHCE, Bengaluru</li>
+              <li>Dr. A Sakthivel, Professor & Head, Dept of EEE, NHCE, Bengaluru</li>
+              <li>Dr. Vandana C P, Professor & Head, Dept of ISE, NHCE, Bengaluru</li>
+              <li>Dr. Rakesh Chandrashekar, Professor & Head, Dept of ME, NHCE, Bengaluru</li>
+              <li>Dr. Rose Kavitha, Professor & Head, Dept of MBA, NHCE, Bengaluru</li>
+              <li>Dr. Asha V, Professor & Head, Dept of MCA, NHCE, Bengaluru</li>
               </ul>
             </details>
           </div>
@@ -81,21 +87,22 @@ const Page = () => {
             <details className="w-full text-orange-300 font-bold shadow-md rounded-lg p-4 mt-4">
               <summary className="cursor-pointer text-lg font-bold">TECHNICAL PROGRAMME COMMITTEE</summary>
               <ul className="mt-2 space-y-2 text-white font-medium">
-                <li>Dr. M S Raghu, Professor, Dept of R&D, NHCE, Bengaluru</li>
-                <li>Dr. Ramachandra Naik, Professor, Dept of R&D, NHCE, Bengaluru</li>
-                <li>Dr. Mohan Dass, Professor, Dept of EEE, NHCE, Bengaluru</li>
-                <li>Dr. Sreejith S., Professor, Dept. of AIML, NHCE, Bengaluru</li>
-                <li>Dr. K Gopal, Professor, Dept. of ME, NHCE, Bengaluru</li>
-                <li>Dr. Santhosh Krishna BV, Professor, Dept. of CSE, NHCE, Bengaluru</li>
-                <li>Dr. Siva Ramakrishnan S, Professor, Dept. of ISE, NHCE, Bengaluru</li>
-                <li>Dr. Kavitha T, Professor, Dept. of CSE, NHCE, Bengaluru</li>
-                <li>Dr. Joshua Daniel Raj J, Professor, Dept. of CSE(DS), Bengaluru</li>
-                <li>Dr. A B Madhu Mohana Raju, Professor, Dept. of AS, Bengaluru</li>
-                <li>Dr. B Nithya Ramesh, Professor, Dept. of MCA, Bengaluru</li>
-                <li>Dr. Priyameet Kaur, Professor, Dept. of MBA, Bengaluru</li>
-                <li>Dr. Mausri Bhuyan, Professor, Dept of EEE, NHCE, Bengaluru</li>
-                <li>Dr. Agalya V, Professor and Associate Head – R&D, NHCE, Bengaluru</li>
-                <li>Dr. Sujin Jose Arul, Professor – IIC Incharge, NHCE, Bengaluru</li>
+              <li>Dr. A B Madhu Mohana Raju, Professor, Dept of AS, Bengaluru</li>
+              <li>Dr. B Nithya Ramesh, Professor, Dept of MCA, Bengaluru</li>
+              <li>Dr. Gurulakshmi A B , Professor, Dept of ECE, NHCE, Bengaluru</li>
+              <li>Dr. Joshua Daniel Raj J, Professor, Dept of CSE(DS), Bengaluru</li>
+              <li>Dr. Kavitha T, Professor, Dept of CSE, NHCE, Bengaluru</li>
+              <li>Dr. K Gopal, Professor, Dept of ME, NHCE, Bengaluru</li>
+              <li>Dr. M S Raghu, Professor, Dept of R&D, NHCE, Bengaluru</li>
+              <li>Dr. Mausri Bhuyan, Professor, Dept of EEE, NHCE, Bengaluru</li>
+              <li>Dr. Priyameet Kaur, Professor, Dept of MBA, Bengaluru</li>
+              <li>Dr. Rajesh G, Professor, Dept of ECE, NHCE, Bengaluru</li>
+              <li>Dr. Ramachandra Naik, Professor, Dept of R&D, NHCE, Bengaluru</li>
+              <li>Dr. Santhosh Krishna BV, Professor, Dept of CSE, NHCE, Bengaluru</li>
+              <li>Dr. Siva Ramakrishnan S, Professor, Dept of ISE, NHCE, Bengaluru</li>
+              <li>Mr. Syam Dev R S, Professor, Dept of AIML, NHCE, Bengaluru</li>
+              <li>Dr. Vinoth Kumar K, Professor and Associate Head - R&D, Dept of EEE, NHCE, Bengaluru</li>
+
               </ul>
             </details>
           </div>

@@ -4,12 +4,12 @@ const page = () => {
   return (
     <div className='ml-20  max-w-xl py-10 flex flex-col gap-10 font-mono'>
       <div className='flex flex-col gap-5'>
-        <div className='text-3xl font-bold text-orange-400'>
+        <div className='text-2xl font-bold text-orange-400'>
           SCOPUS INDEX PUBLICATIONS
 			
 				  <br />
 				  <br />
-				  <div className='text-gray-400'>
+				  <div className='text-gray-400 text-3xl'>
           Scope
           </div>
         </div>

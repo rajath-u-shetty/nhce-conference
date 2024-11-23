@@ -30,7 +30,7 @@ export default function RootLayout({
       >
         {/* Background wrapper with responsive images */}
         <div
-          className="fixed inset-0 z-[-1] bg-black blur-sm"
+          className="fixed inset-0 z-[-1] bg-black "
           style={{
             backgroundImage: `
               image-set(

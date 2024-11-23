@@ -49,7 +49,8 @@ const TermsAndConditionsPage = () => {
   ]
 
   return (
-    <SessionProvider>
+    <SessionProvider >
+      <div className='p-2 text-orange-400 text-2xl font-mono font-bold ml-10'>SCOPUS INDEX PUBLICATIONS</div>
       <MultiPageForm />
       <div className='flex flex-col gap-5 ml-10 mr-10'>
         <div className='text-3xl font-bold text-orange-600'>
