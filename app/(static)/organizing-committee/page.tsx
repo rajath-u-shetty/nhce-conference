@@ -45,8 +45,8 @@ const Page = () => {
             <details className="w-full text-orange-300 font-bold shadow-md rounded-lg p-4 mt-4">
               <summary className="cursor-pointer text-lg font-bold">PROGRAM CHAIR</summary>
               <ul className="mt-2 space-y-2 text-white font-medium">
+                <li>Dr. R J Anandhi, Professor and Dean - Academics, NHCE, Bengaluru</li>                
                 <li>Dr. Revathi V., Professor and Dean - Research, NHCE, Bengaluru</li>
-                <li>Dr. R J Anandhi, Professor and Dean - Academics, NHCE, Bengaluru</li>
               </ul>
             </details>
 

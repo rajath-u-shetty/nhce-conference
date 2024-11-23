@@ -64,7 +64,7 @@ export default function Navbar() {
           {/* Logo container with horizontal scroll on mobile */}
           <div className="flex-1 overflow-x-auto scrollbar-hide">
             <div className="flex items-center gap-1 md:gap-2 min-w-max">
-              <Link href="/" className="flex items-center space-x-4">
+              <Link href="/" className="flex items-center space-x-4 gap-3">
                 <Image
                   src="/NHCE White Logo Transparent.png"
                   alt='nhcelogo'
@@ -73,7 +73,7 @@ export default function Navbar() {
                   className="w-auto h-8 md:h-12"
                 />
                 <Image
-                  src="/IEEE-NHCE-SB-Blue-Landscape.png"
+                  src="/IEEE-NHCE-SB-white-black-Landscape.png"
                   alt='ieeelogo'
                   height={36}
                   width={100}
