@@ -43,19 +43,19 @@ const page = () => {
             <div className="p-6 rounded-lg mt-6 shadow-lg w-full max-w-md bg-slate-700">
               <div className="mb-4">
                 <h3 className="text-xl font-bold text-orange-500">Paper Submission Deadline:</h3>
-                <p className="text-orange-300 font-bold">January 15th ,2025</p>
+                <p className="text-orange-300 font-bold">January 15th, 2025</p>
               </div>
               <div className="mb-4">
                 <h3 className="text-xl font-bold text-orange-500">First Notification Review:</h3>
-                <p className="text-orange-300 font-bold">January 30th ,2025</p>
+                <p className="text-orange-300 font-bold">January 30th, 2025</p>
               </div>
               <div className="mb-4">
                 <h3 className="text-xl font-bold text-orange-500">Final Decision Date:</h3>
-                <p className="text-orange-300 font-bold">Feburary 15th ,2025</p>
+                <p className="text-orange-300 font-bold">Feburary 15th, 2025</p>
               </div>
               <div>
                 <h3 className="text-xl font-bold text-orange-500">Paper Presentation Date:</h3>
-                <p className="text-orange-300 font-bold">7th and 8th March 2025</p>
+                <p className="text-orange-300 font-bold">7th and 8th March, 2025</p>
               </div>
             </div>
           </div>

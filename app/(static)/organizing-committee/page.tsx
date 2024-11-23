@@ -87,15 +87,16 @@ const Page = () => {
             <details className="w-full text-orange-300 font-bold shadow-md rounded-lg p-4 mt-4">
               <summary className="cursor-pointer text-lg font-bold">TECHNICAL PROGRAMME COMMITTEE</summary>
               <ul className="mt-2 space-y-2 text-white font-medium">
-              <li>Dr. A B Madhu Mohana Raju, Professor, Dept of AS, Bengaluru</li>
-              <li>Dr. B Nithya Ramesh, Professor, Dept of MCA, Bengaluru</li>
+              <li>Dr. A B Madhu Mohana Raju, Professor, Dept of Applied Sciences, NHCE, Bengaluru</li>
+              <li>Dr. B Nithya Ramesh, Professor, Dept of MCA, NHCE, Bengaluru</li>
+              <li>Dr. C Rathish, Professor, Dept of CSE, NHCE, Bengaluru</li>
               <li>Dr. Gurulakshmi A B , Professor, Dept of ECE, NHCE, Bengaluru</li>
-              <li>Dr. Joshua Daniel Raj J, Professor, Dept of CSE(DS), Bengaluru</li>
+              <li>Dr. Joshua Daniel Raj J, Professor, Dept of CSE - DS, NHCE, Bengaluru</li>
               <li>Dr. Kavitha T, Professor, Dept of CSE, NHCE, Bengaluru</li>
               <li>Dr. K Gopal, Professor, Dept of ME, NHCE, Bengaluru</li>
-              <li>Dr. M S Raghu, Professor, Dept of R&D, NHCE, Bengaluru</li>
+              <li>Dr. M S Raghu, Professor, Dept of Applied Sciences, NHCE, Bengaluru</li>
               <li>Dr. Mausri Bhuyan, Professor, Dept of EEE, NHCE, Bengaluru</li>
-              <li>Dr. Priyameet Kaur, Professor, Dept of MBA, Bengaluru</li>
+              <li>Dr. Priyameet Kaur, Professor, Dept of MBA, E, Bengaluru</li>
               <li>Dr. Rajesh G, Professor, Dept of ECE, NHCE, Bengaluru</li>
               <li>Dr. Ramachandra Naik, Professor, Dept of R&D, NHCE, Bengaluru</li>
               <li>Dr. Santhosh Krishna BV, Professor, Dept of CSE, NHCE, Bengaluru</li>
@@ -114,20 +115,20 @@ const Page = () => {
           <div className="p-6 rounded-lg mt-6 shadow-lg w-full max-w-md bg-slate-700">
             <div className="mb-4">
               <h3 className="text-xl font-bold text-orange-500">Paper Submission Deadline:</h3>
-              <p className="text-orange-300 font-bold">January 15th ,2025</p>
+              <p className="text-orange-300 font-bold">January 15th, 2025</p>
             </div>
             <div className="mb-4">
               <h3 className="text-xl font-bold text-orange-500">First Notification Review:</h3>
-              <p className="text-orange-300 font-bold">January 30th ,2025</p>
+              <p className="text-orange-300 font-bold">January 30th, 2025</p>
             </div>
             
             <div className="mb-4">
               <h3 className="text-xl font-bold text-orange-500">Final Decision Date:</h3>
-              <p className="text-orange-300 font-bold">Feburary 15th ,2025</p>
+              <p className="text-orange-300 font-bold">Feburary 15th, 2025</p>
             </div>
             <div>
               <h3 className="text-xl font-bold text-orange-500">Paper Presentation Date:</h3>
-              <p className="text-orange-300 font-bold">7th and 8th March 2025</p>
+              <p className="text-orange-300 font-bold">7th and 8th March, 2025</p>
             </div>
           </div>
         </div>
