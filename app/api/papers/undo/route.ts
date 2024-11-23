@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   try {
     const session = await getUserAuth();
-    
+
     if (!session.session?.user) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
@@ -39,13 +39,13 @@ export async function POST(req: Request) {
 
     return NextResponse.json(result, { status: 200 });
 
-  } catch (error: any) {
-    console.error('Error in /api/papers/approve/undo', {
-      error: error,
-      message: error.message,
-    });
-
-    return new NextResponse("Internal Server Error", { status: 500 });
+  } catch (e) {
+    if (e instanceof Error) {
+      console.log("GET request failed at /api/papers/undo", e.message);
+    } else {
+      console.log("GET request failed at /api/papers/undo", e);
+    }
+    return new Response(JSON.stringify({ message: "Error" }), { status: 500 });
   }
 }
 

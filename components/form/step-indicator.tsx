@@ -6,7 +6,7 @@ type StepIndicatorProps = {
   totalSteps: number;
 };
 
-export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
+export function StepIndicator({ currentStep }: StepIndicatorProps) {
   const steps = [
     'Author',
     'Details',

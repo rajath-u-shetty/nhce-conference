@@ -7,11 +7,11 @@ import { PaperStatus } from "@prisma/client";
 export async function POST(request: NextRequest) {
   try {
     const session = await getUserAuth();
-    
+
     if (!session.session?.user.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-    
+
     if (session.session?.user.role !== "ADMIN") {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
@@ -29,11 +29,12 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json({ message: "Paper Approved" }, { status: 200 });
-  } catch (e: any) {
-    console.error("POST request failed at /api/papers/approve", e);
-    return NextResponse.json(
-      { error: "Internal Server Error" }, 
-      { status: 500 }
-    );
+  } catch (e) {
+    if (e instanceof Error) {
+      console.log("GET request failed at /api/papers/approve", e.message);
+    } else {
+      console.log("GET request failed at /api/papers/approve", e);
+    }
+    return new Response(JSON.stringify({ message: "Error" }), { status: 500 });
   }
 }

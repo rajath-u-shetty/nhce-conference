@@ -78,11 +78,10 @@ type Props = {
 
 export function MultiFileDropzoneUsage({ error, required = true, session }: Props) {
   const [fileStates, setFileStates] = useState<FileState[]>([])
-  const { pendingFile, setPendingFile, selectedFile, setSelectedFile } = useFileStore()
+  const { pdfUploaded, setPdfUploaded,  pendingFile, setPendingFile, selectedFile, setSelectedFile } = useFileStore()
   const { edgestore } = useEdgeStore()
   const { toast } = useToast()
   const router = useRouter()
-  const [pdfUploaded, setPdfUploaded] = useState(false)
 
   const handleRemoveFile = () => {
     setFileStates([])
@@ -119,10 +118,11 @@ export function MultiFileDropzoneUsage({ error, required = true, session }: Prop
         })
 
         setPdfUploaded(true)
+
       } catch (error) {
         toast({
           title: 'Error uploading file',
-          description: 'Failed to upload research paper. Please try again.',
+          description: 'Failed to upload research paper. Please try again by uploading a valid PDF file.',
           variant: 'destructive',
         })
         return

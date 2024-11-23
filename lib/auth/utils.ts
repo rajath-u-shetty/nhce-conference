@@ -123,7 +123,7 @@ export const checkAuth = async () => {
 export const checkAdminAuth = async () => {
   const { session } = await getUserAuth();
   if (!session || session.user.role !== "ADMIN") {
-    redirect("/admin");
+    redirect("/account");
   }
   return session;
 };

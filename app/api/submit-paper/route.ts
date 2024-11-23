@@ -13,10 +13,10 @@ export async function POST(req: Request) {
 
   try {
     const body = await req.json();
-    const { author, coAuthors, file, userId, paperDetails } = multiFormValidator.parse(body);
+    const { author, coAuthors, file, paperDetails } = multiFormValidator.parse(body);
 
     // Filter out empty co-authors before processing
-    const validCoAuthors = coAuthors.filter((coAuthor: CoAuthorDetails) => 
+    const validCoAuthors = coAuthors.filter((coAuthor: CoAuthorDetails) =>
       coAuthor.name || coAuthor.email || coAuthor.designation || coAuthor.institute
     );
 
@@ -84,14 +84,7 @@ export async function POST(req: Request) {
       paper: result,
       status: 200,
     });
-  } catch (error: any) {
-    console.error('Detailed API error:', {
-      error: error,
-      message: error.message,
-      code: error.code,
-      meta: error.meta,
-      stack: error.stack
-    });
+  } catch (error) {
 
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       switch (error.code) {
@@ -107,19 +100,19 @@ export async function POST(req: Request) {
           );
         case 'P2003':
           return NextResponse.json(
-            { 
+            {
               message: 'Invalid user ID or reference data provided.',
               details: `Failed to create record. The provided user ID does not exist in the database.`,
-              error: error.meta 
+              error: error.meta
             },
             { status: 400 }
           );
         default:
           return NextResponse.json(
-            { 
+            {
               message: 'Database error occurred. Please try again.',
               code: error.code,
-              meta: error.meta 
+              meta: error.meta
             },
             { status: 500 }
           );
@@ -133,8 +126,14 @@ export async function POST(req: Request) {
       );
     }
 
+    if (error instanceof Error) {
+      console.log("GET request failed at /api/papers", error.message);
+    } else {
+      console.log("GET request failed at /api/papers", error);
+    }
+
     return NextResponse.json(
-      { message: 'Error submitting paper. Please try again.', error: error.message },
+      { message: 'Error submitting paper. Please try again.', error: error },
       { status: 500 }
     );
   }

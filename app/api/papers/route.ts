@@ -48,8 +48,12 @@ export async function GET(req: NextRequest) {
       status: 200,
     });
 
-  } catch (e: any) {
-    console.log("GET request failed at /api/papers", e);
-    return new Response(JSON.stringify({ message: "Error" }), { status: 500 })
+  } catch (e) {
+    if (e instanceof Error) {
+      console.log("GET request failed at /api/papers", e.message);
+    } else {
+      console.log("GET request failed at /api/papers", e);
+    }
+    return new Response(JSON.stringify({ message: "Error" }), { status: 500 });
   }
 }

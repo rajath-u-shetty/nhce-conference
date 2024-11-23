@@ -29,8 +29,8 @@ import { AuthSession } from '@/lib/auth/utils'
 export default function MultiPageForm() {
   const router = useRouter()
   const { data: session } = useSession()
-  const { pendingFile, setSelectedFile, selectedFile, reset: resetPaperStore } = useFileStore()
-  
+  const { selectedFile, reset: resetPaperStore } = useFileStore()
+
   const [currentPage, setCurrentPage] = useState(0)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [coAuthors, setCoAuthors] = useState<CoAuthorDetails[]>(Array(5).fill({
@@ -39,7 +39,7 @@ export default function MultiPageForm() {
     designation: '',
     institute: ''
   }))
-  
+
   const { toast } = useToast()
   const [fileError, setFileError] = useState<string>('')
 
@@ -141,7 +141,7 @@ export default function MultiPageForm() {
         resetForms()
         router.push('/dashboard')
       }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error('Submission error:', error)
 
@@ -188,9 +188,9 @@ export default function MultiPageForm() {
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-center text-primary">
             {currentPage === 0 ? 'Author Details' :
-             currentPage === 1 ? 'Paper Details' :
-             currentPage === 7 ? 'Upload Research Paper' :
-             `Co-Author ${currentPage - 1} Details`}
+              currentPage === 1 ? 'Paper Details' :
+                currentPage === 7 ? 'Upload Research Paper' :
+                  `Co-Author ${currentPage - 1} Details`}
           </CardTitle>
           <StepIndicator currentStep={currentPage} totalSteps={8} />
         </CardHeader>

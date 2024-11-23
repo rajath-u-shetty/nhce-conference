@@ -57,7 +57,7 @@ export default function Navbar() {
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange);
     };
-  }, [router]);
+  }, []);
 
   return (
     <nav className="backdrop-blur-lg text-primary-foreground py-2 md:py-4 relative z-20">
@@ -147,10 +147,10 @@ export default function Navbar() {
               </NavigationMenuList>
             </NavigationMenu>
 
-            <Link href={session ? '/submission' : '/sign-in'} className="ml-4">
+            <Link href={session ? session.user.role === 'ADMIN' ? '/admin' : '/dashboard' : '/sign-in'} className="ml-4">
               <Button variant="outline" className="text-white border-white text-sm">
                 <UserPlus className="mr-2 h-4 w-4" />
-                {session ? 'Submissions' : 'Sign In'}
+                {session ? session.user.role === 'ADMIN' ? 'Admin' : 'Dashboard' : 'Sign In'}
               </Button>
             </Link>
           </div>

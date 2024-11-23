@@ -1,8 +1,8 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
-import { CheckCircle, XCircle, NotebookPen, ChevronDown, FileX2, ArrowUpDownIcon, ArrowUp, ArrowDown } from 'lucide-react'
+import { CheckCircle, XCircle, NotebookPen, ChevronDown, FileX2, ArrowUp, ArrowDown } from 'lucide-react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import axios, { AxiosError } from "axios"
 import Link from 'next/link'
@@ -72,7 +72,7 @@ export const AdminTable = () => {
       const { data } = await axios.post('/api/papers/approve', payload);
       return data;
     },
-    onError: (err, paperId, context) => {
+    onError: (err) => {
       if (err instanceof AxiosError) {
         toast({
           title: err.response?.status === 401 ? 'Unauthorized' : 'Error',
@@ -96,7 +96,7 @@ export const AdminTable = () => {
       const { data } = await axios.post('/api/papers/reject', payload);
       return data;
     },
-    onError: (err, paperId, context) => {
+    onError: () => {
       toast({
         title: 'Rejection Failed',
         description: 'Could not reject the paper',
