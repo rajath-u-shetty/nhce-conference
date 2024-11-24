@@ -1,11 +1,29 @@
-// app/api/submit-paper/route.ts
 import { NextResponse } from 'next/server';
 import { CoAuthorDetails, multiFormValidator } from '@/lib/validators/formValidator';
 import { db } from '@/lib/db';
 import { getUserAuth } from '@/lib/auth/utils';
 import { Prisma } from '@prisma/client';
+import { Resend } from 'resend';
+import EmailTemplate from '@/components/email-templates/form-Submission-email';
 
-export async function POST(req: Request) {
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+// Helper function to ensure coAuthor data matches the required type
+function validateCoAuthor(coAuthor: CoAuthorDetails): {
+  name: string;
+  email: string;
+  designation: string;
+  institute: string;
+} {
+  return {
+    name: coAuthor.name || '',
+    email: coAuthor.email || '',
+    designation: coAuthor.designation || '',
+    institute: coAuthor.institute || '',
+  };
+}
+
+export async function POST(req: Request, res: Response) {
   const session = await getUserAuth();
   if (!session.session?.user) {
     return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
@@ -15,17 +33,18 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { author, coAuthors, file, paperDetails } = multiFormValidator.parse(body);
 
-    // Filter out empty co-authors before processing
-    const validCoAuthors = coAuthors.filter((coAuthor: CoAuthorDetails) =>
-      coAuthor.name || coAuthor.email || coAuthor.designation || coAuthor.institute
-    );
+    // Filter out empty co-authors and validate the remaining ones
+    const validCoAuthors = coAuthors
+      .filter((coAuthor: CoAuthorDetails) =>
+        coAuthor.name || coAuthor.email || coAuthor.designation || coAuthor.institute
+      )
+      .map(validateCoAuthor); // Transform to ensure all required fields exist
 
     const userID = session.session.user.id;
 
-    // Create the paper and related records in a transaction with timeout and retry logic
+    // Create the paper and related records in a transaction
     const result = await db.$transaction(
       async (tx) => {
-        // 1. Create the file record
         const fileRecord = await tx.file.create({
           data: {
             name: file.name,
@@ -37,7 +56,6 @@ export async function POST(req: Request) {
           },
         });
 
-        // 2. Create the paper record with authors
         const paper = await tx.paper.create({
           data: {
             title: paperDetails.title,
@@ -55,12 +73,7 @@ export async function POST(req: Request) {
               },
             },
             coAuthors: validCoAuthors.length > 0 ? {
-              create: validCoAuthors.map((coAuthor: CoAuthorDetails) => ({
-                name: coAuthor.name || '',
-                email: coAuthor.email || '',
-                designation: coAuthor.designation || '',
-                institute: coAuthor.institute || '',
-              })),
+              create: validCoAuthors,
             } : undefined,
           },
           include: {
@@ -69,15 +82,35 @@ export async function POST(req: Request) {
             file: true,
           },
         });
-
         return paper;
       },
       {
-        maxWait: 10000, // Maximum time to wait for transaction to start (10 seconds)
-        timeout: 30000, // Maximum time for the transaction to complete (30 seconds)
-        isolationLevel: Prisma.TransactionIsolationLevel.ReadCommitted, // Less strict isolation level
+        maxWait: 10000,
+        timeout: 30000,
+        isolationLevel: Prisma.TransactionIsolationLevel.ReadCommitted,
       }
     );
+
+    try {
+      const { data: emailData, error: emailError } = await resend.emails.send({
+        from: 'onboarding@resend.dev',
+        to: 'rajathushetty56@gmail.com',
+        subject: `Research Paper Submission: ${paperDetails.title}`,
+        react: EmailTemplate({
+          paperTitle: paperDetails.title,
+          abstract: paperDetails.abstract,
+          author: author,
+          coAuthors: validCoAuthors,
+          fileUrl: file.fileUrl,
+        }) as React.ReactElement,
+      });
+
+      if (emailError) {
+        console.error('Email sending failed:', emailError);
+      }
+    } catch (emailError) {
+      console.error('Email sending failed:', emailError);
+    }
 
     return NextResponse.json({
       message: 'Paper submitted successfully',
@@ -85,6 +118,7 @@ export async function POST(req: Request) {
       status: 200,
     });
   } catch (error) {
+    console.error('Error in paper submission:', error);
 
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       switch (error.code) {
@@ -102,7 +136,7 @@ export async function POST(req: Request) {
           return NextResponse.json(
             {
               message: 'Invalid user ID or reference data provided.',
-              details: `Failed to create record. The provided user ID does not exist in the database.`,
+              details: 'Failed to create record. The provided user ID does not exist in the database.',
               error: error.meta
             },
             { status: 400 }
@@ -124,12 +158,6 @@ export async function POST(req: Request) {
         { message: 'Invalid data format provided.', error: error.message },
         { status: 400 }
       );
-    }
-
-    if (error instanceof Error) {
-      console.log("GET request failed at /api/papers", error.message);
-    } else {
-      console.log("GET request failed at /api/papers", error);
     }
 
     return NextResponse.json(

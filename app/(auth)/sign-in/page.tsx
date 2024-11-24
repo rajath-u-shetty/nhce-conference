@@ -1,5 +1,4 @@
 "use client";
-
 import { signIn } from "next-auth/react";
 
 const Page = () => {
@@ -10,10 +9,10 @@ const Page = () => {
       </h1>
       <div className="mt-4">
         <button
-          onClick={() => signIn(undefined, { callbackUrl: "/dashboard" })}
+          onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
           className="w-full bg-primary text-primary-foreground text-center hover:opacity-90 font-medium px-4 py-2 rounded-lg block"
         >
-          Sign In
+          Sign In with Google
         </button>
       </div>
     </main>

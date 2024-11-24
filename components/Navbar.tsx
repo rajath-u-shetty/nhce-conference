@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 import router from "next/router";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
@@ -98,7 +98,7 @@ export default function Navbar() {
               <NavigationMenuList className="flex items-center space-x-1 gap-3">
                 <NavigationMenuItem>
                   <Link href="/" legacyBehavior passHref>
-                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), 
+                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(),
                       "text-white hover:text-white px-3 py-2 text-sm font-medium")}>
                       Home
                     </NavigationMenuLink>
@@ -106,31 +106,31 @@ export default function Navbar() {
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <Link href="/scope" legacyBehavior passHref>
-                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), 
+                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(),
                       "text-white hover:text-white px-3 py-2 text-sm font-medium")}>
                       Scope
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                <Link href="/committees/advisory" legacyBehavior passHref>
-                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), 
-                    "text-white hover:text-white px-3 py-2 text-sm font-medium")}>
-                    Advisory Committee
-                  </NavigationMenuLink>
-                </Link>
+                  <Link href="/committees/advisory" legacyBehavior passHref>
+                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(),
+                      "text-white hover:text-white px-3 py-2 text-sm font-medium")}>
+                      Advisory Committee
+                    </NavigationMenuLink>
+                  </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                <Link href="/organizing-committee" legacyBehavior passHref>
-                  <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), 
-                    "text-white hover:text-white px-3 py-2 text-sm font-medium")}>
-                    Organizing Committee
-                  </NavigationMenuLink>
-                </Link>
+                  <Link href="/organizing-committee" legacyBehavior passHref>
+                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(),
+                      "text-white hover:text-white px-3 py-2 text-sm font-medium")}>
+                      Organizing Committee
+                    </NavigationMenuLink>
+                  </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <Link href="/about" legacyBehavior passHref>
-                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), 
+                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(),
                       "text-white hover:text-white px-3 py-2 text-sm font-medium")}>
                       About us
                     </NavigationMenuLink>
@@ -138,7 +138,7 @@ export default function Navbar() {
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <Link href="/submission" legacyBehavior passHref>
-                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), 
+                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(),
                       "text-white hover:text-white px-3 py-2 text-sm font-medium")}>
                       Submissions
                     </NavigationMenuLink>
@@ -147,17 +147,26 @@ export default function Navbar() {
               </NavigationMenuList>
             </NavigationMenu>
 
-            <Link href={session ? session.user.role === 'ADMIN' ? '/admin' : '/dashboard' : '/sign-in'} className="ml-4">
+            <Link
+              href={session ? session.user.role === 'ADMIN' ? '/admin' : '/dashboard' : '/sign-in'}
+              onClick={(e) => {
+                if (!session) {
+                  e.preventDefault();
+                  signIn("google", { callbackUrl: "/dashboard" });
+                }
+              }}
+              className="ml-4"
+            >
               <Button variant="outline" className="text-white border-white text-sm">
                 <UserPlus className="mr-2 h-4 w-4" />
                 {session ? session.user.role === 'ADMIN' ? 'Admin' : 'Dashboard' : 'Sign In'}
               </Button>
             </Link>
           </div>
-          <br/>
+          <br />
           {/* Mobile menu button */}
-          <Button 
-            variant="ghost" 
+          <Button
+            variant="ghost"
             className="lg:hidden text-white hover:bg-white/10 p-2"
             onClick={toggleMenu}
           >
@@ -169,44 +178,44 @@ export default function Navbar() {
         {isOpen && (
           <div className="lg:hidden absolute top-full left-0 right-0 bg-black/95 backdrop-blur-lg z-50">
             <div className="px-4 py-4 space-y-3">
-              <Link 
-                href="/" 
-                className="block text-white rounded-md px-4 py-2 text-base font-medium transition-colors" 
+              <Link
+                href="/"
+                className="block text-white rounded-md px-4 py-2 text-base font-medium transition-colors"
                 onClick={toggleMenu}
               >
                 Home
               </Link>
-              <Link 
-                href="/scope" 
-                className="block text-white rounded-md px-4 py-2 text-base font-medium transition-colors" 
+              <Link
+                href="/scope"
+                className="block text-white rounded-md px-4 py-2 text-base font-medium transition-colors"
                 onClick={toggleMenu}
               >
                 Scope
               </Link>
-              <Link 
-                href="/committees/advisory" 
-                className="block text-white rounded-md px-4 py-2 text-base font-medium transition-colors" 
+              <Link
+                href="/committees/advisory"
+                className="block text-white rounded-md px-4 py-2 text-base font-medium transition-colors"
                 onClick={toggleMenu}
               >
                 Advisory Committee
               </Link>
-              <Link 
-                href="/organizing-committee" 
-                className="block text-white rounded-md px-4 py-2 text-base font-medium transition-colors" 
+              <Link
+                href="/organizing-committee"
+                className="block text-white rounded-md px-4 py-2 text-base font-medium transition-colors"
                 onClick={toggleMenu}
               >
                 Organizing Committee
               </Link>
-              <Link 
-                href="/about" 
-                className="block text-white rounded-md px-4 py-2 text-base font-medium transition-colors" 
+              <Link
+                href="/about"
+                className="block text-white rounded-md px-4 py-2 text-base font-medium transition-colors"
                 onClick={toggleMenu}
               >
                 About us
               </Link>
-              <Link 
-                href="/submission" 
-                className="block text-white rounded-md px-4 py-2 text-base font-medium transition-colors" 
+              <Link
+                href="/submission"
+                className="block text-white rounded-md px-4 py-2 text-base font-medium transition-colors"
                 onClick={toggleMenu}
               >
                 Submissions

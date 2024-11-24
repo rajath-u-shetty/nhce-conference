@@ -69,6 +69,7 @@ import { useEdgeStore } from '@/lib/edgestore'
 import { useToast } from '@/hooks/use-toast'
 import { useRouter } from 'next/navigation'
 import { AuthSession } from "@/lib/auth/utils";
+import { Loader2 } from 'lucide-react'
 
 type Props = {
   error?: string
@@ -82,6 +83,7 @@ export function MultiFileDropzoneUsage({ error, required = true, session }: Prop
   const { edgestore } = useEdgeStore()
   const { toast } = useToast()
   const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleRemoveFile = () => {
     setFileStates([])
@@ -96,6 +98,7 @@ export function MultiFileDropzoneUsage({ error, required = true, session }: Prop
 
 
   const handleUpload = async () => {
+    setIsLoading(true)
     if (!selectedFile && pendingFile) {
       try {
         const res = await edgestore.publicFiles.upload({
@@ -128,6 +131,7 @@ export function MultiFileDropzoneUsage({ error, required = true, session }: Prop
         return
       }
     }
+    setIsLoading(false)
   }
 
   return (
@@ -157,7 +161,9 @@ export function MultiFileDropzoneUsage({ error, required = true, session }: Prop
             File ready for upload: {pendingFile!.name}
           </p>
         )}
-        <Button onClick={() => handleUpload()} disabled={pdfUploaded}>Upload</Button>
+        <Button onClick={() => handleUpload()} disabled={pdfUploaded || isLoading} className='w-1/3'>
+          {isLoading ? <Loader2 className="animate-spin h-4 w-4" /> : pdfUploaded ? 'Uploaded' : 'Upload'}
+        </Button>
       </div>
     </div>
   )
