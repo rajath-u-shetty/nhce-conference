@@ -23,7 +23,7 @@ function validateCoAuthor(coAuthor: CoAuthorDetails): {
   };
 }
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: Request) {
   const session = await getUserAuth();
   if (!session.session?.user) {
     return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
@@ -127,6 +127,10 @@ export async function POST(req: Request, res: Response) {
           fileUrl: file.fileUrl,
         }) as React.ReactElement,
       });
+
+      if(!emailData){
+        console.error('Email sending failed:', emailError);
+      }
 
       if (emailError) {
         console.error('Email sending failed:', emailError);

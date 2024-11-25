@@ -1,7 +1,6 @@
 "use client";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { Button } from "@/components/ui/button";
-import { AuthSession } from "@/lib/auth/utils";
 import SubmittedPapers from "../SubmittedPapers";
 
 export default function SignIn() {
@@ -24,7 +23,7 @@ export default function SignIn() {
         <Button variant={"destructive"} onClick={() => signOut({ callbackUrl: "/" })}>
           Sign out
         </Button>
-        <SubmittedPapers session={session as AuthSession["session"]} />
+        <SubmittedPapers />
       </div>
     );
   }

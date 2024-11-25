@@ -6,11 +6,9 @@ import Link from 'next/link';
 import { Ghost, Edit, CreditCard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { PaperStatus, Paper } from '@prisma/client';
-import { AuthSession } from '@/lib/auth/utils';
 
-const SubmittedPapers = ({ session }: {
-  session?: AuthSession["session"];
-}) => {
+const SubmittedPapers = (
+) => {
   const { data: papers, isLoading } = useQuery({
     queryKey: ['researchPapers'],
     queryFn: async () => {

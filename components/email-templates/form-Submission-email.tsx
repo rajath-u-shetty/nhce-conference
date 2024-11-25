@@ -131,7 +131,7 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
           color: '#666666',
           fontSize: '14px',
         }}>
-          Thank you for your submission. If you have any questions, please don't hesitate to contact us.
+          Thank you for your submission. If you have any questions, please don&apos;t hesitate to contact us.
         </Text>
       </Container>
     </Body>
