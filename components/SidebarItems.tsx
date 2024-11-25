@@ -2,11 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
 import { LucideIcon } from "lucide-react";
-
 import { cn } from "@/lib/utils";
-import { defaultLinks, additionalLinks } from "@/config/nav";
+import { defaultLinks, adminLinks, additionalLinks } from "@/config/nav";
+import { useSession } from "next-auth/react";
 
 export interface SidebarLink {
   title: string;
@@ -15,22 +14,26 @@ export interface SidebarLink {
 }
 
 const SidebarItems = () => {
+  const { data: session } = useSession();
+  const isAdmin = session?.user?.role === "ADMIN";
+  const allLinks = isAdmin ? [...defaultLinks, ...adminLinks] : defaultLinks;
+
   return (
     <>
-      <SidebarLinkGroup links={defaultLinks} />
-      {additionalLinks.length > 0
-        ? additionalLinks.map((l) => (
-            <SidebarLinkGroup
-              links={l.links}
-              title={l.title}
-              border
-              key={l.title}
-            />
-          ))
-        : null}
+      <SidebarLinkGroup links={allLinks} />
+      {additionalLinks.length > 0 &&
+        additionalLinks.map((group, index) => (
+          <SidebarLinkGroup
+            key={group.title}
+            links={group.links}
+            title={group.title}
+            border={index !== additionalLinks.length - 1}
+          />
+        ))}
     </>
   );
 };
+
 export default SidebarItems;
 
 const SidebarLinkGroup = ({
@@ -46,22 +49,19 @@ const SidebarLinkGroup = ({
   const pathname = "/" + fullPathname.split("/")[1];
 
   return (
-    <div className={border ? "border-border border-t my-8 pt-4" : ""}>
-      {title ? (
-        <h4 className="px-2 mb-2 text-xs uppercase text-muted-foreground tracking-wider">
-          {title}
-        </h4>
-      ) : null}
-      <ul>
-        {links.map((link) => (
-          <li key={link.title}>
-            <SidebarLink link={link} active={pathname === link.href} />
-          </li>
-        ))}
-      </ul>
+    <div className={cn("flex flex-col space-y-2", border && "border-b pb-4")}>
+      {title && <div className="px-2 text-xs font-semibold uppercase">{title}</div>}
+      {links.map((link) => (
+        <SidebarLink
+          key={link.href}
+          link={link}
+          active={pathname === link.href}
+        />
+      ))}
     </div>
   );
 };
+
 const SidebarLink = ({
   link,
   active,
@@ -69,23 +69,18 @@ const SidebarLink = ({
   link: SidebarLink;
   active: boolean;
 }) => {
+  const Icon = link.icon;
+  
   return (
     <Link
       href={link.href}
-      className={`group transition-colors p-2 inline-block hover:bg-popover hover:text-primary text-muted-foreground text-xs hover:shadow rounded-md w-full${
-        active ? " text-primary font-semibold" : ""
-      }`}
+      className={cn(
+        "flex items-center justify-center p-4 rounded-lg hover:bg-accent",
+        active && "bg-accent"
+      )}
+      title={link.title} // Added tooltip to show title on hover
     >
-      <div className="flex items-center">
-        <div
-          className={cn(
-            "opacity-0 left-0 h-6 w-[4px] absolute rounded-r-lg bg-primary",
-            active ? "opacity-100" : "",
-          )}
-        />
-        <link.icon className="h-20 ml-1" />
-        {/* <span>{link.title}</span> */}
-      </div>
+      <Icon className="h-5 w-5 my-4" />
     </Link>
   );
 };
