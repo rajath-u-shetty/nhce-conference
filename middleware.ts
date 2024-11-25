@@ -10,7 +10,7 @@ export default withAuth(
 
     // Redirect authenticated non-admin users away from admin pages
     if (isAdminPanel && !isAdmin) {
-      return NextResponse.redirect(new URL("/admin/sign-in", request.url));
+      return NextResponse.redirect(new URL("/account", request.url));
     }
 
     return NextResponse.next();
@@ -21,7 +21,7 @@ export default withAuth(
       authorized: ({ token }) => !!token,
     },
     pages: {
-      signIn: "/admin/sign-in",
+      signIn: "/sign-in",
     },
   }
 );

@@ -45,6 +45,27 @@ export async function POST(req: Request, res: Response) {
     // Create the paper and related records in a transaction
     const result = await db.$transaction(
       async (tx) => {
+        // Find the latest paper to determine the next number
+        const latestPaper = await tx.paper.findFirst({
+          orderBy: {
+            id: 'desc'
+          },
+          select: {
+            id: true
+          }
+        });
+
+        let nextNumber = 1;
+        if (latestPaper?.id) {
+          const match = latestPaper.id.match(/QX-(\d{3})/);
+          if (match) {
+            nextNumber = parseInt(match[1]) + 1;
+          }
+        }
+
+        // Format the new ID with leading zeros
+        const newId = `QX-${String(nextNumber).padStart(3, '0')}`;
+
         const fileRecord = await tx.file.create({
           data: {
             name: file.name,
@@ -58,6 +79,7 @@ export async function POST(req: Request, res: Response) {
 
         const paper = await tx.paper.create({
           data: {
+            id: newId, // Set the custom formatted ID
             title: paperDetails.title,
             abstract: paperDetails.abstract,
             userId: userID,
@@ -97,6 +119,7 @@ export async function POST(req: Request, res: Response) {
         to: 'rajathushetty56@gmail.com',
         subject: `Research Paper Submission: ${paperDetails.title}`,
         react: EmailTemplate({
+          paperId: result.id,
           paperTitle: paperDetails.title,
           abstract: paperDetails.abstract,
           author: author,

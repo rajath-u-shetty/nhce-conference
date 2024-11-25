@@ -13,6 +13,7 @@ import {
 } from '@react-email/components';
 
 interface EmailTemplateProps {
+  paperId: string;
   paperTitle: string;
   abstract: string;
   author: {
@@ -32,6 +33,7 @@ interface EmailTemplateProps {
 }
 
 export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
+  paperId,
   paperTitle,
   abstract,
   author,
@@ -54,6 +56,9 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
           <Heading as="h2" style={{ fontSize: '20px', color: '#2d2d2d' }}>
             Paper Details
           </Heading>
+          <Text style={{ margin: '10px 0' }}>
+            <strong>Title:</strong> {paperId}
+          </Text>
           <Text style={{ margin: '10px 0' }}>
             <strong>Title:</strong> {paperTitle}
           </Text>

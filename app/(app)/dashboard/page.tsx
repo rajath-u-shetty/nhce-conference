@@ -11,7 +11,7 @@ export default async function Home() {
           {JSON.stringify(session.user.email, null, 2)}
         </pre>
       ) : null} */}
-      
+
       <SignIn />
     </main>
   );

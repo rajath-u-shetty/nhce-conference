@@ -72,7 +72,7 @@ model Registration {
 }
 
 model Paper {
-  id        String      @id @default(cuid())
+  id        String      @id 
   title     String
   abstract  String      @db.Text
   status    PaperStatus @default(PENDING)

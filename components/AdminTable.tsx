@@ -135,6 +135,7 @@ export const AdminTable = () => {
       <Table>
         <TableHeader>
           <TableRow className='text-white'>
+            <TableHead>id</TableHead>
             <TableHead className="w-[50%]">Paper Title</TableHead>
             <TableHead>Author</TableHead>
             <TableHead className=' dark:text-white text-black'>
@@ -201,6 +202,7 @@ export const AdminTable = () => {
               className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
               onClick={() => handlePaperClick(paper)}
             >
+              <TableCell>{paper.id}</TableCell>
               <TableCell>
                 <Link href={paper.url} target='_blank' className="hover:underline text-left">
                   {paper.title}
