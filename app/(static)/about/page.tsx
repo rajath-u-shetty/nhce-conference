@@ -2,7 +2,7 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div className='ml-20  max-w-xl py-10 flex flex-col gap-10 font-mono'>
+    <div className='ml-20  mr-20 py-10 flex flex-col gap-10 font-mono'>
       <div className='flex flex-col gap-5'>
         <div className='text-2xl font-bold text-orange-400'>
           SCOPUS INDEX PUBLICATIONS
