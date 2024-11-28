@@ -66,7 +66,7 @@ export default function Navbar() {
           {/* Logo container with horizontal scroll on mobile */}
           <div className="flex-1 overflow-x-auto scrollbar-hide">
             <div className="flex items-center gap-1 md:gap-2 min-w-max">
-              <Link href="/" className="flex items-center space-x-4 gap-3">
+              <Link href="/" className="flex items-center space-x-2 gap-1">
                 <Image
                   src="/NHCE White Logo Transparent.png"
                   alt='nhcelogo'
@@ -95,15 +95,15 @@ export default function Navbar() {
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-2 ml-4">
             <NavigationMenu>
-              <NavigationMenuList className="flex items-center space-x-1 gap-3">
-                <NavigationMenuItem>
+              <NavigationMenuList className="flex items-center space-x-1 gap-1">
+                {/* <NavigationMenuItem>
                   <Link href="/" legacyBehavior passHref>
                     <NavigationMenuLink className={cn(navigationMenuTriggerStyle(),
                       "text-white hover:text-white px-3 py-2 text-sm font-medium")}>
                       Home
                     </NavigationMenuLink>
                   </Link>
-                </NavigationMenuItem>
+                </NavigationMenuItem> */}
                 <NavigationMenuItem>
                   <Link href="/scope" legacyBehavior passHref>
                     <NavigationMenuLink className={cn(navigationMenuTriggerStyle(),
@@ -178,13 +178,13 @@ export default function Navbar() {
         {isOpen && (
           <div className="lg:hidden absolute top-full left-0 right-0 bg-black/95 backdrop-blur-lg z-50">
             <div className="px-4 py-4 space-y-3">
-              <Link
+              {/* <Link
                 href="/"
                 className="block text-white rounded-md px-4 py-2 text-base font-medium transition-colors"
                 onClick={toggleMenu}
               >
                 Home
-              </Link>
+              </Link> */}
               <Link
                 href="/scope"
                 className="block text-white rounded-md px-4 py-2 text-base font-medium transition-colors"

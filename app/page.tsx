@@ -6,7 +6,7 @@ const words = ["Change","Enthusiasm","Inquisitiveness","Curiosity","Advancement"
 export default function LandingPage() {
   return (
     <>
-      <div className="lg:ml-20 ml-10 py-10 flex flex-col gap-7">
+      <div className="lg:ml-20 ml-10 py-10 flex flex-col gap-2">
         <div className="text-orange-600 lg:text-4xl font-semibold font-mono ">
           Technical Papers on Advanced Wireless Communication,<br />Power and AI for Smart City<br />
           <br/><div className="font-bold text-orange-400 text-2xl">SCOPUS INDEX PUBLICATIONS</div>

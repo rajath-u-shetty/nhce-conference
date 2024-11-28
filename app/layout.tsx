@@ -6,6 +6,7 @@ import { EdgeStoreProvider } from "@/lib/edgestore";
 import { Inter } from 'next/font/google';
 import Providers from "@/components/Providers";
 import { Toaster } from "@/components/ui/toaster";
+import { Analytics } from "@vercel/analytics/react"
 
 const myFont = Inter({
   subsets: ['latin'],
@@ -78,6 +79,7 @@ export default function RootLayout({
                   <Toaster />
                   <Navbar />
                   {children}
+                  <Analytics/>
                 </div>
               </div>
             </EdgeStoreProvider>
