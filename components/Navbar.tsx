@@ -152,7 +152,7 @@ export default function Navbar() {
               onClick={(e) => {
                 if (!session) {
                   e.preventDefault();
-                  signIn("google", { callbackUrl: "/dashboard" });
+                  signIn("google", { callbackUrl: "/submission" });
                 }
               }}
               className="ml-4"

@@ -64,7 +64,7 @@ export async function POST(req: Request) {
         }
 
         // Format the new ID with leading zeros
-        const newId = `QX-${String(nextNumber).padStart(3, '0')}`;
+        const newId = `QX-Tapas25-${String(nextNumber).padStart(3, '0')}`;
 
         const fileRecord = await tx.file.create({
           data: {
@@ -115,8 +115,9 @@ export async function POST(req: Request) {
 
     try {
       const { data: emailData, error: emailError } = await resend.emails.send({
-        from: 'onboarding@resend.dev',
-        to: 'rajathushetty56@gmail.com',
+        from: 'confirmation@tapas25.com',
+        to: author.email,
+        cc: coAuthors.map((coAuthor) => coAuthor.email ?? ""),
         subject: `Research Paper Submission: ${paperDetails.title}`,
         react: EmailTemplate({
           paperId: result.id,
@@ -128,7 +129,7 @@ export async function POST(req: Request) {
         }) as React.ReactElement,
       });
 
-      if(!emailData){
+      if (!emailData) {
         console.error('Email sending failed:', emailError);
       }
 

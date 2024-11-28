@@ -35,7 +35,6 @@ interface EmailTemplateProps {
 export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
   paperId,
   paperTitle,
-  abstract,
   author,
   coAuthors,
   fileUrl,
@@ -57,13 +56,10 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
             Paper Details
           </Heading>
           <Text style={{ margin: '10px 0' }}>
-            <strong>Title:</strong> {paperId}
+            <strong>ID:</strong> {paperId}
           </Text>
           <Text style={{ margin: '10px 0' }}>
             <strong>Title:</strong> {paperTitle}
-          </Text>
-          <Text style={{ margin: '10px 0' }}>
-            <strong>Abstract:</strong> {abstract}
           </Text>
         </Section>
 

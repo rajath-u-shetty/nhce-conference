@@ -135,7 +135,20 @@ export const AdminTable = () => {
       <Table>
         <TableHeader>
           <TableRow className='text-white'>
-            <TableHead>id</TableHead>
+            <TableHead>
+            <Button
+                variant='ghost'
+                size='sm'
+                onClick={() => handleSubmittedAtSort()}
+                className='text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
+              >
+                Id
+                {sortedPapers === 'asc' ? 
+                  <ArrowUp className='w-4 h-4 ml-1' />
+                  : <ArrowDown className='w-4 h-4 ml-1' />
+                }
+              </Button>
+            </TableHead>
             <TableHead className="w-[50%]">Paper Title</TableHead>
             <TableHead>Author</TableHead>
             <TableHead className=' dark:text-white text-black'>
@@ -174,20 +187,6 @@ export const AdminTable = () => {
               </DropdownMenu>
 
             </TableHead>
-            <TableHead>
-              <Button
-                variant='ghost'
-                size='sm'
-                onClick={() => handleSubmittedAtSort()}
-                className='text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
-              >
-                Submitted At
-                {sortedPapers === 'asc' ? 
-                  <ArrowUp className='w-4 h-4 ml-1' />
-                  : <ArrowDown className='w-4 h-4 ml-1' />
-                }
-              </Button>
-            </TableHead>
             <TableHead className="text-right">Actions</TableHead>
           </TableRow>
         </TableHeader>
@@ -210,7 +209,6 @@ export const AdminTable = () => {
               </TableCell>
               <TableCell>{paper.authors[0]?.name}</TableCell>
               <TableCell>{paper.status}</TableCell>
-              <TableCell>{new Date(paper.updatedAt).toLocaleString()}</TableCell>
               <TableCell className="text-right">
                 <Dialog>
                   <DialogTrigger asChild>
