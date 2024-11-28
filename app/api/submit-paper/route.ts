@@ -8,7 +8,6 @@ import EmailTemplate from '@/components/email-templates/form-Submission-email';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-// Helper function to ensure coAuthor data matches the required type
 function validateCoAuthor(coAuthor: CoAuthorDetails): {
   name: string;
   email: string;
@@ -33,20 +32,23 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { author, coAuthors, file, paperDetails } = multiFormValidator.parse(body);
 
-    // Filter out empty co-authors and validate the remaining ones
     const validCoAuthors = coAuthors
       .filter((coAuthor: CoAuthorDetails) =>
         coAuthor.name || coAuthor.email || coAuthor.designation || coAuthor.institute
       )
-      .map(validateCoAuthor); // Transform to ensure all required fields exist
+      .map(validateCoAuthor);
 
     const userID = session.session.user.id;
 
-    // Create the paper and related records in a transaction
     const result = await db.$transaction(
       async (tx) => {
-        // Find the latest paper to determine the next number
+        // Find the latest paper using the new format
         const latestPaper = await tx.paper.findFirst({
+          where: {
+            id: {
+              startsWith: 'QX-Tapas25-'
+            }
+          },
           orderBy: {
             id: 'desc'
           },
@@ -57,13 +59,12 @@ export async function POST(req: Request) {
 
         let nextNumber = 1;
         if (latestPaper?.id) {
-          const match = latestPaper.id.match(/QX-(\d{3})/);
+          const match = latestPaper.id.match(/QX-Tapas25-(\d{3})/);
           if (match) {
             nextNumber = parseInt(match[1]) + 1;
           }
         }
 
-        // Format the new ID with leading zeros
         const newId = `QX-Tapas25-${String(nextNumber).padStart(3, '0')}`;
 
         const fileRecord = await tx.file.create({
@@ -79,7 +80,7 @@ export async function POST(req: Request) {
 
         const paper = await tx.paper.create({
           data: {
-            id: newId, // Set the custom formatted ID
+            id: newId,
             title: paperDetails.title,
             abstract: paperDetails.abstract,
             userId: userID,
@@ -129,11 +130,7 @@ export async function POST(req: Request) {
         }) as React.ReactElement,
       });
 
-      if (!emailData) {
-        console.error('Email sending failed:', emailError);
-      }
-
-      if (emailError) {
+      if (!emailData || emailError) {
         console.error('Email sending failed:', emailError);
       }
     } catch (emailError) {
