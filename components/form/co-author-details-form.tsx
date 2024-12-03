@@ -28,11 +28,11 @@ export function CoAuthorDetailsForm({ coAuthorDetails, setCoAuthorDetails }: CoA
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel className="text-white">Name</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500 text-sm mt-1" />
             </FormItem>
           )}
         />
@@ -41,11 +41,11 @@ export function CoAuthorDetailsForm({ coAuthorDetails, setCoAuthorDetails }: CoA
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email ID</FormLabel>
+              <FormLabel className="text-white">Email ID</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500 text-sm mt-1" />
             </FormItem>
           )}
         />
@@ -54,11 +54,11 @@ export function CoAuthorDetailsForm({ coAuthorDetails, setCoAuthorDetails }: CoA
           name="designation"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Designation</FormLabel>
+              <FormLabel className="text-white">Designation</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500 text-sm mt-1" />
             </FormItem>
           )}
         />
@@ -67,11 +67,11 @@ export function CoAuthorDetailsForm({ coAuthorDetails, setCoAuthorDetails }: CoA
           name="institute"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Institute</FormLabel>
+              <FormLabel className="text-white">Institute</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500 text-sm mt-1" />
             </FormItem>
           )}
         />

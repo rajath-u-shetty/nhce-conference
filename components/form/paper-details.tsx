@@ -18,11 +18,11 @@ export function PaperDetailsForm({ form }: PaperDetailsFormProps) {
           name="title"
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel>Paper Title</FormLabel>
+              <FormLabel className="text-white">Paper Title</FormLabel>
               <FormControl>
                 <Input {...field} className="focus:ring-2 focus:ring-primary focus:border-primary" />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500 text-sm mt-1" />
             </FormItem>
           )}
         />
@@ -31,11 +31,11 @@ export function PaperDetailsForm({ form }: PaperDetailsFormProps) {
           name="abstract"
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel>Abstract</FormLabel>
+              <FormLabel className="text-white">Abstract</FormLabel>
               <FormControl>
                 <Textarea {...field} className="h-56 focus:ring-2 focus:ring-primary focus:border-primary" />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500 text-sm mt-1" />
             </FormItem>
           )}
         />
@@ -51,10 +51,10 @@ export function PaperDetailsForm({ form }: PaperDetailsFormProps) {
                 />
               </FormControl>
               <div className="space-y-1 leading-none">
-                <FormLabel>
+                <FormLabel className="text-white">
                   I have read and agree to the terms and conditions
                 </FormLabel>
-                <FormMessage />
+                <FormMessage className="text-red-500 text-sm mt-1" />
               </div>
             </FormItem>
           )}

@@ -186,9 +186,9 @@ export default function MultiPageForm() {
 
   return (
     <div className="container mx-auto p-4">
-      <Card className="w-full max-w-4xl mx-auto">
+      <Card className="w-full max-w-4xl mx-auto bg-black/40 backdrop-blur-md border border-zinc-800">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold text-center text-primary">
+          <CardTitle className="text-2xl font-bold text-center text-zinc-100">
             {currentPage === 0 ? 'Author Details' :
               currentPage === 1 ? 'Paper Details' :
                 currentPage === 7 ? 'Upload Research Paper' :
@@ -225,7 +225,6 @@ export default function MultiPageForm() {
                 <div className="w-1/2 h-full max-h-44">
                   <MultiFileDropzoneUsage
                     error={fileError}
-                    required
                     session={session as AuthSession["session"]}
                   />
                 </div>
@@ -238,17 +237,23 @@ export default function MultiPageForm() {
             onClick={handlePrevious}
             disabled={currentPage === 0 || isSubmitting}
             variant="outline"
+            className="border-zinc-700 hover:bg-zinc-800 text-zinc-100"
           >
             Previous
           </Button>
           {currentPage < 7 ? (
-            <Button onClick={handleNext} disabled={isSubmitting}>
+            <Button
+              onClick={handleNext}
+              disabled={isSubmitting}
+              className="bg-zinc-100 text-black hover:bg-zinc-200"
+            >
               Next
             </Button>
           ) : (
             <Button
               onClick={authorForm.handleSubmit(handleSubmit)}
               disabled={isSubmitting}
+              className="bg-zinc-100 text-black hover:bg-zinc-200"
             >
               {isSubmitting ? 'Submitting...' : 'Submit'}
             </Button>
@@ -256,5 +261,6 @@ export default function MultiPageForm() {
         </CardFooter>
       </Card>
     </div>
+
   )
 }

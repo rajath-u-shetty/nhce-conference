@@ -16,11 +16,11 @@ export function AuthorDetailsForm({ form }: AuthorDetailsFormProps) {
           name="name"
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel>Name</FormLabel>
+              <FormLabel className="text-white">Name</FormLabel>
               <FormControl>
                 <Input {...field} className="focus:ring-2 focus:ring-primary focus:border-primary" />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500 text-sm mt-1" />
             </FormItem>
           )}
         />
@@ -29,11 +29,11 @@ export function AuthorDetailsForm({ form }: AuthorDetailsFormProps) {
           name="email"
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel>Email ID</FormLabel>
+              <FormLabel className="text-white">Email ID</FormLabel>
               <FormControl>
                 <Input {...field} className="focus:ring-2 focus:ring-primary focus:border-primary" />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500 text-sm mt-1" />
             </FormItem>
           )}
         />
@@ -42,11 +42,11 @@ export function AuthorDetailsForm({ form }: AuthorDetailsFormProps) {
           name="mobileNumber"
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel>Mobile Number</FormLabel>
+              <FormLabel className="text-white">Mobile Number</FormLabel>
               <FormControl>
                 <Input {...field} className="focus:ring-2 focus:ring-primary focus:border-primary" />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500 text-sm mt-1" />
             </FormItem>
           )}
         />
@@ -55,11 +55,11 @@ export function AuthorDetailsForm({ form }: AuthorDetailsFormProps) {
           name="designation"
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel>Designation</FormLabel>
+              <FormLabel className="text-white">Designation</FormLabel>
               <FormControl>
                 <Input {...field} className="focus:ring-2 focus:ring-primary focus:border-primary" />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500 text-sm mt-1" />
             </FormItem>
           )}
         />
@@ -68,11 +68,11 @@ export function AuthorDetailsForm({ form }: AuthorDetailsFormProps) {
           name="institute"
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel>Institute</FormLabel>
+              <FormLabel className="text-white">Institute</FormLabel>
               <FormControl>
                 <Input {...field} className="focus:ring-2 focus:ring-primary focus:border-primary" />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500 text-sm mt-1" />
             </FormItem>
           )}
         />

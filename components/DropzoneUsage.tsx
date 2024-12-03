@@ -1,29 +1,28 @@
 'use client'
 import { MultiFileDropzone, type FileState } from '@/components/Dropzone'
 import { useFileStore } from '@/lib/stores/FileUploadStore'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Button } from './ui/button'
 import { useEdgeStore } from '@/lib/edgestore'
 import { useToast } from '@/hooks/use-toast'
 import { useRouter } from 'next/navigation'
 import { AuthSession } from "@/lib/auth/utils"
-import { Loader2, X } from 'lucide-react'
+import { Loader2 } from 'lucide-react'
 
 type Props = {
   error?: string
-  required?: boolean
   session?: AuthSession["session"]
 }
 
-export function MultiFileDropzoneUsage({ error, required = true, session }: Props) {
+export function MultiFileDropzoneUsage({ error, session }: Props) {
   const [fileStates, setFileStates] = useState<FileState[]>([])
-  const { 
-    pdfUploaded, 
-    setPdfUploaded, 
-    pendingFile, 
-    setPendingFile, 
-    selectedFile, 
-    setSelectedFile 
+  const {
+    pdfUploaded,
+    setPdfUploaded,
+    pendingFile,
+    setPendingFile,
+    selectedFile,
+    setSelectedFile
   } = useFileStore()
   const { edgestore } = useEdgeStore()
   const { toast } = useToast()
@@ -33,7 +32,7 @@ export function MultiFileDropzoneUsage({ error, required = true, session }: Prop
   const handleRemoveFile = () => {
     // Find the file state that matches the pendingFile
     const fileState = fileStates.find(fs => fs.file === pendingFile)
-    
+
     // If there's an ongoing upload, abort it
     if (fileState?.abortController) {
       fileState.abortController.abort()
@@ -79,8 +78,8 @@ export function MultiFileDropzoneUsage({ error, required = true, session }: Prop
         file: pendingFile,
         signal: fileState.abortController.signal,
         onProgressChange: (progress) => {
-          setFileStates(currentFileStates => 
-            currentFileStates.map(fs => 
+          setFileStates(currentFileStates =>
+            currentFileStates.map(fs =>
               fs.file === pendingFile ? { ...fs, progress } : fs
             )
           )
@@ -109,6 +108,8 @@ export function MultiFileDropzoneUsage({ error, required = true, session }: Prop
         variant: "default",
       })
       setPdfUploaded(true)
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       if (error.name !== 'AbortError') {
         toast({
@@ -159,10 +160,19 @@ export function MultiFileDropzoneUsage({ error, required = true, session }: Prop
           }
         }}
       />
-      <div className="flex justify-end">
-        <Button 
-          onClick={handleUpload} 
-          disabled={pdfUploaded || isLoading || !pendingFile || fileStates.length === 0} 
+      <div className="flex justify-between">
+        {!selectedFile && !pendingFile ? (
+          <p className="text-sm text-red-500 ">
+            {error || 'Please upload a research paper file'}
+          </p>
+        ) : (
+          <p className='text-sm text-green-400 '>
+            File ready for upload: {pendingFile ? pendingFile.name : ""}
+          </p>
+        )}
+        <Button
+          onClick={handleUpload}
+          disabled={pdfUploaded || isLoading || !pendingFile || fileStates.length === 0}
           className='w-24'
         >
           {isLoading ? <Loader2 className="animate-spin h-4 w-4" /> : pdfUploaded ? 'Uploaded' : 'Upload'}
