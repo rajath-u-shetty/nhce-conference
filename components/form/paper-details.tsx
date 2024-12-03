@@ -20,7 +20,7 @@ export function PaperDetailsForm({ form }: PaperDetailsFormProps) {
             <FormItem className="w-full">
               <FormLabel>Paper Title</FormLabel>
               <FormControl>
-                <Input placeholder="Eg.Quantum Computing" {...field} className="focus:ring-2 focus:ring-primary focus:border-primary" />
+                <Input {...field} className="focus:ring-2 focus:ring-primary focus:border-primary" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -33,7 +33,7 @@ export function PaperDetailsForm({ form }: PaperDetailsFormProps) {
             <FormItem className="w-full">
               <FormLabel>Abstract</FormLabel>
               <FormControl>
-                <Textarea placeholder="Abstract of the research paper" {...field} className="h-56 focus:ring-2 focus:ring-primary focus:border-primary" />
+                <Textarea {...field} className="h-56 focus:ring-2 focus:ring-primary focus:border-primary" />
               </FormControl>
               <FormMessage />
             </FormItem>

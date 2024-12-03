@@ -30,7 +30,7 @@ export function CoAuthorDetailsForm({ coAuthorDetails, setCoAuthorDetails }: CoA
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="Jane Doe" {...field} />
+                <Input {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -43,7 +43,7 @@ export function CoAuthorDetailsForm({ coAuthorDetails, setCoAuthorDetails }: CoA
             <FormItem>
               <FormLabel>Email ID</FormLabel>
               <FormControl>
-                <Input placeholder="janedoe@example.com" {...field} />
+                <Input {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -56,7 +56,7 @@ export function CoAuthorDetailsForm({ coAuthorDetails, setCoAuthorDetails }: CoA
             <FormItem>
               <FormLabel>Designation</FormLabel>
               <FormControl>
-                <Input placeholder="Associate Professor" {...field} />
+                <Input {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -69,7 +69,7 @@ export function CoAuthorDetailsForm({ coAuthorDetails, setCoAuthorDetails }: CoA
             <FormItem>
               <FormLabel>Institute</FormLabel>
               <FormControl>
-                <Input placeholder="University of Example" {...field} />
+                <Input {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

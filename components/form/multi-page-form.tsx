@@ -140,7 +140,7 @@ export default function MultiPageForm() {
 
         setPdfUploaded(false)
         resetForms()
-        router.push('/')
+        router.push('/dashboard')
       }
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

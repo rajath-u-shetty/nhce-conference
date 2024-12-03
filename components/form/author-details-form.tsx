@@ -18,7 +18,7 @@ export function AuthorDetailsForm({ form }: AuthorDetailsFormProps) {
             <FormItem className="w-full">
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="John Doe" {...field} className="focus:ring-2 focus:ring-primary focus:border-primary" />
+                <Input {...field} className="focus:ring-2 focus:ring-primary focus:border-primary" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -31,7 +31,7 @@ export function AuthorDetailsForm({ form }: AuthorDetailsFormProps) {
             <FormItem className="w-full">
               <FormLabel>Email ID</FormLabel>
               <FormControl>
-                <Input placeholder="johndoe@example.com" {...field} className="focus:ring-2 focus:ring-primary focus:border-primary" />
+                <Input {...field} className="focus:ring-2 focus:ring-primary focus:border-primary" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -44,7 +44,7 @@ export function AuthorDetailsForm({ form }: AuthorDetailsFormProps) {
             <FormItem className="w-full">
               <FormLabel>Mobile Number</FormLabel>
               <FormControl>
-                <Input placeholder="99XXXXXXXXX" {...field} className="focus:ring-2 focus:ring-primary focus:border-primary" />
+                <Input {...field} className="focus:ring-2 focus:ring-primary focus:border-primary" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -57,7 +57,7 @@ export function AuthorDetailsForm({ form }: AuthorDetailsFormProps) {
             <FormItem className="w-full">
               <FormLabel>Designation</FormLabel>
               <FormControl>
-                <Input placeholder="Professor" {...field} className="focus:ring-2 focus:ring-primary focus:border-primary" />
+                <Input {...field} className="focus:ring-2 focus:ring-primary focus:border-primary" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -70,7 +70,7 @@ export function AuthorDetailsForm({ form }: AuthorDetailsFormProps) {
             <FormItem className="w-full">
               <FormLabel>Institute</FormLabel>
               <FormControl>
-                <Input placeholder="New Horizon College of Engineering" {...field} className="focus:ring-2 focus:ring-primary focus:border-primary" />
+                <Input {...field} className="focus:ring-2 focus:ring-primary focus:border-primary" />
               </FormControl>
               <FormMessage />
             </FormItem>

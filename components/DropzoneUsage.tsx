@@ -1,94 +1,50 @@
-// 'use client';
-
-// import {
-//   MultiFileDropzone,
-//   type FileState,
-// } from '@/components/Dropzone';
-// import { useEdgeStore } from '@/lib/edgestore';
-// import { useState } from 'react';
-
-// export function MultiFileDropzoneUsage() {
-//   const [fileStates, setFileStates] = useState<FileState[]>([]);
-//   const { edgestore } = useEdgeStore();
-
-//   function updateFileProgress(key: string, progress: FileState['progress']) {
-//     setFileStates((fileStates) => {
-//       const newFileStates = structuredClone(fileStates);
-//       const fileState = newFileStates.find(
-//         (fileState) => fileState.key === key,
-//       );
-//       if (fileState) {
-//         fileState.progress = progress;
-//       }
-//       return newFileStates;
-//     });
-//   }
-
-//   return (
-//     <div>
-//       <MultiFileDropzone
-//         value={fileStates}
-//         onChange={(files) => {
-//           setFileStates(files);
-//         }}
-//         onFilesAdded={async (addedFiles) => {
-//           setFileStates([...fileStates, ...addedFiles]);
-//           await Promise.all(
-//             addedFiles.map(async (addedFileState) => {
-//               try {
-//                 const res = await edgestore.publicFiles.upload({
-//                   file: addedFileState.file,
-//                   onProgressChange: async (progress) => {
-//                     updateFileProgress(addedFileState.key, progress);
-//                     if (progress === 100) {
-//                       // wait 1 second to set it to complete
-//                       // so that the user can see the progress bar at 100%
-//                       await new Promise((resolve) => setTimeout(resolve, 1000));
-//                       updateFileProgress(addedFileState.key, 'COMPLETE');
-//                     }
-//                   },
-//                 });
-//                 console.log(res);
-//               } catch (err) {
-//                 updateFileProgress(addedFileState.key, 'ERROR');
-//               }
-//             }),
-//           );
-//         }}
-//       />
-//     </div>
-//   );
-// }
-
 'use client'
 import { MultiFileDropzone, type FileState } from '@/components/Dropzone'
 import { useFileStore } from '@/lib/stores/FileUploadStore'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from './ui/button'
 import { useEdgeStore } from '@/lib/edgestore'
 import { useToast } from '@/hooks/use-toast'
 import { useRouter } from 'next/navigation'
-import { AuthSession } from "@/lib/auth/utils";
-import { Loader2 } from 'lucide-react'
+import { AuthSession } from "@/lib/auth/utils"
+import { Loader2, X } from 'lucide-react'
 
 type Props = {
   error?: string
   required?: boolean
-  session?: AuthSession["session"];
+  session?: AuthSession["session"]
 }
 
 export function MultiFileDropzoneUsage({ error, required = true, session }: Props) {
   const [fileStates, setFileStates] = useState<FileState[]>([])
-  const { pdfUploaded, setPdfUploaded,  pendingFile, setPendingFile, selectedFile, setSelectedFile } = useFileStore()
+  const { 
+    pdfUploaded, 
+    setPdfUploaded, 
+    pendingFile, 
+    setPendingFile, 
+    selectedFile, 
+    setSelectedFile 
+  } = useFileStore()
   const { edgestore } = useEdgeStore()
   const { toast } = useToast()
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
 
   const handleRemoveFile = () => {
+    // Find the file state that matches the pendingFile
+    const fileState = fileStates.find(fs => fs.file === pendingFile)
+    
+    // If there's an ongoing upload, abort it
+    if (fileState?.abortController) {
+      fileState.abortController.abort()
+    }
+
+    // Reset all states
     setFileStates([])
     setPendingFile(null)
     setPdfUploaded(false)
+    setSelectedFile(null)
+    setIsLoading(false)
   }
 
   if (!session || !session.user) {
@@ -96,42 +52,83 @@ export function MultiFileDropzoneUsage({ error, required = true, session }: Prop
     return <div>Please login to upload a file</div>
   }
 
-
   const handleUpload = async () => {
+    if (isLoading || pdfUploaded || !pendingFile || fileStates.length === 0) return
+
     setIsLoading(true)
-    if (!selectedFile && pendingFile) {
-      try {
-        const res = await edgestore.publicFiles.upload({
-          file: pendingFile,
-        })
 
-        setSelectedFile({
-          fileUrl: res.url,
-          fileSize: res.size,
-          userId: session.user.id,
-          uploadedBy: session.user.name || session.user.email!,
-          uploadedAt: res.uploadedAt.toISOString(),
-          name: pendingFile.name
-        })
+    try {
+      // Update the file state to show upload progress
+      const updatedFileStates = fileStates.map(fileState => {
+        if (fileState.file === pendingFile) {
+          const abortController = new AbortController()
+          return {
+            ...fileState,
+            progress: 0,
+            abortController
+          }
+        }
+        return fileState
+      })
+      setFileStates(updatedFileStates)
 
+      const fileState = updatedFileStates.find(fs => fs.file === pendingFile)
+      if (!fileState?.abortController) return
+
+      const res = await edgestore.publicFiles.upload({
+        file: pendingFile,
+        signal: fileState.abortController.signal,
+        onProgressChange: (progress) => {
+          setFileStates(currentFileStates => 
+            currentFileStates.map(fs => 
+              fs.file === pendingFile ? { ...fs, progress } : fs
+            )
+          )
+        },
+      })
+
+      // Update file state to show completion
+      setFileStates(currentFileStates =>
+        currentFileStates.map(fs =>
+          fs.file === pendingFile ? { ...fs, progress: 'COMPLETE' } : fs
+        )
+      )
+
+      setSelectedFile({
+        fileUrl: res.url,
+        fileSize: res.size,
+        userId: session.user.id,
+        uploadedBy: session.user.name || session.user.email!,
+        uploadedAt: res.uploadedAt.toISOString(),
+        name: pendingFile.name
+      })
+
+      toast({
+        title: "Success",
+        description: "Chapter paper uploaded successfully",
+        variant: "default",
+      })
+      setPdfUploaded(true)
+    } catch (error: any) {
+      if (error.name !== 'AbortError') {
         toast({
-          title: "Success",
-          description: "Chapter paper uploaded successfully",
-          variant: "default",
-        })
-
-        setPdfUploaded(true)
-
-      } catch (error) {
-        toast({
-          title: 'Error uploading file',
+          title: 'Cancelled uploading file',
           description: 'Failed to upload research paper. Please try again by uploading a valid PDF file.',
           variant: 'destructive',
         })
-        return
+        // Update file state to show error
+        setFileStates(currentFileStates =>
+          currentFileStates.map(fs =>
+            fs.file === pendingFile ? { ...fs, progress: 'ERROR' } : fs
+          )
+        )
+      } else {
+        // If the upload was aborted, we should clear all states
+        handleRemoveFile()
       }
+    } finally {
+      setIsLoading(false)
     }
-    setIsLoading(false)
   }
 
   return (
@@ -139,6 +136,7 @@ export function MultiFileDropzoneUsage({ error, required = true, session }: Prop
       <MultiFileDropzone
         value={fileStates}
         onChange={(files) => {
+          // This handles both manual removal and drag-drop updates
           setFileStates(files)
           if (files.length === 0) {
             handleRemoveFile()
@@ -146,22 +144,27 @@ export function MultiFileDropzoneUsage({ error, required = true, session }: Prop
         }}
         onFilesAdded={(addedFiles) => {
           if (addedFiles.length > 0) {
-            setFileStates([...fileStates, ...addedFiles])
+            // If there's already a file, remove it first
+            if (fileStates.length > 0) {
+              handleRemoveFile()
+            }
             setPendingFile(addedFiles[0].file)
+            setFileStates(addedFiles) // Replace existing files instead of adding
+          }
+        }}
+        dropzoneOptions={{
+          maxFiles: 1,
+          accept: {
+            'application/pdf': ['.pdf']
           }
         }}
       />
-      <div className="space-y-2 flex justify-between">
-        {required && !selectedFile && !pendingFile ? (
-          <p className="text-sm text-red-500 ">
-            {error || 'Please upload a research paper file'}
-          </p>
-        ) : (
-          <p className='text-sm text-green-400 '>
-            File ready for upload: {pendingFile!.name}
-          </p>
-        )}
-        <Button onClick={() => handleUpload()} disabled={pdfUploaded || isLoading} className='w-1/3'>
+      <div className="flex justify-end">
+        <Button 
+          onClick={handleUpload} 
+          disabled={pdfUploaded || isLoading || !pendingFile || fileStates.length === 0} 
+          className='w-24'
+        >
           {isLoading ? <Loader2 className="animate-spin h-4 w-4" /> : pdfUploaded ? 'Uploaded' : 'Upload'}
         </Button>
       </div>
