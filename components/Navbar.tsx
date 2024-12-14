@@ -220,10 +220,12 @@ export default function Navbar() {
               >
                 Submissions
               </Link>
-              <Link href='/sign-in' className="block" onClick={toggleMenu}>
+              <Link
+                href={session ? session.user.role === 'ADMIN' ? '/admin' : '/dashboard' : '/sign-in'}
+                className="block" onClick={toggleMenu}>
                 <Button variant="outline" className="w-full text-white border-white text-base">
                   <UserPlus className="mr-2 h-5 w-5" />
-                  Sign In
+                  {session ? session.user.role === 'ADMIN' ? 'Admin' : 'Dashboard' : 'Sign In'}
                 </Button>
               </Link>
             </div>
