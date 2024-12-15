@@ -7,7 +7,7 @@ export default function AdminDashboard() {
   const { selectedPaper } = usePaperStore()
 
   return (
-    <div className="flex h-[calc(100vh-3.5rem)]">
+    <div className="flex h-[calc(100vh-3.5rem)] scrollbar-hide">
       <div className="w-1/2 p-4 overflow-auto border-r">
         <AdminTable />
       </div>
