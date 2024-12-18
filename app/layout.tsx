@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${myFont.className} antialiased min-h-screen relative`}
+        className={`${myFont.className} antialiased bg-black min-h-screen relative`}
       >
         {/* Background wrapper with responsive images */}
         <div
@@ -67,7 +67,6 @@ export default function RootLayout({
         <Providers>
           <ThemeProvider
             attribute="class"
-            defaultTheme="dark"
             enableSystem
             disableTransitionOnChange
           >

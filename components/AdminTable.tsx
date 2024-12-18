@@ -134,13 +134,13 @@ export const AdminTable = () => {
     <ScrollArea className="w-full h-screen">
       <Table>
         <TableHeader>
-          <TableRow className='text-white'>
+          <TableRow className='hover:bg-black text-gray-400'>
             <TableHead>
             <Button
                 variant='ghost'
                 size='sm'
                 onClick={() => handleSubmittedAtSort()}
-                className='text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
+                className=' dark:text-gray-400 hover:text-gray-800 hover:bg-accent dark:hover:text-gray-200'
               >
                 Id
                 {sortedPapers === 'asc' ? 
@@ -151,7 +151,7 @@ export const AdminTable = () => {
             </TableHead>
             <TableHead className="w-[50%]">Paper Title</TableHead>
             <TableHead>Author</TableHead>
-            <TableHead className=' dark:text-white text-black'>
+            <TableHead className=''>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
@@ -198,7 +198,7 @@ export const AdminTable = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 50 }}
               transition={{ duration: 0.3 }}
-              className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+              className="  transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
               onClick={() => handlePaperClick(paper)}
             >
               <TableCell>{paper.id}</TableCell>
@@ -265,7 +265,7 @@ export const AdminTable = () => {
             <TableRow>
               <TableCell
                 colSpan={5}
-                className="text-center py-12 dark:bg-gray-800 bg-gray-100 text-gray-500 dark:text-gray-400"
+                className="text-center py-12 dark:bg-gray-800 bg-slate-800 text-gray-500 dark:text-gray-400"
               >
                 <div className="flex flex-col items-center justify-center space-y-4">
                   <FileX2 className="w-16 h-16 opacity-50 mb-2" />

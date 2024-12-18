@@ -102,7 +102,7 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
             }}
             variant='ghost'
             aria-label='previous page'>
-            <ChevronDown className='dark:text-black h-4 w-4' />
+            <ChevronDown className='dark:text-black  h-4 w-4' />
           </Button>
 
           <div className='flex items-center gap-1.5'>

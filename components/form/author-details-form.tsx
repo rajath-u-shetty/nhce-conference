@@ -18,7 +18,7 @@ export function AuthorDetailsForm({ form }: AuthorDetailsFormProps) {
             <FormItem className="w-full">
               <FormLabel className="text-white">Name</FormLabel>
               <FormControl>
-                <Input {...field} className="focus:ring-2 focus:ring-primary focus:border-primary" />
+                <Input {...field} className="bg-black focus:ring-2 focus:ring-primary focus:border-primary" />
               </FormControl>
               <FormMessage className="text-red-500 text-sm mt-1" />
             </FormItem>
@@ -31,7 +31,7 @@ export function AuthorDetailsForm({ form }: AuthorDetailsFormProps) {
             <FormItem className="w-full">
               <FormLabel className="text-white">Email ID</FormLabel>
               <FormControl>
-                <Input {...field} className="focus:ring-2 focus:ring-primary focus:border-primary" />
+                <Input {...field} className="bg-black focus:ring-2 focus:ring-primary focus:border-primary" />
               </FormControl>
               <FormMessage className="text-red-500 text-sm mt-1" />
             </FormItem>
@@ -44,7 +44,7 @@ export function AuthorDetailsForm({ form }: AuthorDetailsFormProps) {
             <FormItem className="w-full">
               <FormLabel className="text-white">Mobile Number</FormLabel>
               <FormControl>
-                <Input {...field} className="focus:ring-2 focus:ring-primary focus:border-primary" />
+                <Input {...field} className="bg-black focus:ring-2 focus:ring-primary focus:border-primary" />
               </FormControl>
               <FormMessage className="text-red-500 text-sm mt-1" />
             </FormItem>
@@ -57,7 +57,7 @@ export function AuthorDetailsForm({ form }: AuthorDetailsFormProps) {
             <FormItem className="w-full">
               <FormLabel className="text-white">Designation</FormLabel>
               <FormControl>
-                <Input {...field} className="focus:ring-2 focus:ring-primary focus:border-primary" />
+                <Input {...field} className="bg-black focus:ring-2 focus:ring-primary focus:border-primary" />
               </FormControl>
               <FormMessage className="text-red-500 text-sm mt-1" />
             </FormItem>
@@ -70,7 +70,7 @@ export function AuthorDetailsForm({ form }: AuthorDetailsFormProps) {
             <FormItem className="w-full">
               <FormLabel className="text-white">Institute</FormLabel>
               <FormControl>
-                <Input {...field} className="focus:ring-2 focus:ring-primary focus:border-primary" />
+                <Input {...field} className="bg-black focus:ring-2 focus:ring-primary focus:border-primary" />
               </FormControl>
               <FormMessage className="text-red-500 text-sm mt-1" />
             </FormItem>

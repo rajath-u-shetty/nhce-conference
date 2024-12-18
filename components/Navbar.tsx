@@ -105,41 +105,45 @@ export default function Navbar() {
                   </Link>
                 </NavigationMenuItem> */}
                 <NavigationMenuItem>
-                  <Link href="/scope" legacyBehavior passHref>
-                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(),
-                      "text-white hover:text-white px-3 py-2 text-sm font-medium")}>
-                      Scope
-                    </NavigationMenuLink>
-                  </Link>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
                   <Link href="/committees/advisory" legacyBehavior passHref>
-                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(),
-                      "text-white hover:text-white px-3 py-2 text-sm font-medium")}>
+                    <NavigationMenuLink className={cn(
+                      navigationMenuTriggerStyle(),
+                      "bg-transparent hover:bg-slate-800 text-slate-100 dark:text-slate-100 hover:text-slate-100 dark:hover:text-slate-100 px-3 py-2 text-sm font-medium rounded-md transition-colors"
+                    )}>
+
                       Advisory Committee
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <Link href="/organizing-committee" legacyBehavior passHref>
-                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(),
-                      "text-white hover:text-white px-3 py-2 text-sm font-medium")}>
+                    <NavigationMenuLink className={cn(
+                      navigationMenuTriggerStyle(),
+                      "bg-transparent hover:bg-slate-800 text-slate-100 dark:text-slate-100 hover:text-slate-100 dark:hover:text-slate-100 px-3 py-2 text-sm font-medium rounded-md transition-colors"
+                    )}>
+
                       Organizing Committee
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <Link href="/about" legacyBehavior passHref>
-                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(),
-                      "text-white hover:text-white px-3 py-2 text-sm font-medium")}>
+                    <NavigationMenuLink className={cn(
+                      navigationMenuTriggerStyle(),
+                      "bg-transparent hover:bg-slate-800 text-slate-100 dark:text-slate-100 hover:text-slate-100 dark:hover:text-slate-100 px-3 py-2 text-sm font-medium rounded-md transition-colors"
+                    )}>
+
                       About us
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <Link href="/submission" legacyBehavior passHref>
-                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(),
-                      "text-white hover:text-white px-3 py-2 text-sm font-medium")}>
+                    <NavigationMenuLink className={cn(
+                      navigationMenuTriggerStyle(),
+                      "bg-transparent hover:bg-slate-800 text-slate-100 dark:text-slate-100 hover:text-slate-100 dark:hover:text-slate-100 px-3 py-2 text-sm font-medium rounded-md transition-colors"
+                    )}>
+
                       Submissions
                     </NavigationMenuLink>
                   </Link>
@@ -157,7 +161,10 @@ export default function Navbar() {
               }}
               className="ml-4"
             >
-              <Button variant="outline" className="text-white border-white text-sm">
+              <Button
+                variant="outline"
+                className="bg-transparent hover:bg-slate-800 text-slate-100 dark:text-slate-100 hover:text-slate-100 dark:hover:text-slate-100 border-slate-100 dark:border-slate-100 text-sm transition-colors"
+              >
                 <UserPlus className="mr-2 h-4 w-4" />
                 {session ? session.user.role === 'ADMIN' ? 'Admin' : 'Dashboard' : 'Sign In'}
               </Button>
@@ -185,13 +192,6 @@ export default function Navbar() {
               >
                 Home
               </Link> */}
-              <Link
-                href="/scope"
-                className="block text-white rounded-md px-4 py-2 text-base font-medium transition-colors"
-                onClick={toggleMenu}
-              >
-                Scope
-              </Link>
               <Link
                 href="/committees/advisory"
                 className="block text-white rounded-md px-4 py-2 text-base font-medium transition-colors"

@@ -11,7 +11,7 @@ export default function LandingPage() {
           Technical Papers on Advanced Wireless Communication,<br />Power and AI for Smart City<br />
           <br/><div className="font-bold text-orange-400 text-2xl">SCOPUS INDEX PUBLICATIONS</div>
         </div>
-        <div className="lg:text-9xl font-bold mb-8 text-5xl">
+        <div className="lg:text-9xl text-white font-bold mb-8 text-5xl">
           Celebrating
           the Champions<br/>
           of <FlipWords  words={words}/>

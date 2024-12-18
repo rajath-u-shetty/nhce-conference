@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LucideIcon } from "lucide-react";
@@ -49,8 +48,15 @@ const SidebarLinkGroup = ({
   const pathname = "/" + fullPathname.split("/")[1];
 
   return (
-    <div className={cn("flex flex-col space-y-2", border && "border-b pb-4")}>
-      {title && <div className="px-2 text-xs font-semibold uppercase">{title}</div>}
+    <div className={cn(
+      "flex flex-col space-y-2", 
+      border && "border-b border-slate-100/10 dark:border-slate-100/10 pb-4"
+    )}>
+      {title && (
+        <div className="px-2 text-xs font-semibold uppercase text-slate-100 dark:text-slate-100">
+          {title}
+        </div>
+      )}
       {links.map((link) => (
         <SidebarLink
           key={link.href}
@@ -75,10 +81,13 @@ const SidebarLink = ({
     <Link
       href={link.href}
       className={cn(
-        "flex items-center justify-center p-4 rounded-lg hover:bg-accent",
-        active && "bg-accent"
+        "flex items-center justify-center p-4 rounded-lg",
+        "text-slate-100 dark:text-slate-100",
+        "hover:bg-slate-800 dark:hover:bg-slate-800",
+        "transition-colors",
+        active && "bg-slate-800 dark:bg-slate-800"
       )}
-      title={link.title} // Added tooltip to show title on hover
+      title={link.title}
     >
       <Icon className="h-5 w-5 my-4" />
     </Link>

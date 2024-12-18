@@ -48,7 +48,7 @@ const TermsAndConditionsPage = () => {
   ]
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex w-full flex-col">
       <SessionProvider>
         <div className='p-2 text-orange-400 text-2xl font-mono font-bold px-10'>
           SCOPUS INDEX PUBLICATIONS

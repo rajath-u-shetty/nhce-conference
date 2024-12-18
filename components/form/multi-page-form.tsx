@@ -185,8 +185,8 @@ export default function MultiPageForm() {
   }
 
   return (
-    <div className="w-full mx-auto p-4">
-      <Card className="w-full max-w-4xl mx-auto bg-black/40 backdrop-blur-md border border-zinc-800">
+    <div className="w-full p-4 md:mx-auto">
+      <Card className="w-full md:max-w-4xl md:mx-auto bg-black/40 backdrop-blur-md border border-zinc-800">
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-center text-zinc-100">
             {currentPage === 0 ? 'Author Details' :
@@ -237,7 +237,7 @@ export default function MultiPageForm() {
             onClick={handlePrevious}
             disabled={currentPage === 0 || isSubmitting}
             variant="outline"
-            className="border-zinc-700 hover:bg-zinc-800 text-zinc-100"
+            className="bg-transparent text-white border-zinc-700 hover:bg-zinc-800 text-zinc-100"
           >
             Previous
           </Button>

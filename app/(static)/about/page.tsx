@@ -24,8 +24,16 @@ const page = () => {
           NHCE has established its self-funded incubation centre, “New Horizon Council for Innovation Incubation and Entrepreneurship (NHCIIE), CIN: U88900KA2023NPL178028, Not-for-Profit License (NPL) Company under Section 8(1) of the Company Act, 2013, [Formerly, New Horizon Centre for Innovation, Incubation and Entrepreneurship (NHCIIE)], as Incubation/Pre incubation facility. It has dedicated infrastructure facilities like Workspaces, Innovation Lab, Discussion rooms, ED Cell and IPR Cell. NHCIIE has supported over 200 startup ideas from students and staff, with more than 50 startups registered as MSME &apos;Udyam&apos; and 8 incorporated as Private Limited or LLP entities under the Ministry of Corporate Affairs. NHCIIE provides assistance for innovative business ideas from students, staff, and external participants, offering support in areas such as ideation, mentorship, prototyping, collaborations, funding, testing, and access to co-working spaces or workstations at its premises, based on individual case requirements.
         </p>
 
+        <div className='text-gray-400 font-bold text-3xl'>
+          Scope:
+        </div>
       </div>
+      <p className='font-mono backdrop-blur-md text-center text-justify  text-orange-300 '>
+        Technical papers on Advanced Wireless Communication, Power and AI for Smart City will bring together leading experts in the fields of wireless communications, power systems, and artificial intelligence. Scheduled for 2025, this event aims to explore innovative advancements and applications of AI in wireless technologies and power systems, including energy-efficient communications and smart power grids. The conference will provide a platform for researchers, engineers, and industry professionals to present their work, share ideas, and collaborate on cutting-edge solutions that integrate AI with communication and energy technologies. Keynote speakers and sessions will cover a wide range of topics, fostering discussions on the future of these converging.
+      </p>
     </div>
+
+
   )
 }
 
