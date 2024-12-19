@@ -50,24 +50,26 @@ const TermsAndConditionsPage = () => {
   return (
     <div className="min-h-screen flex w-full flex-col">
       <SessionProvider>
-        <div className='p-2 text-orange-400 text-2xl font-mono font-bold px-10'>
+        <div className='p-2 text-orange-400 text-2xl font-mono font-bold md:p-8 pt-2 p-8 '>
           SCOPUS INDEX PUBLICATIONS
         </div>
-        
-        <div className=''>
+
+        <div className='w-full px-0 mx-0'>
           <MultiPageForm />
         </div>
 
-        <div className='px-10 space-y-5'>
-          <div className='text-3xl font-bold text-red-600'>
+        <div className='space-y-5'>
+          <div className='text-3xl font-bold text-red-600 md:p-8 pt-2 p-8 '>
             TERMS & CONDITIONS
           </div>
-          
+
           <Drawer open={isOpen} onOpenChange={setIsOpen}>
             <DrawerTrigger asChild>
-              <Button variant="outline" className="w-full bg-orange-500 text-white hover:bg-orange-600">
-                View Full Terms and Conditions
-              </Button>
+              <div className='md:p-8 pt-2 p-8 '>
+                <Button variant="outline" className="w-full bg-orange-500 text-white hover:bg-orange-600 ">
+                  View Full Terms and Conditions
+                </Button>
+              </div>
             </DrawerTrigger>
             <DrawerContent>
               <div className="max-h-[80vh] overflow-y-auto">
@@ -77,7 +79,7 @@ const TermsAndConditionsPage = () => {
                     Please read and understand all terms carefully before submission
                   </DrawerDescription>
                 </DrawerHeader>
-                
+
                 <div className="p-4 space-y-4">
                   {termsDetails.map((term, index) => (
                     <div key={index} className="border-b border-orange-200 pb-4">
@@ -90,7 +92,7 @@ const TermsAndConditionsPage = () => {
                     </div>
                   ))}
                 </div>
-                
+
                 <DrawerFooter>
                   <DrawerClose asChild>
                     <Button variant="outline" className="bg-red-500 text-white hover:bg-red-600">
