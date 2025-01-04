@@ -8,9 +8,9 @@ export default async function AppLayout({
   await checkAuth()
   return (
     <main>
-      <div className="flex h-screen">
+      <div className={`flex h-screen bg-[url('/image/about_back.png')] bg-cover bg-center `}>
         <main className="flex-1 overflow-y-auto">
-            {children}
+          {children}
         </main>
       </div>
     </main>

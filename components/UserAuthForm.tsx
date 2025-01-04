@@ -17,7 +17,7 @@ const UserAuthForm = ({ className }: UserAuthFormProps) => {
   const loginWithGoogle = async () => {
     setIsLoading(true);
     try {
-      await signIn("google", { callbackUrl: "/submission" });
+      await signIn("google", { callbackUrl: "/submissions" });
     } catch (error) {
       toast({
         title: "There was a problem",

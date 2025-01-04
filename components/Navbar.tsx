@@ -20,8 +20,8 @@ export default function Navbar() {
 
   const containerVariants = {
     hidden: { y: -100, opacity: 0 },
-    visible: { 
-      y: 0, 
+    visible: {
+      y: 0,
       opacity: 1,
       transition: {
         duration: 0.8,
@@ -32,8 +32,8 @@ export default function Navbar() {
 
   const childVariants = {
     hidden: { y: -20, opacity: 0 },
-    visible: { 
-      y: 0, 
+    visible: {
+      y: 0,
       opacity: 1,
       transition: { duration: 0.5 }
     }
@@ -46,8 +46,8 @@ export default function Navbar() {
       animate="visible"
       className={cn(
         "fixed top-0 left-0 right-0 z-20 px-6 py-4",
-        hasScrolled 
-          ? "bg-black transition-colors duration-300" 
+        hasScrolled
+          ? "bg-black transition-colors duration-300"
           : "bg-transparent transition-colors duration-300"
       )}
     >
@@ -56,27 +56,33 @@ export default function Navbar() {
           variants={childVariants}
           className="flex items-center gap-4"
         >
-          <Image 
-            src="/NHCE White Logo Transparent.png" 
-            alt="nhcelogo" 
-            width={200} 
-            height={50} 
-            className="w-auto h-11" 
-          />
-          <Image 
-            src="/IEEE-NHCE-SB-white-black-Landscape.png" 
-            alt="ieeelogo" 
-            height={50} 
-            width={100} 
-            className="w-auto h-11" 
-          />
-          <Image 
-            src="/QX25 Logo White SVG.png" 
-            alt="qxlogo" 
-            height={50} 
-            width={80} 
-            className="w-auto h-11" 
-          />
+          <Link href="/">
+            <Image
+              src="/image/NHCEFinalLogoWhite.png"
+              alt="nhcelogo"
+              width={200}
+              height={50}
+              className="w-auto h-12"
+            />
+          </Link>
+          <Link href="/">
+            <Image
+              src="/IEEE-NHCE-SB-white-black-Landscape.png"
+              alt="ieeelogo"
+              height={50}
+              width={100}
+              className="w-auto h-11"
+            />
+          </Link>
+          <Link href="/">
+            <Image
+              src="/QX25 Logo White SVG.png"
+              alt="qxlogo"
+              height={50}
+              width={80}
+              className="w-auto h-11"
+            />
+          </Link>
         </motion.div>
         <motion.div
           variants={childVariants}
@@ -84,14 +90,14 @@ export default function Navbar() {
         >
           <NavigationMenu>
             <NavigationMenuList className="flex gap-8">
-              {["Advisory Committee", "Organizing Committee", "About Us", "Submissions"].map((item, i) => (
+              {["Advisory Committee", "Organizing Committee", "About Us", "Submissions"].map((item) => (
                 <motion.div
                   key={item}
                   variants={childVariants}
                 >
                   <NavigationMenuItem>
                     <Link href={`/${item.toLowerCase().replace(" ", "-")}`} legacyBehavior passHref>
-                      <NavigationMenuLink 
+                      <NavigationMenuLink
                         className={cn(
                           "text-white hover:text-gray-300 transition-colors text-sm font-medium"
                         )}
@@ -106,8 +112,8 @@ export default function Navbar() {
           </NavigationMenu>
           <motion.div variants={childVariants}>
             <Link href="/sign-in">
-              <Button 
-                variant="ghost" 
+              <Button
+                variant="ghost"
                 className="text-white hover:text-gray-300 font-medium"
               >
                 Sign In
