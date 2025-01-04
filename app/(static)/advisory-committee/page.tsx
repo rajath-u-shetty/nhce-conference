@@ -1,69 +1,224 @@
-import React from 'react'
+'use client'
+import React from 'react';
+import { motion } from 'framer-motion';
 
-const page = () => {
+const CommitteePage = () => {
+  const committeeMembers = [
+    {
+      name: "Dr. Craig Chin",
+      institution: "Kennesaw State University",
+      country: "USA"
+    },
+    {
+      name: "Dr. Sumit Chakravarty",
+      institution: "Kennesaw State University",
+      country: "USA"
+    },
+    {
+      name: "Dr. Hassan Tanveer",
+      institution: "Kennesaw State University",
+      country: "USA"
+    },
+    {
+      name: "Dr. Kamesh Namuduri",
+      institution: "Kennesaw State University",
+      country: "USA"
+    },
+    {
+      name: "Dr. Mohammed H. Alsharif",
+      institution: "Sejong University",
+      country: "South Korea"
+    },
+    {
+      name: "Dr. Mahmoud A. Albreem",
+      institution: "University of Sharjah",
+      country: "Sharjah"
+    },
+    {
+      name: "Dr. Ayman A. Aly",
+      institution: "Taif University",
+      country: "Saudi Arabia"
+    },
+    {
+      name: "Dr. Fahad Alraddady",
+      institution: "Taif University",
+      country: "Saudi Arabia"
+    },
+    {
+      name: "Dr. Mehedi Masud",
+      institution: "Taif University",
+      country: "Saudi Arabia"
+    },
+    {
+      name: "Dr. Mohammed A. AlZain",
+      institution: "Taif University",
+      country: "Saudi Arabia"
+    },
+    {
+      name: "Dr. Samah H. Alajmani",
+      institution: "Taif University",
+      country: "Saudi Arabia"
+    },
+    {
+      name: "Dr. Dac-Nhuong Le",
+      institution: "Institute of R & D",
+      country: "Vietnam"
+    },
+    {
+      name: "Dr. Aziz Nanthamornphong",
+      institution: "Prince of Songkla University",
+      country: "Thailand",
+      location: "Phuket",
+      email: "aziz.n@phuket.psu.ac.th"
+    }
+  ];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: {
+      opacity: 0,
+      scale: 0.8,
+      y: 20
+    },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 15
+      }
+    }
+  };
+
   return (
-    <div className="lg:ml-20 ml-10 py-10 flex flex-col gap-7 lg:mr-20 font-mono mr-20">
-      <div className="text-orange-400 lg:text-2xl font-bold font-mono ">
-        SCOPUS INDEX PUBLICATIONS
-        <br/><br/>
-        <div className="font-bold text-gray-400 text-3xl">ADVISORY COMMITTEE</div>
-      </div>
-      <div className='flex'>
-        <div className="h-screen w-full flex flex-col md:flex-row">
-          {/* Left Section */}
-          <div className="flex-1 flex flex-col items-center p-4">
-            {/* Dropdown 1 */}
-            <details open className="w-full text-orange-300 font-bold shadow-md rounded-lg p-4 mt-4 transition-all duration-300 ease-in-out">
-              <summary className="cursor-pointer font-bold text-3xl">International Advisory Committee</summary>
-              <ul className="mt-2 space-y-2 text-white flex flex-col gap-2 mt-2">
-                <li>Dr. Craig Chin: Kennesaw State University, USA</li>
-                <li>Dr. Sumit Chakravarty: Kennesaw State University, USA</li>
-                <li>Dr. Hassan Tanveer: Kennesaw State University, USA</li>
-                <li>Dr. Kamesh Namuduri: Kennesaw State University, USA</li>
-                <li>Dr. Aziz Nanthamornphong: Prince of Songkla University, Phuket, Thailand
-                  <ul>
-                    <li>Email: aziz.n@phuket.psu.ac.th</li>
-                  </ul>
-                </li>
-                <li>Dr. Mohammed H. Alsharif: Sejong University, South Korea</li>
-                <li>Dr. Mahmoud A. Albreem: University of Sharjah</li>
-                <li>Dr. Dac-Nhuong Le: Institute of Research and Development, Duy Tan University, Danang 550000, Vietnam</li>
-                <li>Dr. Ayman A. Aly: Taif University, Saudi Arabia</li>
-                <li>Dr. Fahad Alraddady: Taif University, Saudi Arabia</li>
-                <li>Dr. Mehedi Masud: Taif University, Saudi Arabia</li>
-                <li>Dr. Mohammed A. AlZain: Taif University, Saudi Arabia</li>
-                <li>Dr. Samah H. Alajmani: Taif University, Saudi Arabia</li>
-              </ul>
-            </details>
-          </div>
+    <div className="relative min-h-screen mt-28 mx-16" style={{
+      backgroundImage: "url('/background-image.jpg')",
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundAttachment: 'fixed'
+    }}>
+      <motion.div
+        className="relative z-10 container mx-auto px-4 py-8"
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+      >
+        <motion.div
+          className="backdrop-blur-0 py-2 px-2 inline-block mb-8 border border-white rounded-full"
+          variants={itemVariants}
+        >
+          <h1 className="text-white text-sm">SCOPUS INDEX PUBLICATIONS</h1>
+        </motion.div>
 
-          {/* Right Section */}
-          <div className="flex-1 flex flex-col items-center p-4 ">
-            <h2 className="text-3xl font-bold text-red-500 mt-8">Important Dates</h2>
-            <div className="p-6 rounded-lg mt-6 shadow-lg w-full max-w-md bg-slate-700">
-              <div className="mb-4">
-                <h3 className="text-xl font-bold text-orange-500">Paper Submission Deadline:</h3>
-                <p className="text-orange-300 font-bold">January 15th, 2025</p>
-              </div>
-              <div className="mb-4">
-                <h3 className="text-xl font-bold text-orange-500">First Notification Review:</h3>
-                <p className="text-orange-300 font-bold">January 30th, 2025</p>
-              </div>
-              <div className="mb-4">
-                <h3 className="text-xl font-bold text-orange-500">Final Decision Date:</h3>
-                <p className="text-orange-300 font-bold">Feburary 15th, 2025</p>
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-orange-500">Paper Presentation Date:</h3>
-                <p className="text-orange-300 font-bold">7th and 8th March, 2025</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        <motion.h2
+          className="text-white text-3xl mb-8 font-sans"
+          variants={itemVariants}
+        >
+          International Advisory Committee
+        </motion.h2>
+
+        <motion.div
+          className="grid grid-cols-2 lg:grid-cols-4 gap-2 text-center"
+          variants={containerVariants}
+        >
+          {committeeMembers.map((member, index) => (
+            <motion.div
+              key={index}
+              className="backdrop-blur-0 bg-[rgba(22,22,22,0.6)] mx-1 p-5 text-white rounded-sm shadow-md border border-white/20"
+              variants={itemVariants}
+            >
+              <h3 className="text-md mb-2">{member.name}</h3>
+              <p className="text-xs text-gray-300">{member.institution}</p>
+              <p className="text-xs text-gray-300">{member.country}</p>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        <motion.div
+          className="mt-20"
+          variants={containerVariants}
+        >
+          <motion.h2
+            className="text-white text-3xl mb-16"
+            variants={itemVariants}
+          >
+            Important Dates
+          </motion.h2>
+          <motion.div
+            className="grid grid-cols-1 mb-20 md:grid-cols-2 lg:grid-cols-4 gap-20 relative"
+            variants={containerVariants}
+          >
+            {[
+              {
+                title: "Paper Submission Deadline:",
+                date: "January 15th, 2025"
+              },
+              {
+                title: "First Notification Review:",
+                date: "January 30th, 2025"
+              },
+              {
+                title: "Final Decision Date:",
+                date: "February 15th, 2025"
+              },
+              {
+                title: "Paper Presentation Date:",
+                date: "7th and 8th March, 2025"
+              }
+            ].map((item, index) => (
+              <motion.div
+                key={index}
+                className="text-white relative"
+                variants={{
+                  hidden: {
+                    opacity: 0,
+                    y: 100
+                  },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      type: "spring",
+                      stiffness: 50,
+                      damping: 20,
+                      delay: index * 0.3
+                    }
+                  }
+                }}
+              >
+                <h3 className="text-2xl font-light mb-4">{item.title}</h3>
+                <p className="text-lg text-white/90">{item.date}</p>
+                {/* Add vertical separator after each item except the last one */}
+                {index < 3 && (
+                  <motion.div
+                    className="absolute top-0 right-[-40px] h-full w-[1px] bg-white/30"
+                    initial={{ scaleY: 0 }}
+                    animate={{ scaleY: 1 }}
+                    transition={{
+                      delay: (index * 0.3) + 0.5,
+                      duration: 0.8,
+                      ease: "easeOut"
+                    }}
+                  />
+                )}
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.div>
+      </motion.div>
     </div>
-  )
-}
+  );
+};
 
-export default page
-
+export default CommitteePage;
