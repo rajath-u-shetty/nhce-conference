@@ -29,41 +29,6 @@ export default function RootLayout({
       <body
         className={`${myFont.className} antialiased bg-black min-h-screen relative`}
       >
-        {/* Background wrapper with responsive images */}
-        <div
-          className="fixed inset-0 z-[-1] bg-black "
-          style={{
-            backgroundImage: `
-              image-set(
-                url('/techno.jpg') 1x,
-                url('/techno.jpg') 2x,
-                url('/techno.jpg') 3x
-              )`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-          }}
-        >
-          {/* Responsive background images using picture element */}
-          <picture>
-            <source
-              media="(max-width: 640px)"
-              srcSet="/techno.jpg"
-            />
-            <source
-              media="(max-width: 1024px)"
-              srcSet="/techno.jpg"
-            />
-            <img
-              src="/techno.jpg"
-              alt="Background"
-              className="object-cover w-full h-full"
-              loading="eager"
-            // priority="true"
-            />
-          </picture>
-        </div>
-
         <Providers>
           <ThemeProvider
             attribute="class"

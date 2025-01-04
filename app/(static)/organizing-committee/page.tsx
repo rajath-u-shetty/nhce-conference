@@ -1,140 +1,291 @@
+'use client'
 import React from 'react';
+import { motion } from 'framer-motion';
 
-const Page = () => {
+const CommitteeLayout = () => {
+  const committeeLeaders = [
+    {
+      role: 'CHIEF PATRON',
+      name: 'Dr. Mohan Manghnani',
+      title: 'Founder Chairman',
+      institution: 'NHEI, Bengaluru'
+    },
+    {
+      role: 'CHIEF PATRON',
+      name: 'Mr. Dharmesh Manghnani',
+      title: 'President',
+      institution: 'NHEI, Bengaluru'
+    },
+    {
+      role: 'PATRON',
+      name: 'Dr. Manjunatha',
+      title: 'Principal',
+      institution: 'NHCE, Bengaluru'
+    },
+    {
+      role: 'GENERAL CHAIR',
+      name: 'Dr. Sanjeev Sharma',
+      title: 'Director - NHCIIE',
+      institution: 'NHCE, Bengaluru'
+    }
+  ];
+
+  const programChairs = [
+    {
+      role: 'PROGRAM CHAIR',
+      name: 'Dr. R J Anandhi',
+      title: 'Professor and Dean - Academics',
+      institution: 'NHCE, Bengaluru'
+    },
+    {
+      role: 'PROGRAM CHAIR',
+      name: 'Dr. Revathi V.',
+      title: 'Professor and Dean - Research',
+      institution: 'NHCE, Bengaluru'
+    },
+    {
+      role: 'CONVENER',
+      name: 'Dr. Arun Kumar',
+      title: 'Professor - Dept of ECE',
+      institution: 'NHCE, Bengaluru'
+    },
+    {
+      role: 'CONVENER',
+      name: 'Dr. Mohan Dass',
+      title: 'Professor - Dept of EEE',
+      institution: 'NHCE, Bengaluru'
+    }
+  ];
+
+   const organizingCommittee = [
+    { name: 'Dr. Anusuya Devi V S', title: 'Professor & Head, Dept of Applied Sciences, NHCE, Bengaluru' },
+    { name: 'Dr. Uma Reddy N V', title: 'Professor & Head, Dept of AIML, NHCE, Bengaluru' },
+    { name: 'Dr. B Rajalakshmi', title: 'Professor & Head, Dept of CSE, NHCE, Bengaluru' },
+    { name: 'Dr. Basawaraju Swathi', title: 'Professor & Head, Dept of CSE-DS, NHCE, Bengaluru' },
+    { name: 'Dr. Aravinda Koithyar', title: 'Professor & Head, Dept of ECE, NHCE, Bengaluru' },
+    { name: 'Dr. A Sakthivel', title: 'Professor & Head, Dept of EEE, NHCE, Bengaluru' },
+    { name: 'Dr. Uma Reddy N V', title: 'Professor & Head, Dept of AIML, NHCE, Bengaluru' },
+    { name: 'Dr. Vandana C P', title: 'Professor & Head, Dept of ISE, NHCE, Bengaluru' },
+    { name: 'Dr. Rakesh Chandrashekar', title: 'Professor & Head, Dept of ME, NHCE, Bengaluru' },
+    { name: 'Dr. Rose Kavitha', title: 'Professor & Head, Dept of MBA, NHCE, Bengaluru' },
+    { name: 'Dr. Asha V', title: 'Professor & Head, Dept of MCA, NHCE, Bengaluru' }
+  ];
+
+  const technicalCommittee = [
+    { name: 'Dr. A B Madhu Mohana Raju', title: 'Professor, Dept of Applied Sciences, NHCE, Bengaluru' },
+    { name: 'Dr. B Nithya Ramesh', title: 'Professor, Dept of MCA, NHCE, Bengaluru' },
+    { name: 'Dr. C Rathish', title: 'Professor, Dept of CSE, NHCE, Bengaluru' },
+    { name: 'Dr. Gurulakshmi A B', title: 'Professor, Dept of ECE, NHCE, Bengaluru' },
+    { name: 'Dr. Joshua Daniel Raj J', title: 'Professor, Dept of CSE - DS, NHCE, Bengaluru' },
+    { name: 'Dr. Kavitha T', title: 'Professor, Dept of CSE, NHCE, Bengaluru' },
+    { name: 'Dr. K Gopal', title: 'Professor, Dept of ME, NHCE, Bengaluru' },
+    { name: 'Dr. M S Raghu', title: 'Professor, Dept of Applied Sciences, NHCE, Bengaluru' },
+    { name: 'Dr. Mausri Bhuyan', title: 'Professor, Dept of EEE, NHCE, Bengaluru' },
+    { name: 'Dr. Priyameet Kaur', title: 'Professor, Dept of MBA, E, Bengaluru' },
+    { name: 'Dr. Rajesh G', title: 'Professor, Dept of ECE, NHCE, Bengaluru' },
+    { name: 'Dr. Ramachandra Naik', title: 'Professor, Dept of R&D, NHCE, Bengaluru' },
+    { name: 'Dr. Santhosh Krishna BV', title: 'Professor, Dept of CSE, NHCE, Bengaluru' },
+    { name: 'Dr. Siva Ramakrishnan S', title: 'Professor, Dept of ISE, NHCE, Bengaluru' },
+    { name: 'Mr. Syam Dev R S', title: 'Professor, Dept of AIML, NHCE, Bengaluru' },
+    { name: 'Dr. Vinoth Kumar K', title: 'Professor and Associate Head - R&D, Dept of EEE, NHCE, Bengaluru' }
+  ];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { 
+      opacity: 0, 
+      scale: 0.8,
+      y: 20
+    },
+    visible: { 
+      opacity: 1, 
+      scale: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 15
+      }
+    }
+  };
+
+  const listItemVariants = {
+    hidden: { 
+      opacity: 0,
+      x: -20
+    },
+    visible: { 
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.5
+      }
+    }
+  };
+
   return (
-    <>
-      <div className="flex font-mono -pt-2">
-        {/* Left Section - Organizing Committee and Technical Programme Committee */}
-        <div className="flex-1">
-          {/* Organizing Committee Section */}
-          <div className="text-orange-400 text-2xl ml-20 pt-9 font-bold font-mono">
-					  SCOPUS INDEX PUBLICATIONS
-					  <br/>
-            <div className="font-bold text-3xl text-gray-400 pt-7">
-            COMMITTEES
-            </div>
-          </div>
+    <div className="relative min-h-screen mt-28 mx-16">
+      <motion.div 
+        className="relative z-10 container mx-auto px-4 py-8"
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+      >
+        <motion.div 
+          className="backdrop-blur-0 py-2 px-2 inline-block mb-8 border border-white rounded-full"
+          variants={itemVariants}
+        >
+          <h1 className="text-white text-sm">SCOPUS INDEX PUBLICATIONS</h1>
+        </motion.div>
 
-          <div className="flex flex-col items-center ml-20 p-4">
-            {/* CHIEF PATRON */}
-            <details open className="w-full text-orange-300 font-bold shadow-md rounded-lg p-4 mt-4">
-              <summary className="cursor-pointer text-lg font-bold">CHIEF PATRON</summary>
-              <ul className="mt-2 space-y-2 text-white font-medium">
-                <li>Dr. Mohan Manghnani, Founder Chairman, NHEI, Bengaluru</li>
-                <li>Mr. Dharmesh Manghnani, President, NHEI, Bengaluru</li>
-              </ul>
-            </details>
+        <motion.h2 
+          className="text-white text-4xl mb-8 font-sans"
+          variants={itemVariants}
+        >
+          COMMITTEES
+        </motion.h2>
 
-            {/* PATRON */}
-            <details className="w-full text-orange-300 font-bold shadow-md rounded-lg p-4 mt-4">
-              <summary className="cursor-pointer text-lg font-bold">PATRON</summary>
-              <ul className="mt-2 space-y-2 text-white font-medium">
-                <li>Dr. Manjunatha, Principal, NHCE, Bengaluru</li>
-              </ul>
-            </details>
+        <motion.div 
+          className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center"
+          variants={containerVariants}
+        >
+          {committeeLeaders.map((leader, index) => (
+            <motion.div
+              key={index}
+              className="backdrop-blur-0 bg-[rgba(24,24,24,0.6)] p-6 text-white rounded-lg shadow-md border border-white/20"
+              variants={itemVariants}
+            >
+              <h3 className="text-md font-bold mb-2">{leader.role}</h3>
+              <p className="text-sm mb-1">{leader.name}</p>
+              <p className="text-xs text-gray-300">{leader.title}</p>
+              <p className="text-xs text-gray-300">{leader.institution}</p>
+            </motion.div>
+          ))}
+        </motion.div>
 
-            {/* GENERAL CHAIR */}
-            <details className="w-full text-orange-300 font-bold shadow-md rounded-lg p-4 mt-4">
-              <summary className="cursor-pointer text-lg font-bold">GENERAL CHAIR</summary>
-              <ul className="mt-2 space-y-2 text-white font-medium">
-                <li>Dr. Sanjeev Sharma, Director - NHCIIE, NHCE, Bengaluru</li>
-              </ul>
-            </details>
+        <motion.div 
+          className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6 text-center"
+          variants={containerVariants}
+        >
+          {programChairs.map((chair, index) => (
+            <motion.div
+              key={index}
+              className="backdrop-blur-0 bg-[rgba(24,24,24,0.6)] p-6 text-white rounded-lg shadow-md border border-white/20"
+              variants={itemVariants}
+            >
+              <h3 className="text-md font-bold mb-2">{chair.role}</h3>
+              <p className="text-sm mb-1">{chair.name}</p>
+              <p className="text-xs text-gray-300">{chair.title}</p>
+              <p className="text-xs text-gray-300">{chair.institution}</p>
+            </motion.div>
+          ))}
+        </motion.div>
 
-            {/* PROGRAM CHAIR */}
-            <details className="w-full text-orange-300 font-bold shadow-md rounded-lg p-4 mt-4">
-              <summary className="cursor-pointer text-lg font-bold">PROGRAM CHAIR</summary>
-              <ul className="mt-2 space-y-2 text-white font-medium">
-                <li>Dr. R J Anandhi, Professor and Dean - Academics, NHCE, Bengaluru</li>                
-                <li>Dr. Revathi V., Professor and Dean - Research, NHCE, Bengaluru</li>
-              </ul>
-            </details>
+        <motion.div 
+          className="mt-12"
+          variants={containerVariants}
+        >
+          <motion.h2 
+            className="text-white text-xl mb-8"
+            variants={itemVariants}
+          >
+            ORGANIZING COMMITTEE
+          </motion.h2>
+          <motion.div 
+            className="grid grid-cols-2 gap-8"
+            variants={containerVariants}
+          >
+            <motion.div 
+              className="backdrop-blur-0 bg-[rgba(24,24,24,0.6)] p-6 text-white rounded-lg shadow-md border border-white/20"
+              variants={itemVariants}
+            >
+              {organizingCommittee.slice(0, Math.ceil(organizingCommittee.length/2)).map((member, index) => (
+                <motion.div 
+                  key={index} 
+                  className="flex gap-2 mb-3"
+                  variants={listItemVariants}
+                >
+                  <span className="text-xs">•</span>
+                  <p className="text-xs text-white">{member.name}, {member.title}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+            <motion.div 
+              className="backdrop-blur-0 bg-[rgba(24,24,24,0.6)] p-6 text-white rounded-lg shadow-md border border-white/20"
+              variants={itemVariants}
+            >
+              {organizingCommittee.slice(Math.ceil(organizingCommittee.length/2)).map((member, index) => (
+                <motion.div 
+                  key={index} 
+                  className="flex gap-2 mb-3"
+                  variants={listItemVariants}
+                >
+                  <span className="text-xs">•</span>
+                  <p className="text-xs text-white">{member.name}, {member.title}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+        </motion.div>
 
-            {/* CONVENER */}
-            <details className="w-full text-orange-300 font-bold shadow-md rounded-lg p-4 mt-4">
-              <summary className="cursor-pointer text-lg font-bold">CONVENER</summary>
-              <ul className="mt-2 space-y-2 text-white font-medium">
-                <li>Dr. Arun Kumar, Professor, Dept of ECE, NHCE, Bengaluru</li>
-                <li>Dr. Mohan Dass, Professor, Dept of EEE, NHCE, Bengaluru</li>
-              </ul>
-            </details>
-
-            {/* ORGANIZING SECRETARIES */}
-            <details className="w-full text-orange-300 font-bold shadow-md rounded-lg p-4 mt-4">
-              <summary className="cursor-pointer text-lg font-bold">ORGANIZING COMMITTEE</summary>
-              <ul className="mt-2 space-y-2 text-white font-medium">
-              <li>Dr. Anusuya Devi V S, Professor & Head, Dept of Applied Sciences, NHCE, Bengaluru</li>
-              <li>Dr. Uma Reddy N V, Professor & Head, Dept of AIML, NHCE, Bengaluru</li>
-              <li>Dr. B Rajalakshmi, Professor & Head, Dept of CSE, NHCE, Bengaluru</li>
-              <li>Dr. Basawaraju Swathi, Professor & Head, Dept of CSE-DS, NHCE, Bengaluru</li>
-              <li>Dr. Aravinda Koithyar, Professor & Head, Dept of ECE, NHCE, Bengaluru</li>
-              <li>Dr. A Sakthivel, Professor & Head, Dept of EEE, NHCE, Bengaluru</li>
-              <li>Dr. Vandana C P, Professor & Head, Dept of ISE, NHCE, Bengaluru</li>
-              <li>Dr. Rakesh Chandrashekar, Professor & Head, Dept of ME, NHCE, Bengaluru</li>
-              <li>Dr. Rose Kavitha, Professor & Head, Dept of MBA, NHCE, Bengaluru</li>
-              <li>Dr. Asha V, Professor & Head, Dept of MCA, NHCE, Bengaluru</li>
-              </ul>
-            </details>
-          </div>
-
-          {/* Technical Programme Committee Section */}
-          <div className="text-gray-400 lg:text-2xl ml-20 pt-10 font-bold font-mono">
+        <motion.div 
+          className="mt-12 mb-20"
+          variants={containerVariants}
+        >
+          <motion.h2 
+            className="text-white text-xl mb-8"
+            variants={itemVariants}
+          >
             TECHNICAL PROGRAMME COMMITTEE
-            
-          </div>
-
-          <div className="flex flex-col items-center ml-20 p-4">
-            <details className="w-full text-orange-300 font-bold shadow-md rounded-lg p-4 mt-4">
-              <summary className="cursor-pointer text-lg font-bold">TECHNICAL PROGRAMME COMMITTEE</summary>
-              <ul className="mt-2 space-y-2 text-white font-medium">
-              <li>Dr. A B Madhu Mohana Raju, Professor, Dept of Applied Sciences, NHCE, Bengaluru</li>
-              <li>Dr. B Nithya Ramesh, Professor, Dept of MCA, NHCE, Bengaluru</li>
-              <li>Dr. C Rathish, Professor, Dept of CSE, NHCE, Bengaluru</li>
-              <li>Dr. Gurulakshmi A B , Professor, Dept of ECE, NHCE, Bengaluru</li>
-              <li>Dr. Joshua Daniel Raj J, Professor, Dept of CSE - DS, NHCE, Bengaluru</li>
-              <li>Dr. Kavitha T, Professor, Dept of CSE, NHCE, Bengaluru</li>
-              <li>Dr. K Gopal, Professor, Dept of ME, NHCE, Bengaluru</li>
-              <li>Dr. M S Raghu, Professor, Dept of Applied Sciences, NHCE, Bengaluru</li>
-              <li>Dr. Mausri Bhuyan, Professor, Dept of EEE, NHCE, Bengaluru</li>
-              <li>Dr. Priyameet Kaur, Professor, Dept of MBA, E, Bengaluru</li>
-              <li>Dr. Rajesh G, Professor, Dept of ECE, NHCE, Bengaluru</li>
-              <li>Dr. Ramachandra Naik, Professor, Dept of R&D, NHCE, Bengaluru</li>
-              <li>Dr. Santhosh Krishna BV, Professor, Dept of CSE, NHCE, Bengaluru</li>
-              <li>Dr. Siva Ramakrishnan S, Professor, Dept of ISE, NHCE, Bengaluru</li>
-              <li>Mr. Syam Dev R S, Professor, Dept of AIML, NHCE, Bengaluru</li>
-              <li>Dr. Vinoth Kumar K, Professor and Associate Head - R&D, Dept of EEE, NHCE, Bengaluru</li>
-
-              </ul>
-            </details>
-          </div>
-        </div>
-
-        {/* Right Section - Important Dates */}
-        <div className="w-1/3 ml-8 pt-32">
-          <div className="text-3xl font-bold text-red-500 mt-8">Important Dates</div>
-          <div className="p-6 rounded-lg mt-6 shadow-lg w-full max-w-md bg-slate-700">
-            <div className="mb-4">
-              <h3 className="text-xl font-bold text-orange-500">Paper Submission Deadline:</h3>
-              <p className="text-orange-300 font-bold">January 15th, 2025</p>
-            </div>
-            <div className="mb-4">
-              <h3 className="text-xl font-bold text-orange-500">First Notification Review:</h3>
-              <p className="text-orange-300 font-bold">January 30th, 2025</p>
-            </div>
-            
-            <div className="mb-4">
-              <h3 className="text-xl font-bold text-orange-500">Final Decision Date:</h3>
-              <p className="text-orange-300 font-bold">Feburary 15th, 2025</p>
-            </div>
-            <div>
-              <h3 className="text-xl font-bold text-orange-500">Paper Presentation Date:</h3>
-              <p className="text-orange-300 font-bold">7th and 8th March, 2025</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
+          </motion.h2>
+          <motion.div 
+            className="grid grid-cols-2 gap-8"
+            variants={containerVariants}
+          >
+            <motion.div 
+              className="backdrop-blur-0 bg-[rgba(24,24,24,0.6)] p-6 text-white rounded-lg shadow-md border border-white/20"
+              variants={itemVariants}
+            >
+              {technicalCommittee.slice(0, Math.ceil(technicalCommittee.length/2)).map((member, index) => (
+                <motion.div 
+                  key={index} 
+                  className="flex gap-2 mb-3"
+                  variants={listItemVariants}
+                >
+                  <span className="text-xs">•</span>
+                  <p className="text-xs text-white">{member.name}, {member.title}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+            <motion.div 
+              className="backdrop-blur-0 bg-[rgba(24,24,24,0.6)] p-6 text-white rounded-lg shadow-md border border-white/20"
+              variants={itemVariants}
+            >
+              {technicalCommittee.slice(Math.ceil(technicalCommittee.length/2)).map((member, index) => (
+                <motion.div 
+                  key={index} 
+                  className="flex gap-2 mb-3"
+                  variants={listItemVariants}
+                >
+                  <span className="text-xs">•</span>
+                  <p className="text-xs text-white">{member.name}, {member.title}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+        </motion.div>
+      </motion.div>
+    </div>
   );
 };
 
-export default Page;
+export default CommitteeLayout;
