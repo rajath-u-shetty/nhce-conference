@@ -133,7 +133,7 @@ const CommitteeLayout = () => {
   };
 
   return (
-    <div className="relative min-h-screen mt-28 mx-16">
+    <div className="relative min-h-screen mt-28 lg:mx-16">
       <motion.div 
         className="relative z-10 container mx-auto px-4 py-8"
         initial="hidden"
@@ -148,20 +148,20 @@ const CommitteeLayout = () => {
         </motion.div>
 
         <motion.h2 
-          className="text-white text-4xl mb-8 font-sans"
+          className="text-white text-4xl mb-8 font-sans "
           variants={itemVariants}
         >
           COMMITTEES
         </motion.h2>
 
         <motion.div 
-          className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center"
+          className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-center"
           variants={containerVariants}
         >
           {committeeLeaders.map((leader, index) => (
             <motion.div
               key={index}
-              className="backdrop-blur-0 bg-[rgba(24,24,24,0.6)] p-6 text-white rounded-lg shadow-md border border-white/20"
+              className="backdrop-blur-0 bg-[rgba(24,24,24,0.6)] p-6 text-white rounded-sm shadow-md border border-white/20"
               variants={itemVariants}
             >
               <h3 className="text-md font-bold mb-2">{leader.role}</h3>
@@ -173,7 +173,7 @@ const CommitteeLayout = () => {
         </motion.div>
 
         <motion.div 
-          className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6 text-center"
+          className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6 text-center"
           variants={containerVariants}
         >
           {programChairs.map((chair, index) => (
@@ -201,7 +201,7 @@ const CommitteeLayout = () => {
             ORGANIZING COMMITTEE
           </motion.h2>
           <motion.div 
-            className="grid grid-cols-2 gap-8"
+            className="grid lg:grid-cols-2 sm:grid-cols-1 gap-8"
             variants={containerVariants}
           >
             <motion.div 
@@ -248,7 +248,7 @@ const CommitteeLayout = () => {
             TECHNICAL PROGRAMME COMMITTEE
           </motion.h2>
           <motion.div 
-            className="grid grid-cols-2 gap-8"
+            className="grid lg:grid-cols-2 sm:grid-cols-1 gap-8"
             variants={containerVariants}
           >
             <motion.div 

@@ -102,7 +102,7 @@ const CommitteePage = () => {
   };
 
   return (
-    <div className="relative min-h-screen mt-28 mx-16" style={{
+    <div className="relative min-h-screen mt-28 lg:mx-16" style={{
       backgroundImage: "url('/background-image.jpg')",
       backgroundSize: 'cover',
       backgroundPosition: 'center',
@@ -129,7 +129,7 @@ const CommitteePage = () => {
         </motion.h2>
 
         <motion.div
-          className="grid grid-cols-2 lg:grid-cols-4 gap-2 text-center"
+          className="grid md:grid-cols-2 sm:grid-cols-1 lg:grid-cols-4 gap-2 text-center"
           variants={containerVariants}
         >
           {committeeMembers.map((member, index) => (
@@ -198,7 +198,7 @@ const CommitteePage = () => {
                 }}
               >
                 <h3 className="text-2xl font-light mb-4">{item.title}</h3>
-                <p className="text-lg text-white/90">{item.date}</p>
+                <p className="text-lg text-white/90 font-bold">{item.date}</p>
                 {/* Add vertical separator after each item except the last one */}
                 {index < 3 && (
                   <motion.div
