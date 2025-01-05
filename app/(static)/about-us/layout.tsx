@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 
 export default async function AppLayout({
   children,
@@ -9,6 +10,7 @@ export default async function AppLayout({
       <div className={`flex h-screen bg-[url('/image/about_back.png')] bg-cover bg-center `}>
         <main className="flex-1 overflow-y-auto">
           {children}
+          <Footer />
         </main>
       </div>
     </main>
