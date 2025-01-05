@@ -101,7 +101,7 @@ export default function Navbar() {
             className="hidden md:flex items-center gap-8"
           >
             <NavigationMenu>
-              <NavigationMenuList className="flex gap-8">
+              <NavigationMenuList className="flex gap-8 pl-10">
                 {["Advisory Committee", "Organizing Committee", "About Us", "Submissions"].map((item) => (
                   <motion.div key={item} variants={childVariants}>
                     <NavigationMenuItem>
