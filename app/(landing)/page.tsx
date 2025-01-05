@@ -49,7 +49,7 @@ export default function LandingPage() {
                 className="text-white font-bold text-yellow-200 text-lg md:text-2xl mb-6 text-center md:text-left"
               >
                 Technical Papers on Advanced Wireless Communication,<br />
-                Power and AI for Smart City
+                Power and AI for Smart City (TAPAS 2025)
               </motion.p>
               <motion.div
                 initial={{ y: -50, opacity: 0 }}
