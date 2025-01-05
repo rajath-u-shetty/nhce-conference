@@ -6,9 +6,11 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from "@/components/ui/navigation-menu";
 import { Menu, X } from "lucide-react";
+import { useSession } from "next-auth/react";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const {data: session} = useSession();
 
   const containerVariants = {
     hidden: { y: -100, opacity: 0 },
@@ -114,9 +116,9 @@ export default function Navbar() {
               </NavigationMenuList>
             </NavigationMenu>
             <motion.div variants={childVariants}>
-              <Link href="/sign-in">
+              <Link href={session?.user.id ? "/dashboard" : "/sign-in"}>
                 <Button variant="ghost" className="text-white hover:text-gray-300 font-medium">
-                  Sign In
+                  {session?.user.id ? "Dashboard" : "Sign In"}
                 </Button>
               </Link>
             </motion.div>

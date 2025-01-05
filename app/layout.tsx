@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${myFont.className} antialiased bg-black min-h-screen relative`}
+        className={`${myFont.className} antialiased bg-black relative`}
       >
         <Providers>
           <ThemeProvider
@@ -36,16 +36,10 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <EdgeStoreProvider>
-              {/* Semi-transparent overlay and content */}
-              <div className="relative min-h-screen bg-black/30">
-                {/* Optional semi-transparent overlay */}
-                <div className="min-h-screen w-full bg-black/30">
-                  <Toaster />
-                  <Navbar />
-                  {children}
-                  <Analytics/>
-                </div>
-              </div>
+              <Toaster />
+              <Navbar />
+              {children}
+              <Analytics />
             </EdgeStoreProvider>
           </ThemeProvider>
         </Providers>

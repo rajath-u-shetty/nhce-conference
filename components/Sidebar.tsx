@@ -11,7 +11,7 @@ const Sidebar = async () => {
   if (session.session === null) return null;
 
   return (
-    <aside className="h-screen max-w-24  hidden md:block p-4 pt-8 border-r dark:border-border border-gray-800 shadow-inner">
+    <aside className="h-screen mt-20 max-w-24  hidden md:block p-4 pt-8 border-r dark:border-border border-gray-800 shadow-inner">
       <div className="flex flex-col justify-between h-full">
         <div className="space-y-4">
           <h3 className="text-lg font-semibold ml-4"></h3>

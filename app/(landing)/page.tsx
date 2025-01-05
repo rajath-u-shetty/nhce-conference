@@ -23,7 +23,7 @@ export default function LandingPage() {
               initial={{ y: -50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.4, duration: 0.8 }}
-              className="text-white text-base sm:text-xl md:text-xl  sm:mb-8 md:mb-8 text-center md:text-left"
+              className="text-white border-white text-base sm:text-xl md:text-xl backdrop-blur-0 py-2 px-4 inline-block border rounded-full sm:mb-8 md:mb-8 text-center md:text-left"
             >
               SCOPUS INDEX PUBLICATIONS
             </motion.div>
@@ -69,14 +69,12 @@ export default function LandingPage() {
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 1.2, duration: 0.8 }}
-          className="w-full px-4 sm:px-6 md:px-12 pb-6 md:pb-8"
+          className="w-full px-4 sm:px-6 md:px-12 lg:mt-8 mt-4 pb-6 md:pb-8"
         >
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 mx-2 md:mx-8">
-            <div className="text-white text-xl sm:text-2xl md:text-4xl text-center">
+          <div className="flex flex-col lg:flex-row items-center justify-center gap-6 md:gap-8 mx-2 md:mx-8">
+            <div className="text-white text-xl lg:mx-8 sm:text-2xl md:text-4xl text-center lg:text-left">
               Paper Presentation Date:{" "}
-              <span className="font-semibold text-white whitespace-nowrap">
-                March 7th & 8th | 2025
-              </span>
+              March 7th & 8th | 2025
             </div>
             <div className="hidden md:block h-16 w-px bg-white/30" />
             <div className="flex flex-col items-center md:items-start">
