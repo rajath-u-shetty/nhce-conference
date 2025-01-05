@@ -102,14 +102,9 @@ const CommitteePage = () => {
   };
 
   return (
-    <div className="relative min-h-screen mt-28 lg:mx-16" style={{
-      backgroundImage: "url('/background-image.jpg')",
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundAttachment: 'fixed'
-    }}>
+    <div className="relative min-h-screen mt-16 md:mt-28 mx-4 lg:mx-16">
       <motion.div
-        className="relative z-10 container mx-auto px-4 py-8"
+        className="relative z-10 container mx-auto px-2 md:px-4 py-4 md:py-8"
         initial="hidden"
         animate="visible"
         variants={containerVariants}

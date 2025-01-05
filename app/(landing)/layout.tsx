@@ -4,12 +4,8 @@ export default async function AppLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main>
-      <div className="flex h-screen bg-[url('/image/main_back.png')] bg-cover bg-center">
-        <main className="flex-1 overflow-y-auto">
-            {children}
-        </main>
-      </div>
-    </main>
-  )
+    <div className="min-h-screen bg-[url('/image/main_back.png')] bg-cover bg-center bg-fixed">
+      {children}
+    </div>
+  );
 }

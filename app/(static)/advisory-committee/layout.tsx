@@ -1,4 +1,3 @@
-
 export default async function AppLayout({
   children,
 }: {
@@ -6,7 +5,7 @@ export default async function AppLayout({
 }) {
   return (
     <main>
-      <div className={`flex h-screen bg-[url('/image/advisory_back.png')] bg-cover bg-center `}>
+      <div className={`flex min-h-screen bg-[url('/image/advisory_back.png')] bg-fixed bg-no-repeat md:bg-cover bg-center bg-[length:auto_100%] md:bg-auto`}>
         <main className="flex-1 overflow-y-auto">
           {children}
         </main>
@@ -14,5 +13,3 @@ export default async function AppLayout({
     </main>
   );
 }
-
-
