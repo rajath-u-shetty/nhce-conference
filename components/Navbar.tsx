@@ -72,7 +72,7 @@ export default function Navbar() {
                 alt="nhcelogo"
                 width={200}
                 height={50}
-                className="w-auto h-8 md:h-12"
+                className="w-auto h-10 md:h-16"
               />
             </Link>
             <Link href="/">
