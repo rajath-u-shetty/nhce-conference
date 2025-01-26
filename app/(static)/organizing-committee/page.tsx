@@ -59,7 +59,6 @@ const CommitteeLayout = () => {
 
    const organizingCommittee = [
     { name: 'Dr. Anusuya Devi V S', title: 'Professor & Head, Dept of Applied Sciences, NHCE, Bengaluru' },
-    { name: 'Dr. Uma Reddy N V', title: 'Professor & Head, Dept of AIML, NHCE, Bengaluru' },
     { name: 'Dr. B Rajalakshmi', title: 'Professor & Head, Dept of CSE, NHCE, Bengaluru' },
     { name: 'Dr. Basawaraju Swathi', title: 'Professor & Head, Dept of CSE-DS, NHCE, Bengaluru' },
     { name: 'Dr. Aravinda Koithyar', title: 'Professor & Head, Dept of ECE, NHCE, Bengaluru' },
